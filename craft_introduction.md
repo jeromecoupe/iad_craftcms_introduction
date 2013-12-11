@@ -119,6 +119,8 @@ Il est possible créer des routes et de spécifier quel template doit être char
 
 En créant une route dynamique `blog/archive/{year}` renseignant le template `blog/archive`, les URLs `blog/archive/2013` et `blog/archive/2012` vont charger le même template et rendre disponible une variable `year` utilisable par Twig et par Craft avec les paramètres [`after`](http://buildwithcraft.com/docs/templating/craft.entries#after) et [`before`](http://buildwithcraft.com/docs/templating/craft.entries#before).
 
+Si vous avez besoin de plus de possibilités que celles offertes par le control panel, sachez que [les routes peuvent également être gérées via un fichier](http://buildwithcraft.com/docs/routing#advanced-routing) `config/routes.php`, ce qui vous donne accès à du matching d'URL en utilisant des expressions régulières.
+
 #### Searching
 
 Craft possède également un [système de recherche très puissant](http://buildwithcraft.com/docs/searching) basé sur un paramètre `search` utilisable avec les tags `craft.entries`, `craft.users`, `craft.assets` et `craft.tags`.
@@ -135,7 +137,7 @@ Vos templates sont localisés dans le dossier `craft/templates` de votre install
 
 ### Twig comme language de templating
 
-Craft utilise Twig, créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les template en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
+Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les template en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
 
 Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates.
 
@@ -219,7 +221,7 @@ Si vous avez du code qui est répétés dans beaucoup de vos templates, vous pou
 
 #### Principaux tags dans Twig
 
-En plus des [tags disponibles dans Twig](http://twig.sensiolabs.com/doc/tags/index.html), [Craft possède également quelques tags qui lui dont propres](http://buildwithcraft.com/docs/templating/tags). Nous reviendrons sur certains d'entre-eux dans la suite du cours.
+En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/index.html), [Craft possède également quelques tags qui lui dont propres](http://buildwithcraft.com/docs/templating/tags). Nous reviendrons sur certains d'entre-eux dans la suite du cours.
 
 ##### Tags d'affichage, variables et propriétés
 
@@ -244,7 +246,7 @@ Créer une variable "allentries" à laquelle est assignée un objet Craft [Eleme
 Boucler sur l'ensemble des entries en créant à chaque fois un objet "entry" dont nous affichons le titre.
 
 ```
-{% for entry in all entries %}
+{% for entry in allentries %}
 	<p>{{ entry.title }}</p>
 {% endfor %}
 ```
@@ -263,7 +265,7 @@ Twig possède également un tag de commentaire: `{# Ceci est un commentaire #}`
 
 #### Filtres
 
-[Twig comporte de nombreux filtres](http://twig.sensiolabs.com/doc/filters/index.html) pouvant être appliqués à vos différents types de variables (string, array, number, etc). Ces filtres offrent de nombreuses possibilités et permettent à Craft de se passer de nombreux plugins pour effectuer des tâches simples. Craft possède également [ses propres filtres](http://buildwithcraft.com/docs/templating/filters). Voici quelques exemples de ce qu'il est possible d'accomplir:
+[Twig comporte de nombreux filtres](http://twig.sensiolabs.org/doc/filters/index.html) pouvant être appliqués à vos différents types de variables (string, array, number, etc). Ces filtres offrent de nombreuses possibilités et permettent à Craft de se passer de nombreux plugins pour effectuer des tâches simples. Craft possède également [ses propres filtres](http://buildwithcraft.com/docs/templating/filters). Voici quelques exemples de ce qu'il est possible d'accomplir:
 
 Convertir une string en title case
 
@@ -283,7 +285,13 @@ Vous pouvez également appliquer des filtres à plusieurs lignes de votre templa
 
 #### Fonctions
 
-Les [fonctions disponibles dans Twig](http://twig.sensiolabs.com/doc/functions/index.html) permettent de produire et de manipuler des contenus. Craft possède également [ses propres fonctions](http://buildwithcraft.com/docs/templating/functions), en plus de celles fournies par Twig.
+Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/index.html) permettent de produire et de manipuler des contenus. Craft possède également [ses propres fonctions](http://buildwithcraft.com/docs/templating/functions), en plus de celles fournies par Twig.
+
+```
+{% for entry in allEntries %}
+    <li class="{{ cycle(['odd', 'even'],loop.index0) }}">{{ entry.title }}</li>
+{% endfor %}
+```
 
 ### Récupérer vos données à l'aide de Craft
 
@@ -555,11 +563,97 @@ Vous pouvez également définir dynamiquement une transformation dans vos templa
 
 ### Configuration pour environnements multiples
 
-Craft fourni nativement une façon simple de gérer des environnements multiples (local, dev, online) via l'urlisation de différents Arrays dans les fichiers general.php et db.php inclus dans le dossier config/.
+Craft fourni nativement une façon simple de gérer des environnements multiples (local, dev, online) via [l'utilisation d'Arrays imbriqués](http://buildwithcraft.com/docs/multi-environment-configs) dans les fichiers `general.php` et `db.php` inclus dans le dossier `config/`.
 
+Les valeurs dans le tableau `*` sont appliquées à tous les 
 
+**Exemple: le fichier craft/config/general.php** 
+
+```
+return array(
+    '*' => array(
+        'omitScriptNameInUrls' => true,
+    ),
+
+    'domain.dev' => array(
+        'devMode' => true,
+    ),
+
+    'domain.com' => array(
+        'cooldownDuration' => 0,
+    )
+);
+```
+
+Pour compléter cela, vous pouvez également utiliser ce que Craft appelle des [variables d'environnement](http://buildwithcraft.com/docs/multi-environment-configs#environment-specific-variables). Ces variables vont pouvoir être utilisées pour créer des configurations dynamiques dans votre control panel.
+
+```
+return array(
+    '*' => array(
+        'omitScriptNameInUrls' => true,
+    ),
+
+    'domain.dev' => array(
+        'devMode' => true,
+        
+        'environmentVariables' => array(
+            'siteUrl'        => 'http://www.domain.dev/',
+            'fileSystemPath' => '/users/sitename/htdocs/'
+            'cpTrigger'      => 'adminpanel',
+        )
+    ),
+
+    'domain.com' => array(
+        'cooldownDuration' => 0,
+        
+        'environmentVariables' => array(
+            'siteUrl'        => 'http://www.domain.com/',
+            'fileSystemPath' => '/users/domain/htdocs/'
+            'cpTrigger'      => 'adminpanel',
+        )
+    )
+);
+```
+        
+Ces différents environnement peuvent également être utilisés pour les paramètres de configuration de votre base de données dans le fichier `craft/config/db.php`.
+
+**Exemple: le fichier craft/config/db.php**
+
+```
+return array(
+    '*' => array(
+        'tablePrefix' => 'craft',
+    ),
+    
+    'domain.dev' => array(
+        'server' => 'localhost',
+        'user' => 'root',
+        'password' => 'password',
+        'database' => 'domain_craft',        
+    ),
+    
+    'domain.com' => array(
+        'server' => 'localhost',
+        'user' => 'user',
+        'password' => 'strongpassword',
+        'database' => 'domain_craft',
+    ),
+);
+```
 
 ### Matrix
 
+@TODO
+
 ## Ressources
 
+- [Documentation officielle](http://buildwithcraft.com/docs/introduction) de Craft
+- [Articles Help & Support](http://buildwithcraft.com/help) officiels
+- [Documentation Twig](http://twig.sensiolabs.org/doc/templates.html) pour les template designers
+- [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/): une bonne entrée en matière. Attention cependant, publié avant la grosse mise à jour de Craft 1.3 donc il manque quelques développements récents.
+- [Quelques videos](http://straightupcraft.com/learn-craft-cms) sur Straight up Craft
+- [On the Rocks](https://github.com/pixelandtonic/ontherocks): un site de démonstration dont le code est sur Github: pratique pour voir comment sont faits les templates.
+- [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226)
+- [Episode de CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly) avec Brandon Kelly
+- [Interview de Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) par the Nerdary
+- [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par Jamie Pittock sur Withchief
