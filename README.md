@@ -1,5 +1,7 @@
 # Cours IAD: Introduction à Craft
 
-Les syllabi des cours donnés par Jérôme Coupé à l'IAD. Ils sont mis à jour en continu.
+Ce cours est une introduction à [Craft](http://buildwithcraft.com/), un CMS récent créé par [Pixel & Tonic](http://pixelandtonic.com/).
 
-Les cours encore au format .pdf seront mis en ligne petit à petit sur Github
+Syllabus du cours donné à l'Institut des Arts de Diffusion par Jérôme Coupé.
+
+Licence: [Creative Commons Attribution 4.0 International license](http://creativecommons.org/licenses/by/4.0/)
