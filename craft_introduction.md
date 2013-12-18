@@ -561,7 +561,13 @@ Vous pouvez également définir dynamiquement une transformation dans vos templa
 
 ## Aller plus loin
 
-### Configuration pour environnements multiples
+### Configurations de Redactor
+
+Craft utilise [Redactor](http://imperavi.com/redactor/) comme WYSIWYG pour les champs de type "rich text". Lorsque vous créez un champ de ce type, vous pouvez choisir d'appliquer une configuration précise de Redactor pour ces champs.
+
+Ces configurations peuvent être facilement créées et modifiées à l'aide de simples fichiers JSON stockés dans le répertoire `craft/config/redactor`. Le nom donné à la configuration est simplement celui de votre fichier JSON.
+
+### Configurations pour environnements multiples
 
 Craft fourni nativement une façon simple de gérer des environnements multiples (local, dev, online) via [l'utilisation d'Arrays imbriqués](http://buildwithcraft.com/docs/multi-environment-configs) dans les fichiers `general.php` et `db.php` inclus dans le dossier `config/`.
 
@@ -643,7 +649,44 @@ return array(
 
 ### Matrix
 
-@TODO
+[Matrix](http://buildwithcraft.com/features/matrix) est un type de champ particulièrement [intéressant et puissant](http://buildwithcraft.com/features/matrix) dont vous disposez dans Craft. Il vous permet de créer des champs qui combinent différents blocs et de définir la structure pour chacun de ces blocs.
+
+Vous pourriez par exemple créer un champ `modularBody` avec la configuration suivante:
+
+* block `textModule`
+	* `text` rich text field
+* image `imageModule`
+	* `file` Asset file limited to 1
+	* `caption` Textfied (128)
+	* `copyright` Textfied (128) 
+
+Une telle configuration permettra à vos utilisateurs de composer leurs items comme ils le souhaitent en créant et en arrangeant à leur guise n'importe quelle combinaison de blocs texte et de blocs images.
+
+Au niveau du templating, vous pouvez également contrôler très précisément le code html généré:
+
+```
+{# Modular Body #}
+{% for module in entry.modularBody %}
+
+	{% if module.type == "textModule" %}
+		{{ module.text }}
+	{% endif %}
+
+	{% if module.type == "imageModule" %}
+		{% set image = module.file.first() %}
+
+		{% if module.full == 0 %}<figure class="figure">{% else %}<figure class="figure figure__full">{% endif %}
+			<img src="{{ image.getUrl(smallThumb) }}" alt="{{ image.title }}" />
+			<figcaption class="figure--meta">
+				<p class="figure--meta--caption">{{ module.caption }}</p>
+				<p class="figure--meta--copyright">{{ module.copyright }}</p>
+			</figcaption>
+		</figure>
+	{% endif %}
+
+{% endfor %}
+```
+
 
 ## Ressources
 
