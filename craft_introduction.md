@@ -677,9 +677,9 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 
 		{% if module.full == 0 %}<figure class="figure">{% else %}<figure class="figure figure__full">{% endif %}
 			<img src="{{ image.getUrl(smallThumb) }}" alt="{{ image.title }}" />
-			<figcaption class="figure--meta">
-				<p class="figure--meta--caption">{{ module.caption }}</p>
-				<p class="figure--meta--copyright">{{ module.copyright }}</p>
+			<figcaption class="figure__meta">
+				<p class="figure__caption">{{ module.caption }}</p>
+				<p class="figure__copyright">{{ module.copyright }}</p>
 			</figcaption>
 		</figure>
 	{% endif %}
