@@ -324,10 +324,13 @@ Vous pouvez utiliser deux syntaxes dans Craft. Une syntaxe pointée ou une synta
 {% endfor %}
 ```
 
+ou
+
+
 ```
 {% set allEntries = craft.entries.find({
-	section('news'),
-	limit(4)
+	section:'news',
+	limit:4
 }) %}
 
 
