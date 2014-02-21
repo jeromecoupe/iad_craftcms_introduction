@@ -30,7 +30,7 @@ Comme dit plus haut, Craft vous permet de structurer les données de votre site 
 
 Dans Craft, vos contenus vont principalement "vivre" dans des entries, elles-même contenues dans des sections.
 
-La data structure de ces entries va être déterminée par les custom fields que vous ajouterez à des entry types attachés à ces sections. Pour chaque entry type dans Craft, vous pouvez créer un field layout qui va préciser quels fields vont être utilisés pour définir les entries de cette section.
+La data structure de ces entries va être déterminée par les custom fields que vous ajouterez à ces sections. Pour chaque entry type dans Craft, vous pouvez créer un field layout qui va préciser quels fields vont être utilisés pour définir les entries de cette section.
 
 Il y a [trois grands types de sections](http://buildwithcraft.com/docs/sections-and-entries) dans craft: channel, structure et single.
 
@@ -40,7 +40,7 @@ Ces sections contiennent un ensemble d'entries que vous pouvez ensuite classer e
 
 Pour chaque section de ce type, vous pouvez spécifier un pattern d'URL qui sera appliqué à toutes les entries de cette section.
 
-Les sections de type channel peuvent contenir différents types d'entries ("entry types") avec des data structure différentes. Créer un blog permettant de poster divers types de contenus est donc très facile. Vous n'avez besoin que d'une seule section avec différents types d'entrées (video, post, son, galerie photos, etc.). 
+Les sections de type channel peuvent contenir différents types d'entries ("entry types") avec des data structure différentes. Créer un blog permettant de poster divers types de contenus est donc très facile. Vous n'avez besoin que d'une seule section avec différents types d'entrées (video, post, son, gallérie photo, etc.). 
 
 L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](http://buildwithcraft.com/help/entry-type-urls), comme [dans vos tags craft.entries et vos tests conditonnels](http://buildwithcraft.com/docs/templating/entrymodel#type)
 
@@ -74,13 +74,13 @@ Vous pouvez créer des groups de contenus en utilisant les global sets. Chaque s
 
 Dans Craft, les utilisateurs servent à gérer les permissions données aux divers utilisateurs du système.
 
-Les utilisateurs peuvent être assignés à divers groupes. Ces groupes sont utilisés pour gérer les permissions données aux utilisateurs qui en sont membres. Un utilisateur peut être assigné à plusieurs groupes.
+Les utilisateurs peuvent être assignés à divers groupes. Ces groupes sont utilisés pour gérer les permissions données aux utilisateurs qui en sont membres. Un utilisateurs peut être assigné à plusieurs groupes.
 
 La data-structure des utilisateurs peut être aussi complexe que souhaitée. Via un unique Field layout, les champs souhaités peuvent être assignés à la data structure de tous vos utilisateurs.
 
 #### Assets
 
-Les assets vous permettent de gérer vos fichiers dans Craft. Vos Assets sont enregistrés dans des Asset Sources qui correspondent à des dossiers physiques sur votre serveur.
+Les assets sont votre gestionnaire de fichiers de Craft. Vos Assets sont enregistrés dans des Asset Sources qui correspondent à des dossiers physiques sur votre serveur.
 
 De multiples opérations peuvent être réalisées sur vos assets et les dossiers qui les contiennent depuis la page "Assets" de votre control panel.
 
@@ -169,11 +169,11 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<link rel="shortcut icon" href="{{ siteUrl }}favicon.ico" />
-	<link rel="stylesheet" media="screen" href="{{ siteUrl }}assets/css/screen.css" />
-	<link rel="stylesheet" media="print" href="{{ siteUrl }}assets/css/print.css" />
+	<link rel="shortcut icon" href="{site_url}/favicon.ico" />
+	<link rel="stylesheet" media="screen" href="{site_url}/assets/css/screen.css" />
+	<link rel="stylesheet" media="print" href="{site_url}/assets/css/print.css" />
 
-	<script src="{{ siteUrl }}js/libs/modernizr.js"></script>
+	<script src="/js/libs/modernizr.js"></script>
 
 </head>
 
@@ -200,8 +200,8 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 	{% for entry in craft.entries.section('news').find() %}
 		<article>
 			<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
-			<p>Posted on {{ entry.postDate|date('F d, Y') }}</p>
-			{{ entry.body }}
+			<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
+			{{ entry.body.page(1) }}
 			<p><a href="{{ entry.url }}">Continue reading</a></p>
 		</article>
 	{% endfor %}
@@ -209,19 +209,19 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 {% endblock %}
 ```
 
-le template `news/index.html` étend notre layout de base. Le contenu défini dans le block "content" du template enfant remplace celui qui est (de façon optionnelle) défini dans le template parent. La variable `htmlTitle` définie dans le template enfant est accessible dans le template parent.
+le template news/index.html étend notre layout de base. Le contenu défini dans le block "content" du template enfant remplace celui qui est (de façon optionnelle) défini dans le template parent. La variable `htmlTitle` définie dans le template enfant est accessible dans le template parent.
 
-Remarquez également que nous écrivons le nom du template "parent" précédé par un underscore. Craft nous permet ainsi de rendre inaccessibles certains templates que nous ne voulons pas voir chargé directement par les visiteurs du site.
+Remarquez également que nous écrivons le nom du template "parent" précédé par un underscore. Craft nous permet ainsi de cacher certains templates que nous ne voulons pas voir chargé directement par les visiteurs du site.
 
 ##### Includes
 
 Si vous avez du code qui est répétés dans beaucoup de vos templates, vous pouvez également utiliser le tag `{% include %}` qui vous permet d'inclure un template au sein d'un autre.
 
-`{% include 'includes/sidebars/_default.html' %}`
+`{% include 'sidebars/_sidebar_default.html' %}`
 
 #### Principaux tags dans Twig
 
-En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/index.html), [Craft possède également quelques tags qui lui sont propres](http://buildwithcraft.com/docs/templating/tags). Nous reviendrons sur certains d'entre-eux dans la suite du cours.
+En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/index.html), [Craft possède également quelques tags qui lui dont propres](http://buildwithcraft.com/docs/templating/tags). Nous reviendrons sur certains d'entre-eux dans la suite du cours.
 
 ##### Tags d'affichage, variables et propriétés
 
@@ -229,7 +229,7 @@ En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/ind
 
 Exemples:
 
-`{{ myVariable }}`: affiche la variable "myVariable"
+`{{ myvariable }}`: affiche la variable "myvariable"
 
 `{{ entry.title }}`: affiche la propriété title de la variable entry
 
@@ -239,22 +239,22 @@ Exemples:
 
 Exemples:
 
-Créer une variable "allEntries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
+Créer une variable "allentries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
 
-`{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
+`{% set allentries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
 
 Boucler sur l'ensemble des entries en créant à chaque fois un objet "entry" dont nous affichons le titre.
 
 ```
-{% for entry in allEntries %}
+{% for entry in allentries %}
 	<p>{{ entry.title }}</p>
 {% endfor %}
 ```
 
-Créer une [structure de contôle](http://twig.sensiolabs.org/doc/templates.html#control-structure) vérifiant si la variable "allentries" contient au minimum une entry.
+Créer une [structure de contôle]() vérifiant si la variable "allentries" contient au minimum une entry.
 
 ```
-{% if allEntries|length %}
+{% if allentries|length > 0 %}
 	<p>There is at least one entry here</p>
 {% endif %}
 ```
@@ -386,7 +386,7 @@ Vous pouvez facilement afficher un contenu alternatif si aucun résultat n'est t
 
 Lorsque une boucle `{% for %}` est utilisé, il est souvent très pratique de pouvoir évaluer à quel étape de la boucle on se trouve et d'utiliser des conditionnels. Typiquement il est utile de pouvoir ouvrir et fermer une liste `<ul>` en début ou en fin de loop, de pouvoir afficher quelque chose tous les x résultats. C'est à cela que servent la variable [`loop`](http://twig.sensiolabs.org/doc/tags/for.html#the-loop-variable), la fonction [`cycle`](http://twig.sensiolabs.org/doc/functions/cycle.html) et le test [`is divisibleby`](http://twig.sensiolabs.org/doc/tests/divisibleby.html) de Twig.
 
-**Exemple:** utilisation de la variable `loop`
+Exemple: utilisation de la variable `loop`
 
 ```
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -406,7 +406,7 @@ Lorsque une boucle `{% for %}` est utilisé, il est souvent très pratique de po
 {% endfor %}
 ```  
 
-**Exemple:** utilisation de la fonction `cycle` pour ajouter des classes `odd` et `even`. Remarquez l'usage de `loop.index0` pour avoir une itération indexée sur zéro et non sur 1 comme avec `loop.index`.
+Exemple: utilisation de la fonction `cycle` pour ajouter des classes `odd` et `even`. Remarquez l'usage de `loop.index0` pour avoir une itération indexée sur zéro et non sur 1 comme avec `loop.index`.
 
 ```
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -545,7 +545,7 @@ Le tag `craft.assets` permet d'accéder aux Assets de votre site. Ce tag possèd
 
 Si vos assets sont des images, Craft vous permet d'effectuer des transformations de celles-ci, soit à l'upload (via votre control panel: Settings, Assets, Image Transforms), soit dynamiquement dans vos templates.
 
-Si vous définissez une transformation directement dans le control panel et que vous lui donnez comme handle `thumb` vous pouvez y accéder dans vos template de la façon suivante:
+Si vous définissez une transformation directement dans le control panel et que vous lui donnez comme hangle `thumb` vous pouvez y accéder dans vos template de la façon suivante:
 
 `<img src="{{ asset.getUrl('thumb') }}" width="{{ asset.getWidth('thumb') }}" height="{{ asset.getHeight('thumb') }}" />`
 
@@ -690,17 +690,6 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 {% endfor %}
 ```
 
-## Exercices
-
-### A faire ensemble
-
-Construire un blog assez simple. Chaque post devra inclure une image afin de pouvoir pratiquer les transformations d'images dans Craft.
-
-### A faire seul
-
-Ajouter une page d'archive à votre blog qui permet de visualiser les posts par année en utilisant du dynamic routing.
-
-Créer une section "portfolio" vous permettant de présenter vos travaux. Créer une navigation dans les pages de détail permettant de naviguer de page de détail à page de détail.
 
 ## Ressources
 
@@ -714,4 +703,4 @@ Créer une section "portfolio" vous permettant de présenter vos travaux. Créer
 - [Episode de CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly) avec Brandon Kelly
 - [Interview de Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) par the Nerdary
 - [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par Jamie Pittock sur Withchief
-- [Craft your content with Markdown and Matrix](http://www.expreiencehq.net/blog/craft-with-markdown-and-matrix) par Stephen Lewis. Un bon exemple de tempting modulaire: utilisation d'includes, passage de variables, ternary operators, etc.
+- [Craft Your Content With Markdown And Matrix]() par Stephen Lewis: quelques bons exemples au niveau du templating.
