@@ -346,8 +346,8 @@ Les deux syntaxes sont valides et chacune ont leur place. La seconde méthode es
 
 ```
 {% set params = {
-	section('news'),
-	orderby('postDate desc')
+	section:'news',
+	orderby:'postDate desc'
 } %}
 
 {% set totalEntries = craft.entries.total(params) %}
