@@ -699,8 +699,9 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 - [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/): une bonne entrée en matière. Attention cependant, publié avant la grosse mise à jour de Craft 1.3 donc il manque quelques développements récents.
 - [Quelques videos](http://straightupcraft.com/learn-craft-cms) sur Straight up Craft
 - [On the Rocks](https://github.com/pixelandtonic/ontherocks): un site de démonstration dont le code est sur Github: pratique pour voir comment sont faits les templates.
-- [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226)
+- [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226): lacommunauté Craft sur G+
 - [Episode de CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly) avec Brandon Kelly
 - [Interview de Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) par the Nerdary
 - [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par Jamie Pittock sur Withchief
-- [Craft Your Content With Markdown And Matrix]() par Stephen Lewis: quelques bons exemples au niveau du templating.
+- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) par l'inimitable Stephen Lewis: quelques bons exemples au niveau du templating.
+- [Craft Cookbook](http://www.craftcookbook.net): sites d'exemples courts et précis. Bonne introduction au templatng avec Craft et Twig.
