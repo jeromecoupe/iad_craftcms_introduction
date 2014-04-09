@@ -1,24 +1,24 @@
-# Craft: Introduction
+# Craft : Introduction
 
 ## Craft
 
-[Craft](http://buildwithcraft.com/) est un CMS récent créé par [Pixel & Tonic](http://pixelandtonic.com/). Craft est développé à l'aide de technologies open source comme PHP et MySQL et s'appuie sur un framework PHP qui a fait ses preuves: [Yii](http://www.yiiframework.com/).
+[Craft](http://buildwithcraft.com/) est un CMS récent créé par [Pixel & Tonic](http://pixelandtonic.com/). Craft est développé à l'aide de technologies open source comme PHP et MySQL et s'appuie sur un framework PHP qui a fait ses preuves : [Yii](http://www.yiiframework.com/).
 
-Comparé à d'autres produits, Craft est axé sur l'essentiel: définir et gérer vos contenus, et ce de la façon la plus modulaire et flexible possible. Si vous avez besoin d'un moteur de commentaires, d'un forum ou encore d'e-commerce, il faudra vous tourner vers des plugins.
+Comparé à d'autres produits, Craft est axé sur l'essentiel : définir et gérer vos contenus, et ce de la façon la plus modulaire et flexible possible. Si vous avez besoin d'un moteur de commentaires, d'un forum ou encore d'e-commerce, il faudra vous tourner vers des plugins.
 
 ### Un modèle de pricing modulaire
 
-Cette flexibilité est présente jusque dans [le pricing](http://buildwithcraft.com/pricing) du produit lui même. La version gratuite de Craft vous permet de développer facilement des sites assez simples en terme de data structure. D'autres fonctionnalités (différentes sections, différents utilisateurs, support cloud, support multilingue) peuvent être ajoutées via l'achat de packages disponibles dans le contexte de l'application elle-même. 
+Cette flexibilité est présente jusque dans [le pricing](http://buildwithcraft.com/pricing) du produit lui-même. La version gratuite de Craft vous permet de développer facilement des sites assez simples en terme de data structure. D'autres fonctionnalités (différentes sections, différents utilisateurs, support cloud, support multilingue) peuvent être ajoutées via l'achat de packages disponibles dans le contexte de l'application elle-même. 
 
 Cela vous permet en tant que développeur de ne payer que ce pour ce dont vous avez vraiment besoin, chaque projet ayant donc sa propre version particulière de Craft. Classiquement, si vous allez au delà d'un blog ou d'un portfolio, vous aurez besoin de Users (149 $) et Publish Pro (149 $).
 
 ### Atouts
 
-Les principaux atouts de Craft sont à mon sens:
+Les principaux atouts de Craft sont à mon sens :
 
 - Une flexibilité dans la définition de votre data structure rarement égalée. Les 16 field types disponibles par défaut permettent une approche extrêmement modulaire.
-- [L'utilisation de Twig comme language de templating](http://twig.sensiolabs.org/doc/templates.html): cela induit un temps d'apprentissage mais les gains en termes de puissance, de modularité et de flexibilités sont étonnants. Toute la puissance et la maturité de Twig sont au services de vos templates.
-- Une quantité impressionnantes de fonctionnalités qui rendront la vie de vos clients plus facile: live preview, control panel responsive, one click updates, etc.
+- [L'utilisation de Twig comme language de templating](http://twig.sensiolabs.org/doc/templates.html) : cela induit un temps d'apprentissage mais les gains en termes de puissance, de modularité et de flexibilité sont étonnants. Toute la puissance et la maturité de Twig sont au services de vos templates.
+- Une quantité impressionnante de fonctionnalités qui rendront la vie de vos clients plus facile : live preview, control panel responsive, one click updates, etc.
 - Un découplage important entre votre structure de dossiers et de fichiers et la manière dont sont construites les URL. La structure de vos URL est donc extrêmement flexible.
 - Une solution intégrée pour les sites multilingues.
 
@@ -32,7 +32,7 @@ Dans Craft, vos contenus vont principalement "vivre" dans des entries, elles-mê
 
 La data structure de ces entries va être déterminée par les custom fields que vous ajouterez à ces sections. Pour chaque entry type dans Craft, vous pouvez créer un field layout qui va préciser quels fields vont être utilisés pour définir les entries de cette section.
 
-Il y a [trois grands types de sections](http://buildwithcraft.com/docs/sections-and-entries) dans craft: channel, structure et single.
+Il y a [trois grands types de sections](http://buildwithcraft.com/docs/sections-and-entries) dans Craft : channel, structure et single.
 
 ##### Sections de type channel
 
@@ -40,7 +40,7 @@ Ces sections contiennent un ensemble d'entries que vous pouvez ensuite classer e
 
 Pour chaque section de ce type, vous pouvez spécifier un pattern d'URL qui sera appliqué à toutes les entries de cette section.
 
-Les sections de type channel peuvent contenir différents types d'entries ("entry types") avec des data structure différentes. Créer un blog permettant de poster divers types de contenus est donc très facile. Vous n'avez besoin que d'une seule section avec différents types d'entrées (video, post, son, gallérie photo, etc.). 
+Les sections de type channel peuvent contenir différents types d'entries ("entry types") avec des data structure différentes. Créer un blog permettant de poster divers types de contenus est donc très facile. Vous n'avez besoin que d'une seule section avec différents types d'entrées (video, post, son, galerie photo, etc.). 
 
 L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](http://buildwithcraft.com/help/entry-type-urls), comme [dans vos tags craft.entries et vos tests conditonnels](http://buildwithcraft.com/docs/templating/entrymodel#type)
 
@@ -48,11 +48,11 @@ L'entry type peut facilement être utilisé [dans le routing et les patterns d'U
 
 Ces sections contiennent une seule entry et sont utilisées pour les pages particulières de votre site, comme par exemple une page "about" ou votre "homepage". Utiliser une section de type single vous permet de bénéficier de tous vos custom fields pour définir les contenus de cette page.
 
-Vous pouvez également définir vous même l'URL de l'entry contenue dans chacune de ces sections de type single, ainsi que le template à utiliser pour le rendu.
+Vous pouvez également définir vous-même l'URL de l'entry contenue dans chacune de ces sections de type single, ainsi que le template à utiliser pour le rendu.
 
 ##### Sections de type structures
 
-Les sections de type structure ressemblent beaucoup aux sections de type channel: elles peuvent avoir plusieurs entry types et les patterns d'URL des entries qu'elles contiennent peuvent être précisés.
+Les sections de type structure ressemblent beaucoup aux sections de type channel : elles peuvent avoir plusieurs entry types et les patterns d'URL des entries qu'elles contiennent peuvent être précisés.
 
 La grande différence est que ces sections de type structure sont destinées à créer des agencements hiérarchiques d'entries dont l'ordre peut être modifié. Vous pouvez ainsi préciser le nombre de niveaux possibles dans cette hiérarchie d'entries, les patterns d'URL à différents niveaux dans votre hiérarchie, le template à utiliser pour le rendu des entries, etc.
 
@@ -66,17 +66,17 @@ Les fields peuvent être groupés au sein de groupes. Ces groupes n'ont qu'une f
 
 #### Globals
 
-A côté des sections et des entries, les globals peuvent être utilisées pour stocker du contenu auquel il est possible d'accéder dans vos templates: tagline, coordonnées de contact, code google analytics, etc.
+A côté des sections et des entries, les globals peuvent être utilisées pour stocker du contenu auquel il est possible d'accéder dans vos templates : tagline, coordonnées de contact, code Google Analytics, etc.
 
-Vous pouvez créer des groups de contenus en utilisant les global sets. Chaque set de globals possède son field layout et donc sa propre data structure. Les différences notables avec les sections et les entries sont que les globals ne possèdent pas d'URL et ne peuvent donc pas être visualisées comme les entries à l'aide de la fonction "live preview".
+Vous pouvez créer des groupes de contenus en utilisant les global sets. Chaque set de globals possède son field layout et donc sa propre data structure. Les différences notables avec les sections et les entries sont que les globals ne possèdent pas d'URL et ne peuvent donc pas être visualisées comme les entries à l'aide de la fonction "live preview".
 
 #### Users
 
 Dans Craft, les utilisateurs servent à gérer les permissions données aux divers utilisateurs du système.
 
-Les utilisateurs peuvent être assignés à divers groupes. Ces groupes sont utilisés pour gérer les permissions données aux utilisateurs qui en sont membres. Un utilisateurs peut être assigné à plusieurs groupes.
+Les utilisateurs peuvent être assignés à divers groupes. Ces groupes sont utilisés pour gérer les permissions données aux utilisateurs qui en sont membres. Un utilisateur peut être assigné à plusieurs groupes.
 
-La data-structure des utilisateurs peut être aussi complexe que souhaitée. Via un unique Field layout, les champs souhaités peuvent être assignés à la data structure de tous vos utilisateurs.
+La data structure des utilisateurs peut être aussi complexe que souhaitée. Via un unique Field layout, les champs souhaités peuvent être assignés à la data structure de tous vos utilisateurs.
 
 #### Assets
 
@@ -84,11 +84,11 @@ Les assets sont votre gestionnaire de fichiers de Craft. Vos Assets sont enregis
 
 De multiples opérations peuvent être réalisées sur vos assets et les dossiers qui les contiennent depuis la page "Assets" de votre control panel.
 
-Comme pour les utilisateurs, un unique field layout vous permet d'assigner des custom fields à la data-structure de l'ensemble de vos Assets.
+Comme pour les utilisateurs, un unique field layout vous permet d'assigner des custom fields à la data structure de l'ensemble de vos Assets.
 
 #### Tags
 
-Les tags vous permettent de créer des folksonomies et de les appliquer à vos Entries, Users ou Assets.
+Les tags vous permettent de créer des *folksonomies* et de les appliquer à vos Entries, Users ou Assets.
 
 Chaque tag doit être assigné à un groupe et chaque groupe de tags possède un field layout. Vous pouvez donc créer des structures de données assez complexes pour chacun de vos groupes de tags.
 
@@ -96,28 +96,28 @@ Chaque tag doit être assigné à un groupe et chaque groupe de tags possède un
 
 L'une des grandes forces de Craft c'est qu'il est possible très facilement de créer des relations entre Entries, Users, Assets et Tags.
 
-Pour cela, Craft met à votre disposition des champs relationnels spécifiques:
+Pour cela, Craft met à votre disposition des champs relationnels spécifiques :
 
-- **Assets**: permet d'établir une relation "one to one" ou "one to many" vers des Assets
-- **Entries**: permet d'établir une relation "one to one" ou "one to many" vers des Entries
-- **Users**: permet d'établir une relation "one to one" ou "one to many" vers des Users
-- **Tags**: permet d'établir une relation "one to one" ou "one to many" vers des Tags
+- **Assets** : permet d'établir une relation "one to one" ou "one to many" vers des Assets
+- **Entries** : permet d'établir une relation "one to one" ou "one to many" vers des Entries
+- **Users** : permet d'établir une relation "one to one" ou "one to many" vers des Users
+- **Tags** : permet d'établir une relation "one to one" ou "one to many" vers des Tags
 
 Pour chacun des ces tags, vous pouvez spécifier combien d'items peuvent être liés et de quelles sources ils proviennent.
 
-Pour exploiter ces relations dans vos templates, Craft met à votre disposition un outil extrêmement puissant: le paramètre [`relatedTo`](http://buildwithcraft.com/docs/relations#the-relatedTo-param), utilisable avec `craft.entries`, `craft.users`, `craft.assets` et `craft.tags`.
+Pour exploiter ces relations dans vos templates, Craft met à votre disposition un outil extrêmement puissant : le paramètre [`relatedTo`](http://buildwithcraft.com/docs/relations#the-relatedTo-param), utilisable avec `craft.entries`, `craft.users`, `craft.assets` et `craft.tags`.
 
 #### Routing
 
 L'un des autres éléments intéressant de Craft c'est le routing dynamique, qui permet de séparer structure des URLs et architecture de dossiers et de fichiers.
 
-Comme nous l'avons déjà vu, il est possible pour chaque section de spécifier la structure des URLs qu'elle contient. 
+Comme nous l'avons déjà vu, il est possible pour chaque section de spécifier la structure des URL qu'elle contient. 
 
 Lorsque vous souhaitez qu'un template soit référencé par une URL sans pour autant que cette URL ne correspondent à une structure physique des dossiers et fichiers, vous pouvez utiliser ce Routing Dynamique.
 
 Il est possible créer des routes et de spécifier quel template doit être chargé par Craft. Un exemple facile à comprendre est [un template donnant accès à une archive des entries classées par année](http://buildwithcraft.com/help/entry-archive#yearly-archive-pages).
 
-En créant une route dynamique `blog/archive/{year}` renseignant le template `blog/archive`, les URLs `blog/archive/2013` et `blog/archive/2012` vont charger le même template et rendre disponible une variable `year` utilisable par Twig et par Craft avec les paramètres [`after`](http://buildwithcraft.com/docs/templating/craft.entries#after) et [`before`](http://buildwithcraft.com/docs/templating/craft.entries#before).
+En créant une route dynamique `blog/archive/{year}` renseignant le template `blog/archive`, les URL `blog/archive/2013` et `blog/archive/2012` vont charger le même template et rendre disponible une variable `year` utilisable par Twig et par Craft avec les paramètres [`after`](http://buildwithcraft.com/docs/templating/craft.entries#after) et [`before`](http://buildwithcraft.com/docs/templating/craft.entries#before).
 
 Si vous avez besoin de plus de possibilités que celles offertes par le control panel, sachez que [les routes peuvent également être gérées via un fichier](http://buildwithcraft.com/docs/routing#advanced-routing) `config/routes.php`, ce qui vous donne accès à du matching d'URL en utilisant des expressions régulières.
 
@@ -131,13 +131,13 @@ La construction de [formulaires de recherche dynamiques pour le front-end](http:
 
 ## Créer vos templates
 
-Maintenant que vous savez comment créer une structure de donnée pour votre projet dans Craft, passons à la création des pages de votre site à l'aide des templates.
+Maintenant que vous savez comment créer une structure de données pour votre projet dans Craft, passons à la création des pages de votre site à l'aide des templates.
 
 Vos templates sont localisés dans le dossier `craft/templates` de votre installation
 
 ### Twig comme language de templating
 
-Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les template en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
+Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les templates en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
 
 Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates.
 
@@ -147,13 +147,13 @@ Ces deux concepts sont au coeur de Twig et vont nous permettre de créer des tem
 
 ##### Template inheritance
 
-Un concept central à comprendre dans Twig est celui d'héritage au niveau des templates. Dans Twig on va généralement travailler avec un template "parent" qui défini le squelette de la page et différents blocks pouvant être surdéterminés par un template "enfant" qui étend ce template parent.
+Un concept central à comprendre dans Twig est celui d'héritage au niveau des templates. Dans Twig on va généralement travailler avec un template "parent" qui défini le squelette de la page et différents blocs pouvant être surdéterminés par un template "enfant" qui étend ce template parent.
 
 Les variables définies dans le template "enfant" sont accessibles dans le template parent.
 
-Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
+Voyons voir comment cela fonctionne dans la pratique avec un exemple simple :
 
-**Template parent: layouts/_base.html**
+**Template parent : layouts/_base.html**
 
 ```
 <!DOCTYPE html>
@@ -187,7 +187,7 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 </html>
 ```
 
-**Template enfant: news/index.html**
+**Template enfant : news/index.html**
 
 ```
 {% extends "layouts/_base.html" %}
@@ -209,13 +209,13 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 {% endblock %}
 ```
 
-le template news/index.html étend notre layout de base. Le contenu défini dans le block "content" du template enfant remplace celui qui est (de façon optionnelle) défini dans le template parent. La variable `htmlTitle` définie dans le template enfant est accessible dans le template parent.
+Le template news/index.html étend notre layout de base. Le contenu défini dans le block "content" du template enfant remplace celui qui est (de façon optionnelle) défini dans le template parent. La variable `htmlTitle` définie dans le template enfant est accessible dans le template parent.
 
 Remarquez également que nous écrivons le nom du template "parent" précédé par un underscore. Craft nous permet ainsi de cacher certains templates que nous ne voulons pas voir chargé directement par les visiteurs du site.
 
 ##### Includes
 
-Si vous avez du code qui est répétés dans beaucoup de vos templates, vous pouvez également utiliser le tag `{% include %}` qui vous permet d'inclure un template au sein d'un autre.
+Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouvez également utiliser le tag `{% include %}` qui vous permet d'inclure un template au sein d'un autre.
 
 `{% include 'sidebars/_sidebar_default.html' %}`
 
@@ -225,19 +225,19 @@ En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/ind
 
 ##### Tags d'affichage, variables et propriétés
 
-`{{ Affichage }}`: ces tags permettent d'afficher des variables. Une notation pointée permet d'accéder aux propriétés de ces variables.
+`{{ Affichage }}` : ces tags permettent d'afficher des variables. Une notation pointée permet d'accéder aux propriétés de ces variables.
 
-Exemples:
+Exemples :
 
-`{{ myvariable }}`: affiche la variable "myvariable"
+`{{ myvariable }}` : affiche la variable "myvariable"
 
-`{{ entry.title }}`: affiche la propriété title de la variable entry
+`{{ entry.title }}` : affiche la propriété title de la variable entry
 
 ##### Tags d'exécution
 
-`{% Execution %}`: ces tags permettent l'exécution de tâches et sont utilisés pour créer des variables, réaliser des boucles, créer des structures de contrôle, etc.
+`{% Execution %}` : ces tags permettent l'exécution de tâches et sont utilisés pour créer des variables, réaliser des boucles, créer des structures de contrôle, etc.
 
-Exemples:
+Exemples :
 
 Créer une variable "allentries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
 
@@ -251,7 +251,7 @@ Boucler sur l'ensemble des entries en créant à chaque fois un objet "entry" do
 {% endfor %}
 ```
 
-Créer une [structure de contôle]() vérifiant si la variable "allentries" contient au minimum une entry.
+Créer une [structure de contrôle]() vérifiant si la variable "allentries" contient au minimum une entry.
 
 ```
 {% if allentries|length > 0 %}
@@ -261,11 +261,11 @@ Créer une [structure de contôle]() vérifiant si la variable "allentries" cont
 
 ##### Tags de commentaires
 
-Twig possède également un tag de commentaire: `{# Ceci est un commentaire #}`
+Twig possède également un tag de commentaire : `{# Ceci est un commentaire #}`
 
 #### Filtres
 
-[Twig comporte de nombreux filtres](http://twig.sensiolabs.org/doc/filters/index.html) pouvant être appliqués à vos différents types de variables (string, array, number, etc). Ces filtres offrent de nombreuses possibilités et permettent à Craft de se passer de nombreux plugins pour effectuer des tâches simples. Craft possède également [ses propres filtres](http://buildwithcraft.com/docs/templating/filters). Voici quelques exemples de ce qu'il est possible d'accomplir:
+[Twig comporte de nombreux filtres](http://twig.sensiolabs.org/doc/filters/index.html) pouvant être appliqués à vos différents types de variables (string, array, number, etc). Ces filtres offrent de nombreuses possibilités et permettent à Craft de se passer de nombreux plugins pour effectuer des tâches simples. Craft possède également [ses propres filtres](http://buildwithcraft.com/docs/templating/filters). Voici quelques exemples de ce qu'il est possible d'accomplir :
 
 Convertir une string en title case
 
@@ -377,16 +377,16 @@ Vous pouvez facilement afficher un contenu alternatif si aucun résultat n'est t
 
 {% else %}
 
-	<p>no news found</p>
+	<p>No news found.</p>
 
 {% endfor %}
 ```
 
 ##### "Loop", "cycle" et "is divisible by"
 
-Lorsque une boucle `{% for %}` est utilisé, il est souvent très pratique de pouvoir évaluer à quel étape de la boucle on se trouve et d'utiliser des conditionnels. Typiquement il est utile de pouvoir ouvrir et fermer une liste `<ul>` en début ou en fin de loop, de pouvoir afficher quelque chose tous les x résultats. C'est à cela que servent la variable [`loop`](http://twig.sensiolabs.org/doc/tags/for.html#the-loop-variable), la fonction [`cycle`](http://twig.sensiolabs.org/doc/functions/cycle.html) et le test [`is divisibleby`](http://twig.sensiolabs.org/doc/tests/divisibleby.html) de Twig.
+Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de pouvoir évaluer à quel étape de la boucle on se trouve et d'utiliser des conditionnels. Typiquement, il est utile de pouvoir ouvrir et fermer une liste `<ul>` en début ou en fin de loop, de pouvoir afficher quelque chose tous les x résultats. C'est à cela que servent la variable [`loop`](http://twig.sensiolabs.org/doc/tags/for.html#the-loop-variable), la fonction [`cycle`](http://twig.sensiolabs.org/doc/functions/cycle.html) et le test [`is divisibleby`](http://twig.sensiolabs.org/doc/tests/divisibleby.html) de Twig.
 
-Exemple: utilisation de la variable `loop`
+Exemple : utilisation de la variable `loop`
 
 ```
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -406,7 +406,7 @@ Exemple: utilisation de la variable `loop`
 {% endfor %}
 ```  
 
-Exemple: utilisation de la fonction `cycle` pour ajouter des classes `odd` et `even`. Remarquez l'usage de `loop.index0` pour avoir une itération indexée sur zéro et non sur 1 comme avec `loop.index`.
+Exemple : utilisation de la fonction `cycle` pour ajouter des classes `odd` et `even`. Remarquez l'usage de `loop.index0` pour avoir une itération indexée sur zéro et non sur 1 comme avec `loop.index`.
 
 ```
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -426,7 +426,7 @@ Exemple: utilisation de la fonction `cycle` pour ajouter des classes `odd` et `e
 {% endfor %}
 ```  
 
-Exemple: utilisation du test `is divisible by` pour insérer un élément toutes les 2 itérations.
+Exemple : utilisation du test `is divisible by` pour insérer un élément toutes les 2 itérations.
 
 ```
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -523,7 +523,7 @@ Lorsque Craft charge un template de détail et que l'URL correspond à l'URI d'u
 
 #### Globals
 
-Les globals stockent du contenu qui va, comme leur nom l'indique, être disponible  globalement pour tous les templates.
+Les globals stockent du contenu qui va, comme leur nom l'indique, être disponible globalement pour tous les templates.
 
 Vous pouvez y accéder très facilement via leur handle de global set suivi de leur handle de global. Par exemple, pour une global appelée `tagline` dans un global set `companyInfo`:
 
@@ -531,7 +531,7 @@ Vous pouvez y accéder très facilement via leur handle de global set suivi de l
 
 #### Tags
 
-Dans Craft, on accès aux tags avec `craft.tags`, qui [possède un certain nombre de paramètres](http://buildwithcraft.com/docs/templating/craft.tags) et fonctionne dans l'ensemble comme `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
+Dans Craft, on accède aux tags avec `craft.tags`, qui [possède un certain nombre de paramètres](http://buildwithcraft.com/docs/templating/craft.tags) et fonctionne dans l'ensemble comme `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
 
 Deux articles sur buildwithcraft.com vous montrent comment obtenir une [liste de tous les tags utilisés par les entries d'une section](http://buildwithcraft.com/help/active-tags), ou encore comment créer, à l'aide d'une route dynamique, [une page d'archive reprenant toutes les entries liées à un tag](http://buildwithcraft.com/help/tag-urls). 
 
@@ -543,9 +543,9 @@ Le tag `craft.users` permet d'accéder aux utilisateurs de votre site. Ce tag po
 
 Le tag `craft.assets` permet d'accéder aux Assets de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.assets). Son fonctionnement est semblable au tag `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
 
-Si vos assets sont des images, Craft vous permet d'effectuer des transformations de celles-ci, soit à l'upload (via votre control panel: Settings, Assets, Image Transforms), soit dynamiquement dans vos templates.
+Si vos assets sont des images, Craft vous permet d'effectuer des transformations de celles-ci, soit à l'upload (via votre control panel : Settings, Assets, Image Transforms), soit dynamiquement dans vos templates.
 
-Si vous définissez une transformation directement dans le control panel et que vous lui donnez comme hangle `thumb` vous pouvez y accéder dans vos template de la façon suivante:
+Si vous définissez une transformation directement dans le control panel et que vous lui donnez comme handle `thumb` vous pouvez y accéder dans vos templates de la façon suivante :
 
 `<img src="{{ asset.getUrl('thumb') }}" width="{{ asset.getWidth('thumb') }}" height="{{ asset.getHeight('thumb') }}" />`
 
@@ -572,11 +572,11 @@ Ces configurations peuvent être facilement créées et modifiées à l'aide de 
 
 ### Configurations pour environnements multiples
 
-Craft fourni nativement une façon simple de gérer des environnements multiples (local, dev, online) via [l'utilisation d'Arrays imbriqués](http://buildwithcraft.com/docs/multi-environment-configs) dans les fichiers `general.php` et `db.php` inclus dans le dossier `config/`.
+Craft fournit nativement une façon simple de gérer des environnements multiples (local, dev, online) via [l'utilisation d'Arrays imbriqués](http://buildwithcraft.com/docs/multi-environment-configs) dans les fichiers `general.php` et `db.php` inclus dans le dossier `config/`.
 
 Les valeurs dans le tableau `*` sont appliquées à tous les 
 
-**Exemple: le fichier craft/config/general.php** 
+**Exemple : le fichier craft/config/general.php** 
 
 ```
 return array(
@@ -624,9 +624,9 @@ return array(
 );
 ```
         
-Ces différents environnement peuvent également être utilisés pour les paramètres de configuration de votre base de données dans le fichier `craft/config/db.php`.
+Ces différents environnements peuvent également être utilisés pour les paramètres de configuration de votre base de données dans le fichier `craft/config/db.php`.
 
-**Exemple: le fichier craft/config/db.php**
+**Exemple : le fichier craft/config/db.php**
 
 ```
 return array(
@@ -654,7 +654,7 @@ return array(
 
 [Matrix](http://buildwithcraft.com/features/matrix) est un type de champ particulièrement [intéressant et puissant](http://buildwithcraft.com/features/matrix) dont vous disposez dans Craft. Il vous permet de créer des champs qui combinent différents blocs et de définir la structure pour chacun de ces blocs.
 
-Vous pourriez par exemple créer un champ `modularBody` avec la configuration suivante:
+Vous pourriez par exemple créer un champ `modularBody` avec la configuration suivante :
 
 * block `textModule`
 	* `text` rich text field
@@ -665,7 +665,7 @@ Vous pourriez par exemple créer un champ `modularBody` avec la configuration su
 
 Une telle configuration permettra à vos utilisateurs de composer leurs items comme ils le souhaitent en créant et en arrangeant à leur guise n'importe quelle combinaison de blocs texte et de blocs images.
 
-Au niveau du templating, vous pouvez également contrôler très précisément le code html généré:
+Au niveau du templating, vous pouvez également contrôler très précisément le code HTML généré:
 
 ```
 {# Modular Body #}
@@ -696,12 +696,12 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 - [Documentation officielle](http://buildwithcraft.com/docs/introduction) de Craft
 - [Articles Help & Support](http://buildwithcraft.com/help) officiels
 - [Documentation Twig](http://twig.sensiolabs.org/doc/templates.html) pour les template designers
-- [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/): une bonne entrée en matière. Attention cependant, publié avant la grosse mise à jour de Craft 1.3 donc il manque quelques développements récents.
+- [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/) : une bonne entrée en matière. Attention cependant, publié avant la grosse mise à jour de Craft 1.3 donc il manque quelques développements récents.
 - [Quelques videos](http://straightupcraft.com/learn-craft-cms) sur Straight up Craft
-- [On the Rocks](https://github.com/pixelandtonic/ontherocks): un site de démonstration dont le code est sur Github: pratique pour voir comment sont faits les templates.
-- [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226): lacommunauté Craft sur G+
+- [On the Rocks](https://github.com/pixelandtonic/ontherocks) : un site de démonstration dont le code est sur Github : pratique pour voir comment sont faits les templates.
+- [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226) : la communauté Craft sur G+
 - [Episode de CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly) avec Brandon Kelly
 - [Interview de Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) par the Nerdary
 - [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par Jamie Pittock sur Withchief
-- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) par l'inimitable Stephen Lewis: quelques bons exemples au niveau du templating.
-- [Craft Cookbook](http://www.craftcookbook.net): sites d'exemples courts et précis. Bonne introduction au templatng avec Craft et Twig.
+- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) par l'inimitable Stephen Lewis : quelques bons exemples au niveau du templating.
+- [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templatng avec Craft et Twig.
