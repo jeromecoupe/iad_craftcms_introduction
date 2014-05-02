@@ -747,34 +747,36 @@ Vous pourriez par exemple créer un champ `modularBody` avec la configuration su
 
 - block `textModule`
 	- `text` rich text field
-- image `imageModule`
+- block `imageModule`
 	- `file` Asset file limited to 1
 	- `caption` Textfied (128)
 	- `copyright` Textfied (128)
 
 Une telle configuration permettra à vos utilisateurs de composer leurs items comme ils le souhaitent en créant et en arrangeant à leur guise n'importe quelle combinaison de blocs texte et de blocs images.
 
-Au niveau du templating, vous pouvez également contrôler très précisément le code HTML généré:
+Au niveau du templating, vous pouvez également contrôler très précisément le code HTML généré. Nous utilisons ici [le tag `switch` propre à Craft](http://buildwithcraft.com/docs/templating/tags#switch).
 
 ```jinja
 {# Modular Body #}
 {% for module in entry.modularBody %}
 
-	{% if module.type == "textModule" %}
-		{{ module.text }}
-	{% endif %}
+	{% switch module.type %}
 
-	{% if module.type == "imageModule" %}
-		{% set image = module.file.first() %}
-
-		{% if module.full == 0 %}<figure class="figure">{% else %}<figure class="figure figure__full">{% endif %}
-			<img src="{{ image.getUrl(smallThumb) }}" alt="{{ image.title }}" />
-			<figcaption class="figure__meta">
-				<p class="figure__caption">{{ module.caption }}</p>
-				<p class="figure__copyright">{{ module.copyright }}</p>
-			</figcaption>
-		</figure>
-	{% endif %}
+		{% case "textModule" %}
+			{{ module.text }}
+	
+		{% case "imageModule" %}
+			{% set image = module.file.first() %}
+	
+			<figure class="figure">
+				<img src="{{ image.getUrl(smallThumb) }}" alt="{{ image.title }}" />
+				<figcaption class="figure__info">
+					<p class="figure__caption">{{ module.caption }}</p>
+					<p class="figure__copyright">{{ module.copyright }}</p>
+				</figcaption>
+			</figure>
+			
+	{% endswitch %}
 
 {% endfor %}
 ```
