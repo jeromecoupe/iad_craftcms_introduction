@@ -569,6 +569,8 @@ Le même principe est d'application lorsqu'une page de catégorie est affichée.
 {# layout used #}
 {% extends "layouts/_base.html" %}
 
+{% set allCategories = craft.categories.group('newsTopics').find() %}
+
 {#
  #	- craft automatically creates a 'category' variable if it detects you are on a category template
  #  - we are just checking whether that category variable exists or not
