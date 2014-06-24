@@ -173,7 +173,7 @@ Vos templates sont localisés dans le dossier `craft/templates` de votre install
 
 Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les templates en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
 
-Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates.
+Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates. Pour une introduction rapide à Twig, vous pouvez consulter les slides de Brandon Kelly sur Slideshare.
 
 #### Template inheritance et includes, deux concepts centraux dans Twig
 
@@ -257,6 +257,10 @@ Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouv
 
 En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/index.html), [Craft possède également quelques tags qui lui dont propres](http://buildwithcraft.com/docs/templating/tags). Nous reviendrons sur certains d'entre-eux dans la suite du cours.
 
+- `{{ Affichage }}`
+- `{% Execution %}`
+- `{# Commentaire #}`
+
 ##### Tags d'affichage, variables et propriétés
 
 `{{ Affichage }}`: ces tags permettent d'afficher des variables. Une notation pointée permet d'accéder aux propriétés de ces variables.
@@ -265,7 +269,7 @@ Exemples:
 
 `{{ myvariable }}`: affiche la variable "myvariable"
 
-`{{ entry.title }}`: affiche la propriété title de la variable entry
+`{{ entry.title }}`: affiche la propriété title de la variable `entry`
 
 ##### Tags d'exécution
 
@@ -805,6 +809,8 @@ Construire un blog simple. Chaque post devra inclure une image afin de pouvoir p
 - [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226) : la communauté Craft sur G+
 - [Episode de CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly) avec Brandon Kelly
 - [Interview de Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) par the Nerdary
-- [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par Jamie Pittock sur Withchief
-- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) par l'inimitable Stephen Lewis : quelques bons exemples au niveau du templating.
-- [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templatng avec Craft et Twig.
+- [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par [Jamie Pittock](https://twitter.com/jamiepittock) sur Withchief
+- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) par l'inimitable [Stephen Lewis](https://twitter.com/monooso) : quelques bons exemples au niveau du templating.
+- [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templating avec Craft et Twig.
+- [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): une présentation de [Brandon Kelly](https://twitter.com/brandonkelly) et une très bonne introduction à Twig.
+- [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): une présentation de [Trevor Davis](https://twitter.com/trevor_davis). Quelques bons trucs et astuces si vous ne connaissez pas encore Twig et Craft.
