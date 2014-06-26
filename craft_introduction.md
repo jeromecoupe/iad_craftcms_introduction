@@ -317,7 +317,7 @@ Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/i
 `dump()` est une fonction extrèmement utile (et seulement disposnible en Dev Mode dans Craft). Essentiel pour le debugging.
 
 ```jinja
-dump(entry)
+{{ dump(entry) }}
 ```
 
 #### Structures de contrôle et conditionnels
