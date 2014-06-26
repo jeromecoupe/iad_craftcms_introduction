@@ -175,9 +175,189 @@ Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier p
 
 Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates.
 
-#### Template inheritance et includes, deux concepts centraux dans Twig
+#### Principaux tags dans Twig
 
-Ces deux concepts sont au coeur de Twig et vont nous permettre de créer des templates efficaces et évitant au maximum les redondances inutiles. C'est le fameux principe du "Don't Repeat Yourself" (DRY).
+En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/index.html), [Craft possède également quelques tags qui lui dont propres](http://buildwithcraft.com/docs/templating/tags). Nous reviendrons sur certains d'entre-eux dans la suite du cours.
+
+- `{# Commentaires #}`
+- `{{ Affichage }}`
+- `{% Execution / Logique %}`
+
+##### Tags d'affichage, variables et propriétés
+
+`{{ Affichage }}`: ces tags permettent d'afficher des variables. Une notation pointée permet d'accéder aux propriétés de ces variables.
+
+Exemples:
+
+`{{ "Hello World" }}`: affiche la variable "myvariable"
+
+`{{ entry.title }}`: affiche la propriété title de la variable entry
+
+`{{ 8 + 2 }}`: affiche la propriété title de la variable entry
+
+##### Tags d'exécution ou de logique
+
+`{% Execution / Logique %}`: ces tags permettent l'exécution de tâches et sont utilisés pour créer des variables, réaliser des boucles, créer des structures de contrôle, etc.
+
+Exemples:
+
+Créer une variable "allentries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
+
+`{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
+
+Boucler sur l'ensemble des entries en créant à chaque fois un objet "entry" dont nous affichons le titre.
+
+```jinja
+{% for entry in allEntries %}
+	<p>{{ entry.title }}</p>
+{% endfor %}
+```
+
+Créer une [structure de contrôle](http://twig.sensiolabs.org/doc/templates.html#control-structure) vérifiant si la variable "allentries" contient au minimum une entry.
+
+```jinja
+{% if allEntries|length %}
+	<p>There is at least one entry here</p>
+{% endif %}
+```
+
+##### Tags de commentaires
+
+Twig possède également un tag de commentaire: `{# Ceci est un commentaire #}`. Ceux-ci ne sont pas affiché lorsque le template est affiché.
+
+##### Jamais de tags à l'intérieur d'autres tags
+
+Dans Twig, ceci est incorrect
+
+`{{ "Hello {{ firstname }}" }}`
+`{% set total = {{ itemPrice }} * {{ itemsNbr }} %}`
+
+Il vous faudra utiliser les syntaxes suivantes
+
+`{{ "Hello " ~ firstname }}`
+`{% set total = itemPrice * itemsNbr %}`
+
+#### Types de données et variables dans Twig
+
+Twig supporte 4 grands types de données:
+
+- Strings: `"Hello"` ou `'Hello'`
+- Numbers: `4` ou `3.1498`
+- Booleans: `true` ou `false`
+- Arrays: `['orange', 'lemon', 'apple']`
+- Objects: `{ foo: 'bar' }`
+
+Comme dit plus haut, vous pouvez assigner une valeur à une variable dans Twig en utilisant le tag `{% set %}`
+
+`{% set firstName = "Jérôme" %}`
+`{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
+
+
+#### Filtres
+
+[Twig comporte de nombreux filtres](http://twig.sensiolabs.org/doc/filters/index.html) pouvant être appliqués à vos différents types de variables (string, array, number, etc) pour les modifier. Ces filtres offrent de nombreuses possibilités et permettent à Craft de se passer de nombreux plugins pour effectuer des tâches simples. Craft possède également [ses propres filtres](http://buildwithcraft.com/docs/templating/filters). Voici quelques exemples de ce qu'il est possible d'accomplir:
+
+Convertir une string en title case
+
+`{{ entry.title|title }}`
+
+Réaliser des opérations sur les dates et les formatter
+
+`{{ entry.postDate|date_modify("+1 day")|date("m/d/Y") }}`
+
+Déterminer la longueur d'une string, d'un array ou d'un objet
+
+`{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
+`{{ allEntries|length }}`
+
+
+Vous pouvez également appliquer des filtres à plusieurs lignes de votre template et pas seulement à une variable.
+
+```jinja
+{% filter upper %}
+    This text becomes uppercase
+{% endfilter %}
+```
+
+Ces filtres peuvent également être combinés
+
+`{{ "Hello World"|upper|slice(0,5) }}`
+
+#### Fonctions
+
+Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/index.html) permettent de produire et de manipuler des contenus. Craft possède également [ses propres fonctions](http://buildwithcraft.com/docs/templating/functions), en plus de celles fournies par Twig.
+
+```jinja
+{% for entry in allEntries %}
+    <li class="{{ cycle(['odd', 'even'],loop.index0) }}">{{ entry.title }}</li>
+{% endfor %}
+```
+
+```jinja
+{{ min([1, 2, 3]) }}
+{{ max([1, 2, 3]) }}
+{{ random(10) }}
+```
+
+`dump()` est une fonction extrèmement utile (et seulement disposnible en Dev Mode dans Craft). Essentiel pour le debugging.
+
+`dump(entry)`
+
+#### Structures de contrôle et conditionnels
+
+Twig vous permet de créer des structures de contrôles complexes à l'aide de conditionnels.
+
+```jinja
+{% if allEntries|length %}
+	<p>There is at least one entry here</p>
+{% endif %}
+```
+
+If / else
+
+```jinja
+{% if userGender == "female" %}
+	<p>Hello, how are you doing?<p>
+{% else %}
+	<p>Hey dude, how are things?</p>
+{% endif %}
+```
+
+Conditions imbriquées
+
+```jinja{% if user %}  {% if user.male %}    <p>Hey there handsome!</p>  {% else %}    <p>Hey pretty lady!</p>  {% endif %}{% elseif username %}  <p>Is this {{ username }}?</p>{% else %}  <p>Have we met?</p>{% endif %}
+```
+Conditions cumulées```jinja{% if user and user.male %}{% if user or admin %}
+```
+
+Loop
+
+```jinja
+{% for entry in allEntries %}
+	{% if loop.first %}<ul>{% endif %}
+		<li>
+			<article>
+				<h2>{{ entry.title }}</h2>
+				{{ entry.summary }}
+			</article>
+		</li>
+	{% if loop.last %}</ul>{% endif %}
+{% else %}
+	<p>No entries found</p>
+{% endfor %}
+```
+
+#### Expressions Mathématiques
+
+Twig est capable d'interprèter toutes sortes d'[opérations mathématiques](http://twig.sensiolabs.org/doc/templates.html#math) et de manipuler des chaînes de caractères (strings).
+
+#### Contrôle du whitespace
+
+Twig vous permet de contrôler la façon dont votre code est affiché, [particulièrement au niveau du whitespace](http://twig.sensiolabs.org/doc/templates.html#whitespace-control).
+
+#### Template inheritance, includes et macros: stay DRY
+
+Ces trois concepts sont au coeur de Twig et vont nous permettre de créer des templates efficaces et évitant au maximum les redondances inutiles. C'est le fameux principe du "Don't Repeat Yourself" (DRY).
 
 ##### Template inheritance
 
@@ -253,79 +433,9 @@ Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouv
 
 `{% include 'sidebars/sidebars/_default.html' %}`
 
-#### Principaux tags dans Twig
+##### Macros
 
-En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/index.html), [Craft possède également quelques tags qui lui dont propres](http://buildwithcraft.com/docs/templating/tags). Nous reviendrons sur certains d'entre-eux dans la suite du cours.
-
-##### Tags d'affichage, variables et propriétés
-
-`{{ Affichage }}`: ces tags permettent d'afficher des variables. Une notation pointée permet d'accéder aux propriétés de ces variables.
-
-Exemples:
-
-`{{ myvariable }}`: affiche la variable "myvariable"
-
-`{{ entry.title }}`: affiche la propriété title de la variable entry
-
-##### Tags d'exécution
-
-`{% Execution %}`: ces tags permettent l'exécution de tâches et sont utilisés pour créer des variables, réaliser des boucles, créer des structures de contrôle, etc.
-
-Exemples:
-
-Créer une variable "allentries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
-
-`{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
-
-Boucler sur l'ensemble des entries en créant à chaque fois un objet "entry" dont nous affichons le titre.
-
-```jinja
-{% for entry in allEntries %}
-	<p>{{ entry.title }}</p>
-{% endfor %}
-```
-
-Créer une [structure de contrôle](http://twig.sensiolabs.org/doc/templates.html#control-structure) vérifiant si la variable "allentries" contient au minimum une entry.
-
-```jinja
-{% if allEntries|length %}
-	<p>There is at least one entry here</p>
-{% endif %}
-```
-
-##### Tags de commentaires
-
-Twig possède également un tag de commentaire: `{# Ceci est un commentaire #}`. Ceux-ci ne sont pas affiché lorsque le template est affiché.
-
-#### Filtres
-
-[Twig comporte de nombreux filtres](http://twig.sensiolabs.org/doc/filters/index.html) pouvant être appliqués à vos différents types de variables (string, array, number, etc). Ces filtres offrent de nombreuses possibilités et permettent à Craft de se passer de nombreux plugins pour effectuer des tâches simples. Craft possède également [ses propres filtres](http://buildwithcraft.com/docs/templating/filters). Voici quelques exemples de ce qu'il est possible d'accomplir:
-
-Convertir une string en title case
-
-`{{ entry.title|title }}`
-
-Réaliser des opérations sur les dates et les formatter
-
-`{{ entry.postDate|date_modify("+1 day")|date("m/d/Y") }}`
-
-Vous pouvez également appliquer des filtres à plusieurs lignes de votre template et pas seulement à une variable.
-
-```jinja
-{% filter upper %}
-    This text becomes uppercase
-{% endfilter %}
-```
-
-#### Fonctions
-
-Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/index.html) permettent de produire et de manipuler des contenus. Craft possède également [ses propres fonctions](http://buildwithcraft.com/docs/templating/functions), en plus de celles fournies par Twig.
-
-```jinja
-{% for entry in allEntries %}
-    <li class="{{ cycle(['odd', 'even'],loop.index0) }}">{{ entry.title }}</li>
-{% endfor %}
-```
+@TODO
 
 ### Récupérer vos données à l'aide de Craft
 
