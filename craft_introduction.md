@@ -1,4 +1,4 @@
-# Craft : Introduction
+# Craft by Pixel&Tonic: Introduction
 
 ## Craft
 
@@ -173,7 +173,7 @@ Vos templates sont localisés dans le dossier `craft/templates` de votre install
 
 Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les templates en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
 
-Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates.
+Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates. Pour une introduction rapide à Twig, vous pouvez consulter les slides de Brandon Kelly sur Slideshare.
 
 #### Principaux tags dans Twig
 
@@ -189,11 +189,11 @@ En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/ind
 
 Exemples:
 
-`{{ "Hello World" }}`: affiche la variable "myvariable"
+`{{ "Hello World" }}`: affiche la chaîne de caractères "Hello World"
 
-`{{ entry.title }}`: affiche la propriété title de la variable entry
+`{{ entry.title }}`: affiche la propriété title de l'objet entry
 
-`{{ 8 + 2 }}`: affiche la propriété title de la variable entry
+`{{ 8 + 2 }}`: affiche 10
 
 ##### Tags d'exécution ou de logique
 
@@ -251,7 +251,6 @@ Comme dit plus haut, vous pouvez assigner une valeur à une variable dans Twig e
 
 `{% set firstName = "Jérôme" %}`
 `{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
-
 
 #### Filtres
 
@@ -325,9 +324,24 @@ If / else
 
 Conditions imbriquées
 
-```jinja{% if user %}  {% if user.male %}    <p>Hey there handsome!</p>  {% else %}    <p>Hey pretty lady!</p>  {% endif %}{% elseif username %}  <p>Is this {{ username }}?</p>{% else %}  <p>Have we met?</p>{% endif %}
+```jinja
+{% if user %}
+  {% if user.male %}
+    <p>Hey there handsome!</p>
+  {% else %}
+    <p>Hey pretty lady!</p>
+  {% endif %}
+{% elseif username %}
+  <p>Is this {{ username }}?</p>
+{% else %}
+  <p>Have we met?</p>
+{% endif %}
 ```
-Conditions cumulées```jinja{% if user and user.male %}{% if user or admin %}
+Conditions cumulées
+
+```jinja
+{% if user and user.male %}
+{% if user or admin %}
 ```
 
 Loop
@@ -347,9 +361,12 @@ Loop
 {% endfor %}
 ```
 
-#### Expressions Mathématiques
+#### Expressions Mathématiques et manipulation de chaînes de caractères
 
 Twig est capable d'interprèter toutes sortes d'[opérations mathématiques](http://twig.sensiolabs.org/doc/templates.html#math) et de manipuler des chaînes de caractères (strings).
+
+`{{ 10 * (8+2) }}`
+`{{ "Hello World"|slice(0,5) }}`
 
 #### Contrôle du whitespace
 
@@ -433,13 +450,29 @@ Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouv
 
 `{% include 'sidebars/sidebars/_default.html' %}`
 
-##### Macros
+#### Macros
 
-@TODO
+Les Macros dans Twig sont comparables à des mixins en Sass. Pensez à elles comme à de petits blocs de code réutilisables.
 
-### Récupérer vos données à l'aide de Craft
+Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soit dans un fochier externe, soit dans le même fichier dans lequel elle est utilisée.
 
-Voyons maintenant comment récupérer vos données à l'aide des tags `craft.entries`, `craft.users`, `craft.assets`, `craft.categories` et `craft.tags` qui seront sans doute vos outils principaux.
+```jinja
+{% macro errors(list) %}  {% if list|length %}    <ul class="errors">      {% for error in list %}        <li>{{ error }}</li>      {% endfor %}    </ul>  {% endif %}{% endmacro %}```
+
+Les macros sont appellées / importées à l'aide du tag `{% import %}`
+
+Si la macro est définie dans le même fichier
+
+```jinja
+{% import _self as formErrors %}{{ formErrors.errors(entry.allErrors) }}```
+
+Si la macro est définie dans un fichier extérieur
+
+```jinja
+{% import "_macros/errors" as formErrors %}{{ formErrors.errors(entry.allErrors) }}```
+### Récupérer vos données avec Craft
+
+Voyons maintenant comment récupérer vos données à l'aide des tags `craft.entries`, `craft.users`, `craft.assets`, `craft.categories` et `craft.tags` qui seront vos outils principaux.
 
 Nous nous centrerons ici principalement sur `craft.entries`. Les autres tags ayant un fonctionnement très similaire, il vous sera facile d'appliquer les mêmes principes.
 
@@ -592,7 +625,9 @@ Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de p
 {% endfor %}
 ```
 
-Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/index.html) valent également la peine d'être consultés, notamment le test `is defined`.
+Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/index.html) valent également la peine d'être consultés, notamment le test `is defined`. Les tests disponibles dans Twig sont:
+
+- is constant- is defined- is divisible by- is empty- is even- is iterable- is null- is odd- is same as
 
 ##### Pagination
 
@@ -876,10 +911,10 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 
 		{% case "textModule" %}
 			{{ module.text }}
-	
+
 		{% case "imageModule" %}
 			{% set image = module.file.first() %}
-	
+
 			<figure class="figure">
 				<img src="{{ image.getUrl(smallThumb) }}" alt="{{ image.title }}" />
 				<figcaption class="figure__info">
@@ -887,7 +922,7 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 					<p class="figure__copyright">{{ module.copyright }}</p>
 				</figcaption>
 			</figure>
-			
+
 	{% endswitch %}
 
 {% endfor %}
@@ -915,6 +950,8 @@ Construire un blog simple. Chaque post devra inclure une image afin de pouvoir p
 - [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226) : la communauté Craft sur G+
 - [Episode de CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly) avec Brandon Kelly
 - [Interview de Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) par the Nerdary
-- [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par Jamie Pittock sur Withchief
-- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) par l'inimitable Stephen Lewis : quelques bons exemples au niveau du templating.
-- [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templatng avec Craft et Twig.
+- [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par [Jamie Pittock](https://twitter.com/jamiepittock) sur Withchief
+- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) par l'inimitable [Stephen Lewis](https://twitter.com/monooso) : quelques bons exemples au niveau du templating.
+- [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templating avec Craft et Twig.
+- [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): une présentation de [Brandon Kelly](https://twitter.com/brandonkelly) et une très bonne introduction à Twig.
+- [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): une présentation de [Trevor Davis](https://twitter.com/trevor_davis). Quelques bons trucs et astuces si vous ne connaissez pas encore Twig et Craft.
