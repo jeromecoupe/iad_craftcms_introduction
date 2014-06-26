@@ -24,6 +24,7 @@ Les principaux atouts de Craft sont à mon sens:
 - Une quantité impressionnantes de fonctionnalités qui rendront la vie de vos clients plus facile: live preview, control panel responsive, one click updates, etc.
 - Un découplage important entre votre structure de dossiers et de fichiers et la manière dont sont construites les URL. La structure de vos URL est donc extrêmement flexible.
 - Une solution intégrée et complète pour les sites multilingues.
+- Une équipe de développement et de support fantastique
 
 ## Définir et structurer votre projet
 
@@ -203,7 +204,9 @@ Exemples:
 
 Créer une variable "allentries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
 
-`{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
+```jinja
+{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
+```
 
 Boucler sur l'ensemble des entries en créant à chaque fois un objet "entry" dont nous affichons le titre.
 
@@ -229,13 +232,17 @@ Twig possède également un tag de commentaire: `{# Ceci est un commentaire #}`.
 
 Dans Twig, ceci est incorrect
 
-`{{ "Hello {{ firstname }}" }}`
-`{% set total = {{ itemPrice }} * {{ itemsNbr }} %}`
+```jinja
+{{ "Hello {{ firstname }}" }}
+{% set total = {{ itemPrice }} * {{ itemsNbr }} %}
+```
 
 Il vous faudra utiliser les syntaxes suivantes
 
-`{{ "Hello " ~ firstname }}`
-`{% set total = itemPrice * itemsNbr %}`
+```jinja
+{{ "Hello " ~ firstname }}
+{% set total = itemPrice * itemsNbr %}
+```
 
 #### Types de données et variables dans Twig
 
@@ -249,8 +256,10 @@ Twig supporte 4 grands types de données:
 
 Comme dit plus haut, vous pouvez assigner une valeur à une variable dans Twig en utilisant le tag `{% set %}`
 
-`{% set firstName = "Jérôme" %}`
-`{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
+```jinja
+{% set firstName = "Jérôme" %}`
+{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
+```
 
 #### Filtres
 
@@ -258,17 +267,22 @@ Comme dit plus haut, vous pouvez assigner une valeur à une variable dans Twig e
 
 Convertir une string en title case
 
-`{{ entry.title|title }}`
+```jinja
+{{ entry.title|title }}
+```
 
 Réaliser des opérations sur les dates et les formatter
 
-`{{ entry.postDate|date_modify("+1 day")|date("m/d/Y") }}`
+```jinja
+{{ entry.postDate|date_modify("+1 day")|date("m/d/Y") }}
+```
 
 Déterminer la longueur d'une string, d'un array ou d'un objet
 
-`{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}`
-`{{ allEntries|length }}`
-
+```jinja
+{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
+{{ allEntries|length }}
+```
 
 Vous pouvez également appliquer des filtres à plusieurs lignes de votre template et pas seulement à une variable.
 
@@ -280,7 +294,9 @@ Vous pouvez également appliquer des filtres à plusieurs lignes de votre templa
 
 Ces filtres peuvent également être combinés
 
-`{{ "Hello World"|upper|slice(0,5) }}`
+```jinja
+{{ "Hello World"|upper|slice(0,5) }}
+```
 
 #### Fonctions
 
@@ -300,7 +316,9 @@ Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/i
 
 `dump()` est une fonction extrèmement utile (et seulement disposnible en Dev Mode dans Craft). Essentiel pour le debugging.
 
-`dump(entry)`
+```jinja
+dump(entry)
+```
 
 #### Structures de contrôle et conditionnels
 
@@ -337,11 +355,12 @@ Conditions imbriquées
   <p>Have we met?</p>
 {% endif %}
 ```
+
 Conditions cumulées
 
 ```jinja
 {% if user and user.male %}
-{% if user or admin %}
+{% if superAdmin or admin %}
 ```
 
 Loop
@@ -365,8 +384,10 @@ Loop
 
 Twig est capable d'interprèter toutes sortes d'[opérations mathématiques](http://twig.sensiolabs.org/doc/templates.html#math) et de manipuler des chaînes de caractères (strings).
 
-`{{ 10 * (8+2) }}`
-`{{ "Hello World"|slice(0,5) }}`
+```jinja
+{{ 10 * (8+2) }}
+{{ "Hello World"|slice(0,5) }}
+```
 
 #### Contrôle du whitespace
 
@@ -448,11 +469,13 @@ Remarquez également que nous écrivons le nom du template "parent" précédé p
 
 Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouvez également utiliser le tag `{% include %}` qui vous permet d'inclure un template au sein d'un autre.
 
-`{% include 'sidebars/sidebars/_default.html' %}`
+```jinja
+{% include 'sidebars/sidebars/_default.html' %}
+``
 
 #### Macros
 
-Les Macros dans Twig sont comparables à des mixins en Sass. Pensez à elles comme à de petits blocs de code réutilisables.
+[Les Macros](http://twig.sensiolabs.org/doc/tags/macro.html) dans Twig sont comparables à des mixins en Sass. Pensez à elles comme à de petits blocs de code réutilisables.
 
 Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soit dans un fochier externe, soit dans le même fichier dans lequel elle est utilisée.
 
