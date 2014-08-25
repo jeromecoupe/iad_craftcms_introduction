@@ -190,11 +190,9 @@ En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/ind
 
 Exemples:
 
-`{{ "Hello World" }}`: affiche la chaîne de caractères "Hello World"
-
-`{{ entry.title }}`: affiche la propriété title de l'objet entry
-
-`{{ 8 + 2 }}`: affiche 10
+- `{{ "Hello World" }}`: affiche la chaîne de caractères "Hello World"
+- `{{ entry.title }}`: affiche la propriété title de l'objet entry
+- `{{ 8 + 2 }}`: affiche 10
 
 ##### Tags d'exécution ou de logique
 
