@@ -62,7 +62,7 @@ Les sections de type channel peuvent contenir différents types d'entries ("entr
 
 Pour chaque entry type disponible vous pouvez spécifier un field layout: assigner à votre entry type des custom fields qui vont définir la data-structure de toutes les entries de ce type
 
-L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](http://buildwithcraft.com/help/entry-type-urls), comme [dans vos tags craft.entries et vos tests conditonnels](http://buildwithcraft.com/docs/templating/entrymodel#type)
+L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](http://buildwithcraft.com/help/entry-type-urls), comme [dans vos tags craft.entries et vos tests conditionnels](http://buildwithcraft.com/docs/templating/entrymodel#type)
 
 #### Sections de type structures
 
@@ -174,7 +174,7 @@ Vos templates sont localisés dans le dossier `craft/templates` de votre install
 
 Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les templates en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
 
-Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates. Pour une introduction rapide à Twig, vous pouvez consulter les slides de Brandon Kelly sur Slideshare.
+Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates. Pour une introduction rapide à Twig, vous pouvez [consulter les slides de Brandon Kelly sur Slideshare](http://www.slideshare.net/brandonkelly212/twig-for-designers).
 
 #### Principaux tags dans Twig
 
@@ -200,7 +200,7 @@ Exemples:
 
 Exemples:
 
-Créer une variable "allentries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
+Créer une variable "allEntries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
 
 ```jinja
 {% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
@@ -214,7 +214,7 @@ Boucler sur l'ensemble des entries en créant à chaque fois un objet "entry" do
 {% endfor %}
 ```
 
-Créer une [structure de contrôle](http://twig.sensiolabs.org/doc/templates.html#control-structure) vérifiant si la variable "allentries" contient au minimum une entry.
+Créer une [structure de contrôle](http://twig.sensiolabs.org/doc/templates.html#control-structure) vérifiant si la variable "allEntries" contient au minimum une entry.
 
 ```jinja
 {% if allEntries|length %}
@@ -312,7 +312,7 @@ Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/i
 {{ random(10) }}
 ```
 
-`dump()` est une fonction extrèmement utile (et seulement disposnible en Dev Mode dans Craft). Essentiel pour le debugging.
+`dump()` est une fonction extrêmement utile (et seulement disponible en Dev Mode dans Craft). Essentiel pour le debugging.
 
 ```jinja
 {{ dump(entry) }}
@@ -380,7 +380,7 @@ Loop
 
 #### Expressions Mathématiques et manipulation de chaînes de caractères
 
-Twig est capable d'interprèter toutes sortes d'[opérations mathématiques](http://twig.sensiolabs.org/doc/templates.html#math) et de manipuler des chaînes de caractères (strings).
+Twig est capable d'interpréter toutes sortes d'[opérations mathématiques](http://twig.sensiolabs.org/doc/templates.html#math) et de manipuler des chaînes de caractères (strings).
 
 ```jinja
 {{ 10 * (8+2) }}
@@ -407,21 +407,18 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 
 ```jinja
 <!DOCTYPE html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html class="no-js" lang="en">
 
 <head>
-	<meta charset="utf-8" />
+	<meta charset="utf-8">
 
 	<title>{% if htmlTitle is defined %}{{ htmlTitle }} - Mysite{% else %}My generic title{% endif %}</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="shortcut icon" href="{{ siteUrl }}/favicon.ico" />
-	<link rel="stylesheet" media="screen" href="{{ siteUrl }}/assets/css/screen.css" />
-	<link rel="stylesheet" media="print" href="{{ siteUrl }}/assets/css/print.css" />
+	<link rel="shortcut icon" href="{{ siteUrl }}/favicon.ico">
+	<link rel="stylesheet" media="screen" href="{{ siteUrl }}/assets/css/screen.css">
+	<link rel="stylesheet" media="print" href="{{ siteUrl }}/assets/css/print.css">
 
 	<script src="{{ siteUrl }}/assets/js/libs/modernizr.js"></script>
 
@@ -459,7 +456,7 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 {% endblock %}
 ```
 
-Le template `news/index.html étend notre layout de base. Le contenu défini dans le block "content" du template enfant remplace celui qui est (de façon optionnelle) défini dans le template parent. La variable `htmlTitle` définie dans le template enfant est accessible dans le template parent.
+Le template `news/index.html` étend notre layout de base. Le contenu défini dans le block "content" du template enfant remplace celui qui est (de façon optionnelle) défini dans le template parent. La variable `htmlTitle` définie dans le template enfant est accessible dans le template parent.
 
 Remarquez également que nous écrivons le nom du template "parent" précédé par un underscore. Craft nous permet ainsi de cacher certains templates que nous ne voulons pas voir chargé directement par les visiteurs du site.
 
@@ -469,18 +466,18 @@ Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouv
 
 ```jinja
 {% include 'sidebars/sidebars/_default.html' %}
-``
+```
 
 #### Macros
 
 [Les Macros](http://twig.sensiolabs.org/doc/tags/macro.html) dans Twig sont comparables à des mixins en Sass. Pensez à elles comme à de petits blocs de code réutilisables.
 
-Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soit dans un fochier externe, soit dans le même fichier dans lequel elle est utilisée.
+Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soit dans un fichier externe, soit dans le même fichier dans lequel elle est utilisée.
 
 ```jinja
 {% macro errors(list) %}  {% if list|length %}    <ul class="errors">      {% for error in list %}        <li>{{ error }}</li>      {% endfor %}    </ul>  {% endif %}{% endmacro %}```
 
-Les macros sont appellées / importées à l'aide du tag `{% import %}`
+Les macros sont appelées / importées à l'aide du tag `{% import %}`
 
 Si la macro est définie dans le même fichier
 
@@ -648,7 +645,7 @@ Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de p
 
 Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/index.html) valent également la peine d'être consultés, notamment le test `is defined`. Les tests disponibles dans Twig sont:
 
-- is constant- is defined- is divisible by- is empty- is even- is iterable- is null- is odd- is same as
+- `is constant`- `is defined`- `is divisible by`- `is empty`- `is even`- `is iterable`- `is null`- `is odd`- `is same as`
 
 ##### Pagination
 
