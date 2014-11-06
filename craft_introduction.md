@@ -469,7 +469,7 @@ Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouv
 
 ```jinja
 {% include 'sidebars/sidebars/_default.html' %}
-``
+```
 
 #### Macros
 
@@ -478,19 +478,33 @@ Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouv
 Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soit dans un fochier externe, soit dans le même fichier dans lequel elle est utilisée.
 
 ```jinja
-{% macro errors(list) %}  {% if list|length %}    <ul class="errors">      {% for error in list %}        <li>{{ error }}</li>      {% endfor %}    </ul>  {% endif %}{% endmacro %}```
+{% macro errors(list) %}
+  {% if list|length %}
+    <ul class="errors">
+      {% for error in list %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+```
 
 Les macros sont appellées / importées à l'aide du tag `{% import %}`
 
 Si la macro est définie dans le même fichier
 
 ```jinja
-{% import _self as formErrors %}{{ formErrors.errors(entry.allErrors) }}```
+{% import _self as formErrors %}
+{{ formErrors.errors(entry.allErrors) }}
+```
 
 Si la macro est définie dans un fichier extérieur
 
 ```jinja
-{% import "_macros/errors" as formErrors %}{{ formErrors.errors(entry.allErrors) }}```
+{% import "_macros/errors" as formErrors %}
+{{ formErrors.errors(entry.allErrors) }}
+```
+
 ### Récupérer vos données avec Craft
 
 Voyons maintenant comment récupérer vos données à l'aide des tags `craft.entries`, `craft.users`, `craft.assets`, `craft.categories` et `craft.tags` qui seront vos outils principaux.
@@ -648,7 +662,15 @@ Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de p
 
 Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/index.html) valent également la peine d'être consultés, notamment le test `is defined`. Les tests disponibles dans Twig sont:
 
-- is constant- is defined- is divisible by- is empty- is even- is iterable- is null- is odd- is same as
+- is constant
+- is defined
+- is divisible by
+- is empty
+- is even
+- is iterable
+- is null
+- is odd
+- is same as
 
 ##### Pagination
 
