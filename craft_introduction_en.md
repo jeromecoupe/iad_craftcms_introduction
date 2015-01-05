@@ -2,228 +2,217 @@
 
 ## Craft
 
-[Craft](http://buildwithcraft.com/) est un CMS récent créé par [Pixel & Tonic](http://pixelandtonic.com/). Craft est développé à l'aide de technologies open source comme PHP et MySQL et s'appuie sur un framework PHP qui a fait ses preuves: [Yii](http://www.yiiframework.com/).
+[Craft](http://buildwithcraft.com/) is a young and very capable CMS created by [Pixel & Tonic](http://pixelandtonic.com/). Craft is developed using open source technologies like PHP and MySQL and is based on a PHP framework that has a great track record: [Yii](http://www.yiiframework.com/).
 
-Comparé à d'autres produits, Craft est axé sur l'essentiel: définir et gérer vos contenus, et ce de la façon la plus modulaire et flexible possible. Si vous avez besoin d'un moteur de commentaires, d'un forum ou encore d'e-commerce, il faudra vous tourner vers des plugins.
+Compared to other products, Craft focuses on the essential: defining and managing your content in the most modular and flexible way possible. If you need comments, a forum or e-commerce, you will have to turn to plugins.
 
-### Un modèle de pricing modulaire
+### A modular pricing model
 
-Cette flexibilité est présente jusque dans [le pricing](http://buildwithcraft.com/pricing) du produit lui même.
+This flexibility is present into the pricing of the product itself.
 
-- La version "Core" de Craft est gratuite et vous permet de développer facilement des sites assez simples en terme de data structure.
-- Une version "Client" à 199$ vous permet de disposer de fonctionnalités plus avancées et d'une gestion utilisateurs basique.
-- Une version "Pro" à 299$ vous permet de disposer de toutes les fonctionnalités de Craft, y compris ses fonctionnalités multilingue et de gestion d'utilisateurs.
+- The "Core" version of Craft is free and allows you to easily develop and manage sites with a relatively simple data structure.
+- The "Client" version costs $199 and allows you to use more advanced features in terms of content management but only offers you basic user management.
+- The "Pro" version costs $299 and allows you to use all the features of Craft, including its adavanced multilingual capabilities and granular user management.
 
-### Atouts
+# Strengths
 
-Les principaux atouts de Craft sont à mon sens:
+In my opinion, the main strengths of Craft are:
 
-- Une flexibilité dans la définition de votre data structure rarement égalée. Les 16 field types disponibles par défaut permettent une approche extrêmement modulaire.
-- A propos de champs et de modularité, Matrix est véritablement un atout de Craft en ce qui concerne la flexibilité de vore data structure tout en préservant votre contrôle sur le code front-end généré.
-- [L'utilisation de Twig comme language de templating](http://twig.sensiolabs.org/doc/templates.html): cela induit un temps d'apprentissage mais les gains en termes de puissance, de modularité et de flexibilités sont étonnants. Toute la puissance et la maturité de Twig sont au services de vos templates.
-- Une quantité impressionnantes de fonctionnalités qui rendront la vie de vos clients plus facile: live preview, control panel responsive, one click updates, etc.
-- Un découplage important entre votre structure de dossiers et de fichiers et la manière dont sont construites les URL. La structure de vos URL est donc extrêmement flexible.
-- Une solution intégrée et complète pour les sites multilingues.
-- Une équipe de développement et de support fantastique
+- An unparalleled flexibility in the definition of your item types and of their data structure. The 16 field types available by default allow for an extremely modular approach of your content.
+- Speaking of modular fields, Matrix is certainly Craft's main asset in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
+- Using Twig as its templating language. Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularily and flexibility for your templates are amazing.
+- An impressive amount of features available out of the box, designed to make your life and the life of your users easier: live preview, responsive control panel, one click updates, multiple environments configurations, etc.
+- Freedom to build your own URL structure: there is almost no relation between your URL structure and your folder and files structure, thanks to a very flexible routing mechanism.
+- An integrated and comprehensive solution for multilingual sites.
+- A fantastic development and support team.
 
-## Définir et structurer votre projet
+## Define and structure your project
 
-Comme dit plus haut, Craft vous permet de structurer les données de votre site de façon extrêmement flexible et modulaire.
+Craft allows you to create a very flexible and modular data structure for your project.
 
-### Sections, Entries et entry types
+### Sections, Entries and entry types
 
-Dans Craft, vos contenus vont principalement "vivre" dans des entries, elles-même contenues dans des sections.
+With Craft, your content will mainly live in entries. Those entries are grouped under entry types to form sections.
 
-La data structure de ces entries va être déterminée par les custom fields que vous ajouterez à ces sections. Pour chaque entry type dans Craft, vous pouvez créer un field layout qui va préciser quels fields vont être utilisés pour définir les entries de cette section.
+The data structure of those entries is created by assigning custom fields to the entry types you defined for each sections. For each of those entry type, you can create a field layout defining which fields will be used by all entries of that type in a given section.
 
-Il y a [trois grands types de sections](http://buildwithcraft.com/docs/sections-and-entries) dans craft: singles, channels et structures.
+There are [three types of sections](http://buildwithcraft.com/docs/sections-and-entries): singles, channels and structures.
 
-#### Sections de type single
+#### Single sections
 
-Ces sections contiennent un seul entry type et une seule entry. Elles sont utilisées pour les pages particulières de votre site, comme par exemple une page "about" ou votre "homepage".
+These sections contain only one entry type and only one entry. They are used to create one off pages in your site, like an "about page" or a "homepage".
 
-Via l'écran de configuration de la section vous pouvez préciser:
+Using the section configuration screen you can define
 
-- le format de URL de votre unique entry
-- le template à utiliser pour le rendu de l'entry
+- The URL format for the entry.
+- The template Craft should load to display that entry.
 
-Pour l'entry type disponible vous pouvez spécifier un field layout: assigner à votre entry type des custom fields qui vont en définir la data-structure
+The field layout screen allows you to assign custom fields to your entry type in order to define the data structure of your entry.
 
-#### Sections de type channel
+#### Channel sections
 
-Ces sections contiennent un ensemble d'entries que vous pouvez ensuite classer et afficher de diverses façons à l'aide de vos templates.
+Think of those sections as streams of entries that can be filtered, ordered and displayed in various ways using your templates (news, case studies, press releases, pictures, videos, etc.).
 
-Via l'écran de configuration de la section vous pouvez préciser:
+Using the section configuration screen you can define
 
-- le format des URL des entries de la section
-- le template à utiliser pour le rendu des entries de la section
+- The URL format for all entries in that section.
+- The template Craft should load to display entries belonging to that section.
 
-Les sections de type channel peuvent contenir différents types d'entries ("entry types") avec des data structure différentes. Créer un blog permettant de poster divers types de contenus est donc très facile. Vous n'avez besoin que d'une seule section avec différents types d'entrées (video, post, son, galerie photo, etc.).
+Channel sections can contain various entry types, each having their own data structure. Creating a blog allowing you to post various types of content is for example very easy. All you need is a channel section with various entry types (blogposts, links, videos, pictures, etc.)
 
-Pour chaque entry type disponible vous pouvez spécifier un field layout: assigner à votre entry type des custom fields qui vont définir la data-structure de toutes les entries de ce type
+For each entry type defined in your section, you can define the data structure of entries by assigning custom fields to a field layout.
 
-L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](http://buildwithcraft.com/help/entry-type-urls), comme [dans vos tags craft.entries et vos tests conditionnels](http://buildwithcraft.com/docs/templating/entrymodel#type)
+These entry types can easily be [used in routing and URL structures](http://buildwithcraft.com/help/entry-type-urls) as well as in your templates with [craft.entries tags and conditionals](http://buildwithcraft.com/docs/templating/entrymodel#type).
 
-#### Sections de type structure
+#### Structure sections
 
-Les sections de type structure ressemblent beaucoup aux sections de type channel: elles peuvent contenir plusieurs entry types et les patterns d'URL des entries qu'elles contiennent peuvent être précisés.
+Structure sections behave a lot like channel sections: they can contain various entry types and the URL structure of their entries can be specified. The main difference is that their entries can be manually ordered in a hierachical tree. You can  specify the number of levels in that hierarchy.
 
-La grande différence est que ces sections de type structure sont destinées à créer des agencements hiérarchiques d'entries dont l'ordre peut être modifié manuellement. Vous pouvez également préciser le nombre de niveaux possibles dans cette hiérarchie d'entries, les patterns d'URL à utiliser suivant les niveaux des entries dans la hierarchie, ainsi que le template à utiliser pour les entries de la section.
+Using the section configuration screen you can define
 
-Via l'écran de configuration de la section vous pouvez préciser:
+- The URL format for entries in that section. Different URL pattern can be specified for top-level entries and for nested entries.
+- The template Craft should load to display entries belonging to that section.
 
-- le format des URL des entries de la section. Ce format peut être différent pour les entrées de niveau 1 ou pour les entries imbriquées.
-- le template à utiliser pour le rendu des entries de la section
+For each entry type defined in your section, you can define the data structure of entries by assigning custom fields to a field layout.
 
-Pour chaque entry type disponible vous pouvez spécifier:
+### Fields, Field Groups and Field Layouts
 
-- un field layout permettant d'assigner à vos entry type des custom fields qui vont définir la data-structure de toutes les entries de ce type
+Craft comes natively with [16 field types](http://buildwithcraft.com/docs/fields) through which you can define the data structure of your entries.
 
-### Fields, Field Groups et Field Layouts
+A field can be applied to several entries, users, assets, tags, categories or globals via a "field layout" allowing you to perform operations on the fields (ordering, make mandatory or not, etc) via a drag and drop interface.
 
-Craft vous propose [16 types de champs](http://buildwithcraft.com/docs/fields) à l'aide desquels vous pouvez définir la data structure de vos entries.
-
-Dans Craft, un champ peut être appliqué à n'importe quel nombre d'entries, de users, de tags, d'assets, de categories ou de globals via un "field layout" qui permet d'effectuer toutes les opérations sur les fields dans une interface "drag and drop".
-
-Les fields peuvent être groupés au sein de groupes. Ces groupes n'ont qu'une fonction organisationnelle. Créer des groupes permet de gérer plus facilement un grand nombre de champs.
+Fields can be grouped into field groups. These groups are there purely for convenience sake to help you manage big projects more easily.
 
 ### Globals
 
-A côté des sections et des entries, les globals peuvent être utilisées pour stocker du contenu auquel il est possible d'accéder dans vos templates: tagline, coordonnées de contact, code Google Analytics, etc.
+Next to sections and entries, globals can be used to store bits of content or options you want your client to be able to edit easily: tagline, contact data, Google Analytics code, number of entries to display in lists, etc.
 
-Vous pouvez créer des groupes de contenus en utilisant les global sets. Chaque set de globals possède son field layout et donc sa propre data structure. Les différences notables avec les sections et les entries sont que les globals ne possèdent pas d'URL et ne peuvent donc pas être visualisées comme les entries à l'aide de la fonction "live preview".
+Those globals can be grouped together using global sets. Each global set has its own field layout and thus its own data structure. The big difference between global sets and single entries are that global sets do not have their own URLs and cannot make use of the "live preview" function.
 
 ### Users
 
-Dans Craft, les utilisateurs servent à gérer les permissions données aux divers utilisateurs du système.
+Craft has powerful and granular user management allowing you to manage the permissions for all users of the system.
 
-Les utilisateurs peuvent être assignés à divers groupes. Ces groupes sont utilisés pour gérer les permissions données aux utilisateurs qui en sont membres. Un utilisateur peut être assigné à plusieurs groupes.
+Users can be assigned to various user groups. Permissions can be managed at a user group or at a user level. A user can be assigned to multiple groups.
 
-La data structure des utilisateurs peut être aussi complexe que souhaitée. Via un unique Field layout, les champs souhaités peuvent être assignés à la data structure de tous vos utilisateurs.
+The data structure for your users can be defined easily. A unique field layout allows you to assign custom fields to all your users, regardless of their groups.
 
 ### Assets
 
-Les assets vous permettent de gérer vos fichiers Craft. Vos Assets sont enregistrés dans des Asset Sources qui correspondent à des dossiers physiques sur votre serveur.
+Assets allow you to manage your files with Craft (images, videos, sounds, PDFs, etc). Assets are assigned to Asset Sources corresponding to folders on your server, or on external Cloud servers like Rackspace or Amazon S3 if you are the proud owner of a Craft Pro license.
 
-De multiples transformations d'images peuvent être réalisées sur vos assets: crop, scale, quality, etc. Ces transformations vous permettent de créer vos thumbnails pour l'ensemble de votre site à partir d'une image de base.
+Craft allows you to apply transformations (crop, fit, scale, quality, etc.) to images automatically, either in the control panel or dynamically through templates. That feature allows you to generate all the thumbnails you needs from an initial image.
 
-Un field layout est associé à chaque Asset Source et vous permet de créer une data-structure en y d'associant des custom fields. Vos documents peuvent donc avoir une data-structure différente de vos photos par exemple.
+A field layout is available for each Asset Source. Using it in combination with custom fields allow you to create complex data structure for each of your assets types. For example, documents can have a different data structure than photos.
 
 ### Tags
 
-Les tags vous permettent de créer des *folksonomies* et de les appliquer à vos Entries, Users ou Assets.
+Tags allow you to create *folksonomies* and apply them to your Entries, Users or Assets.
 
-Chaque tag doit être assigné à un groupe et chaque groupe de tags possède un field layout. Vous pouvez donc créer des structures de données assez complexes pour chacun de vos groupes de tags.
+Every tag must be assigned to a group and each tag group has a field layout. You can create complex data structures for each of your tag groups if needed.
 
 ### Categories
 
-Les categories vous permettent de créer des taxonomies et de les appliquer à vos Entries, Users ou Assets.
+Categories allow you to create taxonomies and apply them to your Entries, Users or Assets.
 
-Chaque catégorie doit être assignée à un groupe.
+Each category must be assigned to a group and each of them has a dedicated field layout.
 
-- Chaque groupe possède un field layout.
-- Au sein de chaque groupe vous pouvez spécifier la structure des URLs pour vos catégories et vos sous-categories
-- Pour chaque groupe de categories, vous pouvez spécifier le template qui va être chargé quand une URL de catégorie est demandée.
+For each category group, the edit screen allows you to:
+
+- Specify the URL structure for categories and sub categories
+- Specify the template that Craft will load to display when a category URL is requested.
 
 ### Relations
 
-L'une des grandes forces de Craft c'est qu'il est possible très facilement de créer des relations entre Entries, Users, Assets et Tags.
+One of Craft's great strength is its relations system. You can easily craete relations between Entries, Users, Assets and Tags through a series of relational field types:
 
-Pour cela, Craft met à votre disposition des champs relationnels spécifiques:
+- **Assets**: allows you to establish a "one to one" or "one to many" relation to Assets.
+- **Entries**: allows you to establish a "one to one" or "one to many" relation to Entries.
+- **Users**: allows you to establish a "one to one" or "one to many" relation to Users.
+- **Tags**: allows you to establish a "one to one" or "one to many" relation to Tags.
+- **Categories**: allows you to establish a "one to one" or "one to many" relation to Categories.
 
-- **Assets**: permet d'établir une relation "one to one" ou "one to many" vers des Assets
-- **Entries**: permet d'établir une relation "one to one" ou "one to many" vers des Entries
-- **Users**: permet d'établir une relation "one to one" ou "one to many" vers des Users
-- **Tags**: permet d'établir une relation "one to one" ou "one to many" vers des Tags
-- **Categories**: permet d'établir une relation "one to one" ou "one to many" vers des Catégories
+For each of those field, you can specify how many items can be linked and from what source(s) they come from.
 
-Pour chacun des ces tags, vous pouvez spécifier combien d'items peuvent être liés et de quelles sources ils proviennent.
-
-Pour exploiter ces relations dans vos templates, Craft met à votre disposition un outil extrêmement puissant: le paramètre [`relatedTo`](http://buildwithcraft.com/docs/relations#the-relatedTo-param), utilisable avec `craft.entries`, `craft.users`, `craft.assets`, `craft.tags` et `craft.categories`.
+To display and work with these relations in your templates, Craft is giving you a very powerful tool in the form of the [`relatedTo`](http://buildwithcraft.com/docs/relations#the-relatedTo-param) parameter. You can use that parameter with `craft.entries`, `craft.users`, `craft.assets`, `craft.tags` and `craft.categories`.
 
 ### Routing
 
-L'un des autres éléments intéressant de Craft c'est le routing dynamique, qui permet de séparer structure des URLs et architecture de dossiers et de fichiers.
+Another interesting aspect of Craft is its dynamic routing system, which allows you separate your URL structure from your folders and files structure.
 
-Comme nous l'avons déjà vu, Craft cous permet de spécifier une structure d'URL propre pour chaque Entry, User, Asset, Tags and Categories.
+At the most basic level, we have already seen that Craft allows you to specify the URL structure of each of your Entries, Users, Assets, Tags and Categories.
 
-Si cela ne suffit pas à couvrir tous vos besoins, vous pouvez égalment créer des routes dynamiques. Pour chaque route créée, vous pouvez spécifier quel template doit être chargé par Craft.
+If that's not enough to cover all your needs, you can also create dynamic routes independently. For each route you create, you can specify which template must be loaded by Craft. An easy to understand example is [a template giving access to a yearly archive of entries](http://buildwithcraft.com/help/entry-archive#yearly-archive-pages).
 
-Il est possible créer des routes et de spécifier quel template doit être chargé par Craft. Un exemple facile à comprendre est [un template donnant accès à une archive des entries classées par année](http://buildwithcraft.com/help/entry-archive#yearly-archive-pages).
+When you create a dynamic route with the structure of `blog/archive/{year}` calling the template `blog/archive`, the URLs `blog/archive/2013` and `blog/archive/2012` will load the same template and make a `{year}` variable accessible to to Twig in that template. You can for example use it with the [`after`](http://buildwithcraft.com/docs/templating/craft.entries#after) and [`before`](http://buildwithcraft.com/docs/templating/craft.entries#before) perameters of a `craft.entries` tag.
 
-En créant une route dynamique `blog/archive/{year}` renseignant le template `blog/archive`, les URL `blog/archive/2013` et `blog/archive/2012` vont charger le même template et rendre disponible une variable `year` utilisable par Twig et par Craft avec les paramètres [`after`](http://buildwithcraft.com/docs/templating/craft.entries#after) et [`before`](http://buildwithcraft.com/docs/templating/craft.entries#before).
+If you need more possibilities than those the Control Panel gives you, you can [manage your routes in a more advanced way](http://buildwithcraft.com/docs/routing#advanced-routing) using the `config/routes.php` file. That will give you access to all the power of regular expressions in your URL matching patterns.
 
-Si vous avez besoin de plus de possibilités que celles offertes par le control panel, sachez que [les routes peuvent également être gérées via un fichier](http://buildwithcraft.com/docs/routing#advanced-routing) `config/routes.php`, ce qui vous donne accès à du matching d'URL en utilisant des expressions régulières.
+### Search
 
-### Recherche
+Craft also has a [very powerful built-in search system](http://buildwithcraft.com/docs/searching) based on a `search` parameter that can be used with `craft.entries`, `craft.users`, `craft.assets` and `craft.tags`.
 
-Craft possède également un [système de recherche très puissant](http://buildwithcraft.com/docs/searching) basé sur un paramètre `search` utilisable avec les tags `craft.entries`, `craft.users`, `craft.assets` et `craft.tags`.
+For performance reasons, Craft uses indexes for its search functionalities and those indexes can be updated or rebuilt [@TODO] directly from the control panel.
 
-Pour des questions de performance, Craft fonctionne avec des Index pour ses fonctions de recherche. Il est possible d'actualiser ces Index directement depuis le Control Panel.
+It is also easy to build [dynamic search forms](http://buildwithcraft.com/docs/templating/search-form) for your project. All you need to do is to use the `craft.request` tag to be able to [use the GET/POST parameters](http://buildwithcraft.com/docs/templating/craft.request) passed by your form in the context of your results template.
 
-La construction de [formulaires de recherche dynamiques pour le front-end](http://buildwithcraft.com/docs/templating/search-form) de votre projet est également très simple. Il suffit pour cela de faire appel au tag `[craft.request]` pour [récupérer un paramètre passé en GET/POST](http://buildwithcraft.com/docs/templating/craft.request) par votre formulaire.
+## Create your templates
 
-## Créer vos templates
+Now that you know how to create complex data structures for your projects, let's dive into creating your templates with Craft.
 
-Maintenant que vous savez comment créer une structure de données pour votre projet dans Craft, passons à la création des pages de votre site à l'aide des templates.
+All your templates are in the `craft/templates` folder. You can change that location using the `[CRAFT_TEMPLATES_PATH](http://buildwithcraft.com/docs/php-constants#craft-templates-path)` constant.
 
-Vos templates sont localisés dans le dossier `craft/templates` de votre installation
+### Twig as a templating language
 
-### Twig comme language de templating
+Craft uses [Twig](http://twig.sensiolabs.org/), created by Fabien Potencier, as its templating language. Twig compiles all your templates down to raw PHP, which means it os blazing fast. Twig has a small learning curve if you have never done any programming but remains very [accessible to front-end developers](http://twig.sensiolabs.org/doc/templates.html).
 
-Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les templates en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
+Coupled with Craft specific tags, functions and filters, Twig enables you to access your data and manipulate them in your templates. For a quick introduction to Twig other than what follows, have a look at "[Twig for deigners](http://www.slideshare.net/brandonkelly212/twig-for-designers)", a presentation by Brandon Kelly available on Slideshare.
 
-Couplé à des tags, fonctions et filtres spécifiques à Craft, Twig vous permet de récupérer et de manipuler vos données au sein de vos templates. Pour une introduction rapide à Twig, vous pouvez [consulter les slides de Brandon Kelly sur Slideshare](http://www.slideshare.net/brandonkelly212/twig-for-designers).
+#### Main tags in Twig
 
-#### Principaux tags dans Twig
+On top of the [tags available in Twig](http://twig.sensiolabs.org/doc/tags/index.html), Craft also has [a few tags of its own](http://buildwithcraft.com/docs/templating/tags). We will cover some of them in the rest of this course.
 
-En plus des [tags disponibles dans Twig](http://twig.sensiolabs.org/doc/tags/index.html), [Craft possède également quelques tags qui lui dont propres](http://buildwithcraft.com/docs/templating/tags). Nous reviendrons sur certains d'entre-eux dans la suite du cours.
+Twig has three main types of tags:
 
-Twig possède trois grands types de tags:
+- `{# Comments #}`
+- `{{ Output }}`
+- `{% Execution / Logic %}`
 
-- `{# Commentaires #}`
-- `{{ Affichage }}`
-- `{% Execution / Logique %}`
+##### Comment tags
 
-##### Tags de commentaires
+Twig comment tags are not rendered in the compiled template: `{# This is a comment: not rendered in the compiled template #}`.
 
-Twig possède également un tag de commentaire: `{# Ceci est un commentaire #}`. Ceux-ci ne sont pas affiché lorsque le template est affiché.
+##### Output tags, variables and properties
 
-##### Tags d'affichage, variables et propriétés
-
-`{{ Affichage }}`: ces tags vous permettent d'afficher des chaines de caractère, nombres, booléens, tableaux et objects dans vos templates. La plupart du temps, vous afficherez des variables créées par vous ou par Craft.
-
-Une notation pointée permet d'accéder aux propriétés de ces variables.
-
-These tags allow you to output strings, numbers, booleans, arrays and objects to the browser. Most of the time you will be outputting variables that you or Craft sets. When those variables are objects, you access their properties using a dot notation.
+`{{ Output }}`: These tags allow you to output strings, numbers, booleans, arrays and objects in your templates. Most of the time you will be outputting variables that you or Craft sets.
 
 Exemples:
 
-- `{{ "Hello World" }}`: affiche la chaîne de caractères "Hello World"
-- `{{ entry.title }}`: affiche la propriété title de l'objet entry
-- `{{ 8 + 2 }}`: affiche 10
+- `{{ "Hello world" }}`: displays the string "Hello world"
+- `{{ entry.title }}`: displays the title property of an entry object
+- `{{ 8 + 2 }}`: displays 10
 
-##### Tags d'exécution ou de logique
+##### Execution and logic tags
 
-`{% Execution / Logique %}`: ces tags permettent l'exécution de tâches et sont utilisés pour créer des variables, réaliser des boucles, créer des structures de contrôle, etc.
+`{% Execution / Logique %}`: these tags allow you to execute tasks and can be used to create variables, loops, control structures, etc.
 
-Exemples:
+Examples:
 
-Créer une variable "allEntries" à laquelle est assignée un objet Craft [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) contenant toutes les entries dans la section blog, classées par date de création en ordre descendant.
+Create an `allEntries` variable and assign it an [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) Craft object containing all entries in the `blog` section, ordered by creation date in descending order.
 
 ```twig
 {% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
 ```
 
-Boucler sur l'ensemble des entries en créant à chaque fois un objet "entry" dont nous affichons le titre.
+Loop on the `allEntries` object to create `entry` objects and display their titles.
 
 ```twig
 {% for entry in allEntries %}
-	<p>{{ entry.title }}</p>
+	<h1>{{ entry.title }}</h1>
 {% endfor %}
 ```
 
-Créer une [structure de contrôle](http://twig.sensiolabs.org/doc/templates.html#control-structure) vérifiant si la variable "allEntries" contient au minimum une entry.
+Create a [control structure](http://twig.sensiolabs.org/doc/templates.html#control-structure) to check if the `allENtries` variables contains at least one entry.
 
 ```twig
 {% if allEntries|length %}
@@ -231,79 +220,79 @@ Créer une [structure de contrôle](http://twig.sensiolabs.org/doc/templates.htm
 {% endif %}
 ```
 
-##### Jamais de tags à l'intérieur d'autres tags
+##### Never use tags inside other tags
 
-Dans Twig, ceci est incorrect
+These are incorrect:
 
 ```twig
 {{ "Hello {{ firstname }}" }}
 {% set total = {{ itemPrice }} * {{ itemsNbr }} %}
 ```
 
-Il vous faudra utiliser les syntaxes suivantes
+You will have to use the following syntaxes
 
 ```twig
 {{ "Hello " ~ firstname }}
 {% set total = itemPrice * itemsNbr %}
 ```
 
-#### Types de données et variables dans Twig
+#### Data types and variables with Twig
 
-Twig supporte 5 grands types de données:
+Twig supports 5 big data types:
 
-- Strings: `"Hello"` ou `'Hello'`
-- Numbers: `4` ou `3.1498`
-- Booleans: `true` ou `false`
+- Strings: `"Hello"`
+- Numbers: `4` or `3.1498`
+- Booleans: `true` or `false`
 - Arrays: `['orange', 'lemon', 'apple']`
 - Objects: `{ foo: 'bar' }`
 
-Comme dit plus haut, vous pouvez assigner une valeur à une variable dans Twig en utilisant le tag `{% set %}`
+As shown earlier, you can easily assign a value to a variable using the `{% set %}` tag
 
 ```twig
 {% set firstName = "Jérôme" %}`
 {% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
 ```
 
-#### Filtres
+#### Filters
 
-[Twig](http://twig.sensiolabs.org/doc/filters/index.html) et [Craft](http://buildwithcraft.com/docs/templating/filters) possèdent des filtres qui peuvent être appliqués à vos différents types de variables pour les modifier. Ces filtres offrent de nombreuses possibilités et permettent à Craft de se passer de nombreux plugins pour effectuer des tâches simples. Voici quelques exemples de ce qu'il est possible d'accomplir:
+[Twig](http://twig.sensiolabs.org/doc/filters/index.html) and [Craft](http://buildwithcraft.com/docs/templating/filters) have filters that can be applied to your variables and modify or manipulate them. It means that Craft doesn't need any plugin to perform simple tasks in your templates. Here are some examples of what can be done using filters:
 
-Convertir une string en title case
+Convert a string to title case:
 
 ```twig
 {{ entry.title|title }}
 ```
 
-Réaliser des opérations sur les dates et les formatter
+Dates operations and formatting
 
 ```twig
 {{ entry.postDate|date_modify("+1 day")|date("m/d/Y") }}
 ```
 
-Déterminer la longueur d'une string, d'un array ou d'un objet
+Determine the length of a string, array or object:
 
 ```twig
 {% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
 {{ allEntries|length }}
 ```
 
-Vous pouvez également appliquer des filtres à plusieurs lignes de votre template et pas seulement à une variable.
+It's also possible to apply a filter to multiple lines of your templates:
 
 ```twig
 {% filter upper %}
-    This text becomes uppercase
+	This text becomes uppercase
 {% endfilter %}
 ```
 
-Ces filtres peuvent également être combinés
+Filters can also be combined:
 
 ```twig
 {{ "Hello World"|upper|slice(0,5) }}
 ```
 
-#### Fonctions
+#### Functions
 
-Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/index.html) permettent de produire et de manipuler des contenus. Craft possède également [ses propres fonctions](http://buildwithcraft.com/docs/templating/functions), en plus de celles fournies par Twig.
+[Twig](http://twig.sensiolabs.org/doc/functions/index.html) and [Craft](http://buildwithcraft.com/docs/templating/functions) both have functions allowing you to execute functions on your data.
 
 ```twig
 {% for entry in allEntries %}
@@ -315,13 +304,19 @@ Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/i
 {{ min([1, 2, 3]) }}
 {{ max([1, 2, 3]) }}
 {{ random(10) }}
+{{ range[1..10] }}
 ```
 
-`dump()` est une fonction extrêmement utile (et seulement disponible en Dev Mode dans Craft). Essentiel pour le debugging.
+`dump()` is only accessible in Craft when [Dev Mode is enabled](http://buildwithcraft.com/help/dev-mode) in your config/general.php file. Essential for debugging.
 
 ```twig
 {{ dump(entry) }}
 ```
+
+[@TODO]
+
+
+
 
 #### Structures de contrôle et conditionnels
 
@@ -480,19 +475,33 @@ Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouv
 Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soit dans un fichier externe, soit dans le même fichier dans lequel elle est utilisée.
 
 ```twig
-{% macro errors(list) %}  {% if list|length %}    <ul class="errors">      {% for error in list %}        <li>{{ error }}</li>      {% endfor %}    </ul>  {% endif %}{% endmacro %}```
+{% macro errors(list) %}
+  {% if list|length %}
+    <ul class="errors">
+      {% for error in list %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+```
 
 Les macros sont appelées / importées à l'aide du tag `{% import %}`
 
 Si la macro est définie dans le même fichier
 
 ```twig
-{% import _self as formErrors %}{{ formErrors.errors(entry.allErrors) }}```
+{% import _self as formErrors %}
+{{ formErrors.errors(entry.allErrors) }}
+```
 
 Si la macro est définie dans un fichier extérieur
 
 ```twig
-{% import "_macros/errors" as formErrors %}{{ formErrors.errors(entry.allErrors) }}```
+{% import "_macros/errors" as formErrors %}
+{{ formErrors.errors(entry.allErrors) }}
+```
+
 ### Récupérer vos données avec Craft
 
 Voyons maintenant comment récupérer vos données à l'aide des tags `craft.entries`, `craft.users`, `craft.assets`, `craft.categories` et `craft.tags` qui seront vos outils principaux.
@@ -650,7 +659,15 @@ Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de p
 
 Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/index.html) valent également la peine d'être consultés, notamment le test `is defined`. Les tests disponibles dans Twig sont:
 
-- `is constant`- `is defined`- `is divisible by`- `is empty`- `is even`- `is iterable`- `is null`- `is odd`- `is same as`
+- `is constant`
+- `is defined`
+- `is divisible by`
+- `is empty`
+- `is even`
+- `is iterable`
+- `is null`
+- `is odd`
+- `is same as`
 
 ##### Pagination
 
