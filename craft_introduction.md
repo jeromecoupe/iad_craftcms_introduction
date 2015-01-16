@@ -470,7 +470,7 @@ Remarquez également que nous écrivons le nom du template "parent" précédé p
 Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouvez également utiliser le tag `{% include %}` qui vous permet d'inclure un template au sein d'un autre.
 
 ```twig
-{% include 'sidebars/sidebars/_default.html' %}
+{% include 'sidebars/_default.html' %}
 ```
 
 #### Macros
@@ -495,18 +495,23 @@ Si la macro est définie dans un fichier extérieur
 {% import "_macros/errors" as formErrors %}{{ formErrors.errors(entry.allErrors) }}```
 ### Récupérer vos données avec Craft
 
-Voyons maintenant comment récupérer vos données à l'aide des tags `craft.entries`, `craft.users`, `craft.assets`, `craft.categories` et `craft.tags` qui seront vos outils principaux.
+Avec Craft, vous intéragissez avec la base de données en utilisant des objets ElementCriteriaModel. Cela à l'air très compliqué mais c'est en fait un concept assez simple:
 
-Nous nous centrerons ici principalement sur `craft.entries`. Les autres tags ayant un fonctionnement très similaire, il vous sera facile d'appliquer les mêmes principes.
+1. vous créez un objet ElementCriteriaModel pour le type de données que vous souhaitez récupérer dans la base de données (entries, users, assets, etc.)
+2. vous spécifiez les paramètres à utiliser (limit, order, filters, etc.)
+3. Craft récupère ce que vous avez spécifiez dans la base de données
+4. Craft vous renvoie un objet ElementCriteriaModel que vous pouvez maintenant aficher dans vos templates.
+
+`craft.entries`, `craft.users`, `craft.assets`, `craft.categories` et `craft.tags` seront vos principaux outils de travail. Nous nous centrerons ici principalement sur `craft.entries`. Les autres tags ayant un fonctionnement très similaire, il vous sera facile d'appliquer les mêmes principes.
 
 #### Entries
 
 [`craft.entries`](http://buildwithcraft.com/docs/templating/craft.entries) est le tag que vous allez utiliser pour récupérer vos entries.
 
 - `craft.entries.find()` vous permet de récupérer toutes les entries qui correspondent à vos critères
-- `craft.entries.total()` vous permet de récupérer le total des entries correspondant à vos critères
-- `craft.entries.first()` et `craft.entries.last()` vous permettent de récupérer la première ou la dernière des entries correspondant à vos critères
-- `craft.entries.ids()` vous permet de récupérer la liste des ids des entries  correspondant à vos critères
+- `craft.entries.total()` vous permet de récupérer le nombre total des entries correspondant à vos critères
+- `craft.entries.first()`, `craft.entries.last()` et `craft.entries.nth(n)` vous permettent de récupérer la première, la dernière ou la nième des entries correspondant à vos critères
+- `craft.entries.ids()` vous permet de récupérer la liste des ids des entries correspondant à vos critères
 
 ##### Plusieurs façons de faire
 

@@ -313,55 +313,56 @@ Filters can also be combined:
 {{ dump(entry) }}
 ```
 
-[@TODO]
+#### Control structures and conditonals
 
+Twig allows you to use complex control structures and conditionals.
 
-
-
-#### Structures de contrôle et conditionnels
-
-Twig vous permet de créer des structures de contrôles complexes à l'aide de conditionnels.
+**if**
 
 ```twig
+{% if allEntries|length > 0 %}
+<p>There is at least one entry here</p>
+{% endif %}
+
 {% if allEntries|length %}
 	<p>There is at least one entry here</p>
 {% endif %}
 ```
 
-If / else
+**if/else**
 
 ```twig
-{% if userGender == "female" %}
-	<p>Hello, how are you doing?<p>
+{% if currentUser.admin %}
+	<p>Welcome, master<p>
 {% else %}
-	<p>Hey dude, how are things?</p>
+	<p>What can I do for you, dear user?</p>
 {% endif %}
 ```
 
-Conditions imbriquées
+**nested if/else**
 
 ```twig
-{% if user %}
-  {% if user.male %}
-    <p>Hey there handsome!</p>
+{% if currentUser %}
+  {% if currentUser.admin %}
+    <p>Hello Admin!</p>
   {% else %}
-    <p>Hey pretty lady!</p>
+    <p>Hello user!</p>
   {% endif %}
-{% elseif username %}
-  <p>Is this {{ username }}?</p>
+{% elseif currentUser.friendlyName %}
+  <p>May I call you {{ currentUser.friendlyName }}?</p>
 {% else %}
   <p>Have we met?</p>
 {% endif %}
 ```
 
-Conditions cumulées
+**and & or in conditions**
 
 ```twig
-{% if user and user.male %}
+{% if currentUser and currentUser.male %}
 {% if superAdmin or admin %}
 ```
 
-Loop
+**Loop**
 
 ```twig
 {% for entry in allEntries %}
@@ -378,32 +379,32 @@ Loop
 {% endfor %}
 ```
 
-#### Expressions Mathématiques et manipulation de chaînes de caractères
+#### Mathematical expresions and string manipulations
 
-Twig est capable d'interpréter toutes sortes d'[opérations mathématiques](http://twig.sensiolabs.org/doc/templates.html#math) et de manipuler des chaînes de caractères (strings).
+Twig knows [Math](http://twig.sensiolabs.org/doc/templates.html#math) and allows you to manipulate character strings easily using [filters](http://twig.sensiolabs.org/doc/filters/index.html).
 
 ```twig
 {{ 10 * (8+2) }}
 {{ "Hello World"|slice(0,5) }}
 ```
 
-#### Contrôle du whitespace
+#### Whitespace control
 
-Twig vous permet de contrôler la façon dont votre code est affiché, [particulièrement au niveau du whitespace](http://twig.sensiolabs.org/doc/templates.html#whitespace-control).
+Twig allows you to control how your code is displayed, including [at the whitespace level](http://twig.sensiolabs.org/doc/templates.html#whitespace-control), which, if you are using `inline-block`, is a godsend.
 
-#### Template inheritance, includes et macros: stay DRY
+#### Template inheritance, includes and macros: stay DRY
 
-Ces trois concepts sont au coeur de Twig et vont nous permettre de créer des templates efficaces et évitant au maximum les redondances inutiles. C'est le fameux principe du "Don't Repeat Yourself" (DRY).
+These three concepts are at the heart of Twig as a templating language. They enable you to create effiscient templates and avoid redundancy, allowing you to comply with the infamous "Don't Repeat Yourself" (DRY) principle.
 
 ##### Template inheritance
 
-Un concept central à comprendre dans Twig est celui d'héritage au niveau des templates. Dans Twig on va généralement travailler avec un template "parent" qui défini le squelette de la page et différents blocs pouvant être surdéterminés par un template "enfant" qui étend ce template parent.
+Template inheritance is a central concept in Twig, as it is in many other templating languages for the web. We will generally work with a "parent" template defining the skeleton of the page, its different blocks and one or more "children" templates. These children template will extend the partent template and define the content of each of those blocks.
 
-Les variables définies dans le template "enfant" sont accessibles dans le template parent.
+Variables defined in "children" templates can be accessed in the "parent" template, unless
 
-Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
+Let's see how it works practically with a very simple example:
 
-**Template parent: layouts/_base.html**
+**Parent template: layouts/_base.html**
 
 ```twig
 <!DOCTYPE html>
@@ -434,7 +435,7 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 </html>
 ```
 
-**Template enfant: news/index.html**
+**Child template: news/index.html**
 
 ```twig
 {% extends "layouts/_base.html" %}
@@ -456,23 +457,25 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 {% endblock %}
 ```
 
-Le template `news/index.html` étend notre layout de base. Le contenu défini dans le block "content" du template enfant remplace celui qui est (de façon optionnelle) défini dans le template parent. La variable `htmlTitle` définie dans le template enfant est accessible dans le template parent.
+The `news/index.html` template extends the base layout template. The content defined in the "content" block of the child template replaces / supersedes the content of the "content" block in the parent template.
 
-Remarquez également que nous écrivons le nom du template "parent" précédé par un underscore. Craft nous permet ainsi de cacher certains templates que nous ne voulons pas voir chargé directement par les visiteurs du site.
+As a side note, the name of the "parent" template begins with an underscore to tell Craft that template is hidden and cannot be accessed directly via a web browser. If any URL segment begins with an underscore (template or template group), Craft will display a 404.
+
+Typically, your layouts, includes and entry templates should all be hidden.
 
 ##### Includes
 
-Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouvez également utiliser le tag `{% include %}` qui vous permet d'inclure un template au sein d'un autre.
+If you have code that is repeated in many templates, it is generally a good idea to use includes `{% include %}`. Since Twig compiles everything down to raw PHP, there is no performance penalty for using includes.
 
 ```twig
-{% include 'sidebars/sidebars/_default.html' %}
+{% include '_sidebars/default.html' %}
 ```
 
 #### Macros
 
-[Les Macros](http://twig.sensiolabs.org/doc/tags/macro.html) dans Twig sont comparables à des mixins en Sass. Pensez à elles comme à de petits blocs de code réutilisables.
+Twig [Macros](http://twig.sensiolabs.org/doc/tags/macro.html) are comparable to mixins in Sass. They are small reusable chunks of code. I use them mainly with form related messages.
 
-Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soit dans un fichier externe, soit dans le même fichier dans lequel elle est utilisée.
+A Macro is defined using the `{% macro %}` and `{% endmacro %}` tags. Macro can be loaded from an external file, or reside in the file they are used in.
 
 ```twig
 {% macro errors(list) %}
@@ -486,44 +489,51 @@ Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soi
 {% endmacro %}
 ```
 
-Les macros sont appelées / importées à l'aide du tag `{% import %}`
+Macros are imported using the `{% import %}` tag
 
-Si la macro est définie dans le même fichier
+If the Macro is defined in the same file, the `_self` keyword is used
 
 ```twig
 {% import _self as formErrors %}
 {{ formErrors.errors(entry.allErrors) }}
 ```
 
-Si la macro est définie dans un fichier extérieur
+If the macro is defined in an external file, we simply reference the path to the file
 
 ```twig
 {% import "_macros/errors" as formErrors %}
 {{ formErrors.errors(entry.allErrors) }}
 ```
 
-### Récupérer vos données avec Craft
+### Retrieve and display your data with Craft
 
-Voyons maintenant comment récupérer vos données à l'aide des tags `craft.entries`, `craft.users`, `craft.assets`, `craft.categories` et `craft.tags` qui seront vos outils principaux.
+In Craft, you interact with the database using ElementCriteriaModel objects. It sounds complicated but it is in fact quite simple:
 
-Nous nous centrerons ici principalement sur `craft.entries`. Les autres tags ayant un fonctionnement très similaire, il vous sera facile d'appliquer les mêmes principes.
+1. you create an ElementCriteriaModel for the type of data you want to get from the database (entries, users, assets, etc.)
+2. you specify the parameters (limit, order, filters, etc.) you want to use.
+3. Craft then fetches what you need from the database
+4. Craft returns an ElementModel or an array of ElementModels objects ([EntryModel](http://buildwithcraft.com/docs/templating/entrymodel) for entries, [UserModel](http://buildwithcraft.com/docs/templating/usermodel) for users, [AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel) for assets, [CategoryModel](http://buildwithcraft.com/docs/templating/categorymodel) for categories and [TagModel](http://buildwithcraft.com/docs/templating/tagmodel) for tags).
+5. You can then display those objects or arrays of objects in your template.
+
+`craft.entries`, `craft.users`, `craft.assets`, `craft.categories` and `craft.tags` will be your main tools to retrieve and display your data.
+
+We will mainly work with the `craft.entries` tag in this introduction. Since all tags use the same principles, it will be easy for you to apply what you know to `craft.users`, `craft.assets`, `craft.categories` and `craft.tags`.
 
 #### Entries
 
-[`craft.entries`](http://buildwithcraft.com/docs/templating/craft.entries) est le tag que vous allez utiliser pour récupérer vos entries.
+[`craft.entries`](http://buildwithcraft.com/docs/templating/craft.entries) is going to be you main tool to retrieve and display your entries.
 
-- `craft.entries.find()` vous permet de récupérer toutes les entries qui correspondent à vos critères
-- `craft.entries.total()` vous permet de récupérer le total des entries correspondant à vos critères
-- `craft.entries.first()` et `craft.entries.last()` vous permettent de récupérer la première ou la dernière des entries correspondant à vos critères
-- `craft.entries.ids()` vous permet de récupérer la liste des ids des entries  correspondant à vos critères
+- `craft.entries.find()` allow you to retrieve all entries corresponding to the specified criteria.
+- `craft.entries.total()` allow you to retrieve the total number of entries corresponding to the specified criteria.
+- `craft.entries.first()`, `craft.entries.last()` and `craft.entries.nth(n)` allow you to retrieve the first, the last or the nth entry corresponding to the specified criteria.
+- `craft.entries.ids()` allow you to retrieve the ids of all entries corresponding to the specified criteria.
 
-##### Plusieurs façons de faire
+##### Two different syntaxes
 
-Vous pouvez utiliser deux syntaxes dans Craft. Une syntaxe pointée ou une syntaxe passant l'ensemble des paramètres comme un seul objet.
+You can use two different syntaxes with Craft: a dot notation (chained parameters) or an object notation (parameters as object).
 
 ```twig
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
-
 
 {% for entry in allEntries %}
 
@@ -533,7 +543,7 @@ Vous pouvez utiliser deux syntaxes dans Craft. Une syntaxe pointée ou une synta
 {% endfor %}
 ```
 
-ou
+or
 
 
 ```twig
@@ -542,7 +552,6 @@ ou
 	limit:4
 }) %}
 
-
 {% for entry in allEntries %}
 
 	<h2>{{ entry.title }}</h2>
@@ -551,7 +560,7 @@ ou
 {% endfor %}
 ```
 
-Les deux syntaxes sont valides et chacune ont leur place. La seconde méthode est plus utile si vous devez réutiliser les paramètres plusieurs fois dans votre template.
+Both syntaxes are valid and each of them has its place. The object notation is particularily useful if you need to reuse the parameters multiple times in your template. Here is an example fetching the entries themselves and the number of entries using the same parameters passed as an object.
 
 ```twig
 {% set params = {
@@ -571,13 +580,12 @@ Total entries: {{ totalEntries }}
 {% endfor %}
 ```
 
-##### Pas de résultats
+##### No results
 
-Vous pouvez facilement afficher un contenu alternatif si aucun résultat n'est trouvé en [utilisant une clause {% else %} dans votre loop](http://twig.sensiolabs.org/doc/tags/for.html#the-else-clause).
+You can easily display alternate content if not entries are found, just by using [an `{% else %}` clause in your `{% for %}` loop](http://twig.sensiolabs.org/doc/tags/for.html#the-else-clause).
 
 ```twig
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
-
 
 {% for entry in allEntries %}
 
@@ -591,11 +599,11 @@ Vous pouvez facilement afficher un contenu alternatif si aucun résultat n'est t
 {% endfor %}
 ```
 
-##### "Loop", "cycle" et "is divisible by"
+##### "Loop", "cycle" and "is divisible by"
 
-Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de pouvoir évaluer à quelle étape de la boucle on se trouve et d'utiliser des conditionnels. Typiquement, il est utile de pouvoir ouvrir et fermer une liste `<ul>` en début ou en fin de loop, de pouvoir afficher quelque chose tous les x résultats. C'est à cela que servent la variable [`loop`](http://twig.sensiolabs.org/doc/tags/for.html#the-loop-variable), la fonction [`cycle`](http://twig.sensiolabs.org/doc/functions/cycle.html) et le test [`is divisibleby`](http://twig.sensiolabs.org/doc/tests/divisibleby.html) de Twig.
+When using a `{% for %}` loop, it is sometimes useful to know at which iteration of the loop you are currently at. Typical tasts include opening and closing a `<ul>` at the beginning and at the end of a loop, or displaying something every x iterations. Twig gives you the [`loop`](http://twig.sensiolabs.org/doc/tags/for.html#the-loop-variable) variable, the [`cycle`](http://twig.sensiolabs.org/doc/functions/cycle.html) function and the [`is divisibleby`](http://twig.sensiolabs.org/doc/tests/divisibleby.html) test for those jobs.
 
-**Exemple**: utilisation de la variable `loop`
+**Example**: using the `loop` variable
 
 ```twig
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -615,7 +623,7 @@ Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de p
 {% endfor %}
 ```
 
-**Exemple**: utilisation de la fonction `cycle` pour ajouter des classes `odd` et `even`. Remarquez l'usage de `loop.index0` pour avoir une itération indexée sur zéro et non sur 1 comme avec `loop.index`.
+**Example**: using `cycle` to add `odd` and `even` classes in your html. `loop.index0` is used to have a zero indexed iteration rather than the 1 based iteration that `loop.index` gives you.
 
 ```twig
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -635,7 +643,7 @@ Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de p
 {% endfor %}
 ```
 
-**Exemple**: utilisation du test `is divisible by` pour insérer un élément toutes les 2 itérations.
+**Example**: using the `is divisible by` test to insert an element every 2 itérations.
 
 ```twig
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -657,7 +665,7 @@ Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de p
 {% endfor %}
 ```
 
-Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/index.html) valent également la peine d'être consultés, notamment le test `is defined`. Les tests disponibles dans Twig sont:
+[Other Twig tests](http://twig.sensiolabs.org/doc/tests/index.html) might prove useful, most notably the `is defined` test. The other tests available in Twig are:
 
 - `is constant`
 - `is defined`
@@ -671,7 +679,7 @@ Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/in
 
 ##### Pagination
 
-Craft vous permet de [paginer vos résultats](http://buildwithcraft.com/docs/templating/tags#paginate) à l'aide du tag `paginate` et de construire une interface de pagination à l'aide des variables qui l'accompagnent.
+Craft allows you to [paginate your results](http://buildwithcraft.com/docs/templating/tags#paginate) using the `paginate` tag and to build a pagination interface using the related variables.
 
 ```twig
 {% paginate craft.entries.section('news').limit(5) as entries %}
@@ -713,9 +721,9 @@ Craft vous permet de [paginer vos résultats](http://buildwithcraft.com/docs/tem
 {% endpaginate %}
 ```
 
-##### Page de détail et variable "entry"
+##### Detail page and "entry" variable
 
-Lorsque Craft charge un template de détail et que l'URL correspond à l'URI d'une entry, le système génère automatiquement une variable `entry` directement accessible dans notre template. Grâce à cette variable et au système de routing de Craft vous n'avez besoin de rien d'autre pour afficher vos contenus sur une page de détail.
+When Craft is loading an URL corresponding to an entry URL you specified when creating your sections, the system will automatically populate an `entry` variable and make it accessible in our template. Thanks to that `entry` variable and to Craft's routing system, you don't need anything else to display your entry in a detail page.
 
 ```twig
 {#
@@ -740,9 +748,9 @@ Lorsque Craft charge un template de détail et que l'URL correspond à l'URI d'u
 {% endblock %}
 ```
 
-##### Page de categories et variable "category"
+##### Category page and "category" variable
 
-Le même principe est d'application lorsqu'une page de catégorie est affichée. Lorsqu'une URL défine comme une URL de catégorie est affichée par le système, Craft défini automatiquement une variable `category` que vous pouvez utiliser directement au sein de vos templates.
+The same logic applies with categories. When Craft is loading an URL corresponding to one of the category URL you specified when creating your category groups, the system will automatically populate a `category` variable and make it accessible in our template.
 
 ```twig
 {#
@@ -754,23 +762,23 @@ Le même principe est d'application lorsqu'une page de catégorie est affichée.
 {# layout used #}
 {% extends "layouts/_base.html" %}
 
-{% set allCategories = craft.categories.group('newsTopics').find() %}
-
-{#
- #	- craft automatically creates a 'category' variable if it detects you are on a category template
- #  - we are just checking whether that category variable exists or not
- #  - depending on its existence, we set our list of entries
- #}
-
-{% if category is defined %}
-	{% set currentCategory = category.slug %}
-	{% set entries = craft.entries.section('news').relatedTo(category).limit(10).find(); %}
-{% else %}
-	{% set currentCategory = 'all' %}
-	{% set entries = craft.entries.section('news').limit(10).find(); %}
-{% endif %}
-
 {% block content %}
+
+	{% set allCategories = craft.categories.group('newsTopics').find() %}
+
+		{#
+		#	- craft automatically creates a 'category' variable if it detects you are on a category template
+		#  - we are just checking whether that category variable exists or not
+		#  - depending on its existence, we set our list of entries
+		#}
+
+		{% if category is defined %}
+			{% set currentCategory = category.slug %}
+			{% set entries = craft.entries.section('news').relatedTo(category).limit(10).find(); %}
+		{% else %}
+			{% set currentCategory = 'all' %}
+			{% set entries = craft.entries.section('news').limit(10).find(); %}
+		{% endif %}
 
 	{# display entries list #}
 	{% for entry in entries %}
@@ -799,13 +807,13 @@ Le même principe est d'application lorsqu'une page de catégorie est affichée.
 
 #### Globals
 
-Les globals stockent du contenu qui va, comme leur nom l'indique, être disponible globalement pour tous les templates.
+Globals are used to store content that will be made globally accessible to all your templates. They are typically used to create configuration options or variables that need to be editable by adminisrators but that doe not belong in sections.
 
-Vous pouvez y accéder très facilement via leur handle de global set suivi de leur handle de global. Par exemple, pour une global appelée `tagline` dans un global set `companyInfo`:
+Globals can be accessed easily via their global set handle followed by their global handle. For example, a global called `tagline` in a `companyInfo` global set would be accessed this way:
 
 `{{ companyInfo.tagline }}`
 
-#### Tags
+#### Tags [@TODO]
 
 Dans Craft, on accède aux tags avec `craft.tags`, qui [possède un certain nombre de paramètres](http://buildwithcraft.com/docs/templating/craft.tags) et fonctionne dans l'ensemble comme `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
 
@@ -995,3 +1003,4 @@ Construire un blog simple. Chaque post devra inclure une image afin de pouvoir p
 - [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templating avec Craft et Twig.
 - [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): une présentation de [Brandon Kelly](https://twitter.com/brandonkelly) et une très bonne introduction à Twig.
 - [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): une présentation de [Trevor Davis](https://twitter.com/trevor_davis). Quelques bons trucs et astuces si vous ne connaissez pas encore Twig et Craft.
+- [Craft stackexchange site](): pour poser vos questions concernant Craft
