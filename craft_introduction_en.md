@@ -815,46 +815,54 @@ Globals can be accessed easily via their global set handle followed by their glo
 
 #### Tags
 
-You can access and display tags using `craft.tags` and its [related parameters](http://buildwithcraft.com/docs/templating/craft.tags). It works just like `craft.entries` but returns a `TagModel` object or an array of those.
+You can access and display tags using `craft.tags` and its [related parameters](http://buildwithcraft.com/docs/templating/craft.tags). It works just like `craft.entries` but returns a `[TagModel](@TODO)` object or an array of those.
 
 Articles in the help section are showing you how to list [all the tags used by the entries in a given section](http://buildwithcraft.com/help/active-tags) or how use a dynamic route to create an [archive page listing all the entries related to a tag](http://buildwithcraft.com/help/tag-urls).
 
-#### Users [@TODO]
+#### Users
 
-Le tag `craft.users` permet d'accéder aux utilisateurs de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.users). Son fonctionnement est semblable au tag `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
+`craft.users` allows you to access and display the users of your website. The tag functions like `craft.entries` but returns a single `[UserModel](@TODO)` or an array of those. The `craft.users` tag also has [a series parameters](http://buildwithcraft.com/docs/templating/craft.users), some of which are tied to users-specific functionalities or behaviours.
 
-#### Assets et transformations
+#### Assets and transformations
 
-Le tag `craft.assets` permet d'accéder aux Assets de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.assets). Son fonctionnement est semblable au tag `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
+The `craft.assets` tag will allow you to acces your assets. This tag also has a series of parameters, some of which are tied to assets-specific functionalities or behaviour. `craft.assets` functions like `craft.enries` except that it returns a single `[AssetModel](@TODO)` or an array of those.
 
-Si vos assets sont des images, Craft vous permet d'effectuer des transformations de celles-ci, soit à l'upload (via votre control panel: Settings > Assets > Image Transforms), soit dynamiquement dans vos templates.
+If yor assets are images, Crfat allows you to create transforms tied to all your asset groups. These transforms will generate thumbnails for all your assets. Those transforms can be specified in the control panel and generated when assets are uploaded (Settings > Assets > Imade Transforms) or they can be specified in your template and generated dynamically when assets are requested for the first time.
 
-Si vous définissez une transformation directement dans le control panel et que vous lui donnez comme handle `thumb` vous pouvez y accéder dans vos templates de la façon suivante :
+When you define a transform in the Control Panel and you name it `thumbnail`, you can access them in your templates in the following way:
 
-`<img src="{{ asset.getUrl('thumb') }}" width="{{ asset.getWidth('thumb') }}" height="{{ asset.getHeight('thumb') }}" />`
+```twig
+{% if myAssetField | length %}
+{% set heroImage = myAssetField.first() %}
+<img src="{{ heroImage.getUrl('thumbnail') }} width="{{ asset.getWidth('thumbnail') }}" height="{{ asset.getHeight('thumbnail') }}" alt="{{ heroImage.title }}">
+{% endif %}
+```
 
-Vous pouvez également définir dynamiquement une transformation dans vos templates
+You can also specify your trabsforms diretly in your templates
 
 ```twig
 {% set transform = {
-    width: 100,
-    height: 100,
-    mode: 'crop',
-    position: 'top-center'
+	width: 100,
+	height: 100,
+	mode: 'crop',
+	position: 'top-center'
 } %}
 
-<img src="{{ asset.getUrl(transform) }}" width="{{ asset.getWidth(transform) }}" height="{{ asset.getHeight(transform) }}" />
+{% if myAssetField | length %}
+	{% set heroImage = myAssetField.first() %}
+	<img src="{{ heroImage.getUrl(transform) }} width="{{ asset.getWidth(transform) }}" height="{{ asset.getHeight(transform) }}" alt="{{ heroImage.title }}">
+{% endif %}
 ```
 
-## Aller plus loin
+## Slightly advanced functionalities
 
-### Configurations de Redactor
+### Redactor configurations
 
-Craft utilise [Redactor](http://imperavi.com/redactor/) comme WYSIWYG pour les champs de type "rich text". Lorsque vous créez un champ de ce type, vous pouvez choisir d'appliquer une configuration précise de Redactor pour ces champs.
+Craft uses [Redactor](http://imperavi.com/redactor/) as a WYSIWYG solution for rich text fields. WHen you create a rich text field, you can choose the Redactor configuration you want to apply to that field.
 
-Ces configurations peuvent être facilement créées et modifiées à l'aide de simples fichiers JSON stockés dans le répertoire `craft/config/redactor`. Le nom donné à la configuration est simplement celui de votre fichier JSON.
+These configurations can be easily created and modified with JSON files stored in the `craft/config/redactor/` folder. The name of yor JSON file will be the name of the configuration in the Control Panel.
 
-### Configurations pour environnements multiples
+### Configurations pour environnements multiples [@TODO]
 
 Craft fournit nativement une façon simple de gérer des environnements multiples (local, dev, online) via [l'utilisation d'Arrays imbriqués](http://buildwithcraft.com/docs/multi-environment-configs) dans les fichiers `general.php` et `db.php` inclus dans le dossier `config/`.
 
@@ -992,7 +1000,8 @@ Construire un blog simple. Chaque post devra inclure une image afin de pouvoir p
 - [Documentation officielle](http://buildwithcraft.com/docs/introduction) de Craft
 - [Articles Help & Support](http://buildwithcraft.com/help) officiels
 - [Documentation Twig](http://twig.sensiolabs.org/doc/templates.html) pour les template designers
-- [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/) : une bonne entrée en matière. Attention cependant, publié avant la grosse mise à jour de Craft 1.3 donc il manque quelques développements récents.
+- [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/) : une bonne entrée en matière.
+- [Straight up Craft](http://straightupcraft.com/): Un site de ressources concernant Craft et une liste des développeurs actifs et des plugins existants.
 - [Quelques videos](http://straightupcraft.com/learn-craft-cms) sur Straight up Craft
 - [On the Rocks](https://github.com/pixelandtonic/ontherocks) : un site de démonstration dont le code est sur Github : pratique pour voir comment sont faits les templates.
 - [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226) : la communauté Craft sur G+
@@ -1003,4 +1012,4 @@ Construire un blog simple. Chaque post devra inclure une image afin de pouvoir p
 - [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templating avec Craft et Twig.
 - [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): une présentation de [Brandon Kelly](https://twitter.com/brandonkelly) et une très bonne introduction à Twig.
 - [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): une présentation de [Trevor Davis](https://twitter.com/trevor_davis). Quelques bons trucs et astuces si vous ne connaissez pas encore Twig et Craft.
-- [Craft stackexchange site](): pour poser vos questions concernant Craft
+- [Craft stackexchange site](http://craftcms.stackexchange.com/): poser vos questions concernant Craft et obtenir des réponses rapidement.

@@ -499,8 +499,9 @@ Avec Craft, vous intéragissez avec la base de données en utilisant des objets 
 
 1. vous créez un objet ElementCriteriaModel pour le type de données que vous souhaitez récupérer dans la base de données (entries, users, assets, etc.)
 2. vous spécifiez les paramètres à utiliser (limit, order, filters, etc.)
-3. Craft récupère ce que vous avez spécifiez dans la base de données
-4. Craft vous renvoie un objet ElementCriteriaModel que vous pouvez maintenant aficher dans vos templates.
+3. Craft va chercher les données correspondant à vos critère dans la base de données
+4. Craft retourne un objet ElementModel ou un array d'objets ElementModel ([EntryModel](http://buildwithcraft.com/docs/templating/entrymodel) for entries, [UserModel](http://buildwithcraft.com/docs/templating/usermodel) for users, [AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel) for assets, [CategoryModel](http://buildwithcraft.com/docs/templating/categorymodel) for categories and [TagModel](http://buildwithcraft.com/docs/templating/tagmodel) for tags).
+5. Vous pouvez ensuite afficher ces objets ou arry d'objets dans vos templates.
 
 `craft.entries`, `craft.users`, `craft.assets`, `craft.categories` et `craft.tags` seront vos principaux outils de travail. Nous nous centrerons ici principalement sur `craft.entries`. Les autres tags ayant un fonctionnement très similaire, il vous sera facile d'appliquer les mêmes principes.
 
@@ -809,9 +810,14 @@ Le tag `craft.assets` permet d'accéder aux Assets de votre site. Ce tag possèd
 
 Si vos assets sont des images, Craft vous permet d'effectuer des transformations de celles-ci, soit à l'upload (via votre control panel: Settings > Assets > Image Transforms), soit dynamiquement dans vos templates.
 
-Si vous définissez une transformation directement dans le control panel et que vous lui donnez comme handle `thumb` vous pouvez y accéder dans vos templates de la façon suivante :
+Si vous définissez une transformation directement dans le control panel et que vous lui donnez comme handle `thumbnail` vous pouvez y accéder dans vos templates de la façon suivante :
 
-`<img src="{{ asset.getUrl('thumb') }}" width="{{ asset.getWidth('thumb') }}" height="{{ asset.getHeight('thumb') }}" />`
+```twig
+{% if myAssetField | length %}
+	{% set heroImage = myAssetField.first() %}
+	<img src="{{ heroImage.getUrl('thumbnail') }} width="{{ asset.getWidth('thumbnail') }}" height="{{ asset.getHeight('thumbnail') }}" alt="{{ heroImage.title }}">
+{% endif %}
+```
 
 Vous pouvez également définir dynamiquement une transformation dans vos templates
 
@@ -823,7 +829,10 @@ Vous pouvez également définir dynamiquement une transformation dans vos templa
     position: 'top-center'
 } %}
 
-<img src="{{ asset.getUrl(transform) }}" width="{{ asset.getWidth(transform) }}" height="{{ asset.getHeight(transform) }}" />
+{% if myAssetField | length %}
+	{% set heroImage = myAssetField.first() %}
+	<img src="{{ heroImage.getUrl(transform) }} width="{{ asset.getWidth(transform) }}" height="{{ asset.getHeight(transform) }}" alt="{{ heroImage.title }}">
+{% endif %}
 ```
 
 ## Aller plus loin
@@ -972,7 +981,8 @@ Construire un blog simple. Chaque post devra inclure une image afin de pouvoir p
 - [Documentation officielle](http://buildwithcraft.com/docs/introduction) de Craft
 - [Articles Help & Support](http://buildwithcraft.com/help) officiels
 - [Documentation Twig](http://twig.sensiolabs.org/doc/templates.html) pour les template designers
-- [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/) : une bonne entrée en matière. Attention cependant, publié avant la grosse mise à jour de Craft 1.3 donc il manque quelques développements récents.
+- [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/) : une bonne entrée en matière.
+- [Straight up Craft](http://straightupcraft.com/): Un site de ressources concernant Craft et une liste des développeurs actifs et des plugins existants.
 - [Quelques videos](http://straightupcraft.com/learn-craft-cms) sur Straight up Craft
 - [On the Rocks](https://github.com/pixelandtonic/ontherocks) : un site de démonstration dont le code est sur Github : pratique pour voir comment sont faits les templates.
 - [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226) : la communauté Craft sur G+
@@ -983,3 +993,4 @@ Construire un blog simple. Chaque post devra inclure une image afin de pouvoir p
 - [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templating avec Craft et Twig.
 - [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): une présentation de [Brandon Kelly](https://twitter.com/brandonkelly) et une très bonne introduction à Twig.
 - [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): une présentation de [Trevor Davis](https://twitter.com/trevor_davis). Quelques bons trucs et astuces si vous ne connaissez pas encore Twig et Craft.
+- [Craft stackexchange site](http://craftcms.stackexchange.com/): poser vos questions concernant Craft et obtenir des réponses rapidement
