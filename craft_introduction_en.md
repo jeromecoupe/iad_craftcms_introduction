@@ -862,13 +862,15 @@ Craft uses [Redactor](http://imperavi.com/redactor/) as a WYSIWYG solution for r
 
 These configurations can be easily created and modified with JSON files stored in the `craft/config/redactor/` folder. The name of yor JSON file will be the name of the configuration in the Control Panel.
 
-### Configurations pour environnements multiples [@TODO]
+### Multiple environments configurations
 
-Craft fournit nativement une façon simple de gérer des environnements multiples (local, dev, online) via [l'utilisation d'Arrays imbriqués](http://buildwithcraft.com/docs/multi-environment-configs) dans les fichiers `general.php` et `db.php` inclus dans le dossier `config/`.
+Craft offers a native way to deal with multiple environments configurations (dev, staging, online) through the use of nested arrays and [environment-specific variables ](http://buildwithcraft.com/docs/multi-environment-configs) in your `general.php` and `db.php` configuration files.
 
-Les valeurs dans le tableau `*` sont appliquées à tous les environnements
+First, define a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support.
 
-**Exemple**: le fichier craft/config/general.php
+The rest of your array keys will reference domain names or parts thereof on your different servers. Craft will check those keys against the `$_SERVER['SERVER_NAME']` PHP variable an look for a (partial) match.
+
+**Example**: `craft/config/general.php`
 
 ```
 return array(
@@ -886,7 +888,7 @@ return array(
 );
 ```
 
-Pour compléter cela, vous pouvez également utiliser ce que Craft appelle des [variables d'environnement](http://buildwithcraft.com/docs/multi-environment-configs#environment-specific-variables). Ces variables vont pouvoir être utilisées pour créer des configurations dynamiques dans votre control panel.
+You can pretty much override any [configuration settings](http://buildwithcraft.com/docs/config-settings) that way. Craft also allows you to create and use [environment specific variables](http://buildwithcraft.com/docs/multi-environment-configs#environment-specific-variables). You can name those any way you want and use them in your templates or to create dynamic configurations in Craft's control panel.
 
 ```
 return array(
@@ -898,8 +900,8 @@ return array(
         'devMode' => true,
 
         'environmentVariables' => array(
-            'siteUrl'        => 'http://www.domain.dev/',
-            'fileSystemPath' => '/users/sitename/htdocs/'
+            'rootUrl'        => 'http://www.domain.dev/',
+            'serverPath' => '/users/sitename/web/'
             'cpTrigger'      => 'adminpanel',
         )
     ),
@@ -908,17 +910,24 @@ return array(
         'cooldownDuration' => 0,
 
         'environmentVariables' => array(
-            'siteUrl'        => 'http://www.domain.com/',
-            'fileSystemPath' => '/users/domain/htdocs/'
+            'rootUrl'        => 'http://www.domain.com/',
+            'serverPath' => '/users/domain/htdocs/'
             'cpTrigger'      => 'adminpanel',
         )
     )
 );
 ```
 
-Ces différents environnements peuvent également être utilisés pour les paramètres de configuration de votre base de données dans le fichier `craft/config/db.php`.
+You can then use those variables in the Control Panel, for example when defining file system paths and url for your asset sources to make them environment specific.
 
-**Exemple**: le fichier craft/config/db.php
+```
+{serverPath}/assets/images/
+{rootUrl}/assets/images/
+```
+
+Such dynamic configurations can also be used for your database paramaters in  `craft/config/db.php`.
+
+**Example**: craft/config/db.php
 
 ```
 return array(
@@ -930,19 +939,19 @@ return array(
         'server' => 'localhost',
         'user' => 'root',
         'password' => 'password',
-        'database' => 'domain_craft',
+        'database' => 'webstoemp',
     ),
 
     'domain.com' => array(
         'server' => 'localhost',
-        'user' => 'user',
+        'user' => 'myownuser',
         'password' => 'strongpassword',
-        'database' => 'domain_craft',
+        'database' => 'webstoemp',
     ),
 );
 ```
 
-### Matrix
+### Matrix [@TODO]
 
 [Matrix](http://buildwithcraft.com/features/matrix) est un type de champ particulièrement [intéressant et puissant](http://buildwithcraft.com/features/matrix) dont vous disposez dans Craft. Il vous permet de créer des champs qui combinent différents blocs et de définir la structure pour chacun de ces blocs.
 
