@@ -929,14 +929,18 @@ return array(
 
 Vous pourriez par exemple créer un champ `modularBody` avec la configuration suivante:
 
-- block `textModule`
-	- `text` rich text field
-- block `imageModule`
-	- `file` Asset file limited to 1
-	- `caption` Textfied (128)
-	- `copyright` Textfied (128)
+- `textModule` block type
+	- `textContent`rich text field (redactor)
+- `quoteModule` block type
+	- `quoteText` Textfied (256)
+	- `quoteAuthor` Textfied (128)
+- `imageModule`block type
+	- `imageFile` Asset file (limited to 1)
+	- `imageCaption` Textfied (128)
+	- `imageCopyright` Textfied (128)
+	- `imageFullwidth` Lightswitch field
 
-Une telle configuration permettra à vos utilisateurs de composer leurs items comme ils le souhaitent en créant et en arrangeant à leur guise n'importe quelle combinaison de blocs texte et de blocs images.
+Une telle configuration permettra à vos utilisateurs de composer leurs items comme ils le souhaitent en créant et en arrangeant à leur guise n'importe quelle combinaison de blocs textes, de block quotes et de blocs images.
 
 Au niveau du templating, vous pouvez également contrôler très précisément le code HTML généré. Nous utilisons ici [le tag `switch` propre à Craft](http://buildwithcraft.com/docs/templating/tags#switch).
 
@@ -947,16 +951,24 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 	{% switch module.type %}
 
 		{% case "textModule" %}
-			{{ module.text }}
+
+			{{ module.textContent }}
+
+		{% case "quoteModule" %}
+
+			<blockquote>
+				{{ module.quoteText }}
+				<footer><cite>{{ module.quoteAuthor }}</cite></footer>
+			</blockquote>
 
 		{% case "imageModule" %}
-			{% set image = module.file.first() %}
 
-			<figure class="figure">
+		{% set image = module.imageFile.first() %}
+			<figure class="figure{% if module.imageFullwidth %} figure--full{% endif %}">
 				<img src="{{ image.getUrl(smallThumb) }}" alt="{{ image.title }}" />
 				<figcaption class="figure__info">
-					<p class="figure__caption">{{ module.caption }}</p>
-					<p class="figure__copyright">{{ module.copyright }}</p>
+					<p class="figure__caption">{{ module.imageCaption }}</p>
+					<p class="figure__copyright">{{ module.imageCopyright }}</p>
 				</figcaption>
 			</figure>
 

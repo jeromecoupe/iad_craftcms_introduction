@@ -951,22 +951,26 @@ return array(
 );
 ```
 
-### Matrix [@TODO]
+### Matrix
 
-[Matrix](http://buildwithcraft.com/features/matrix) est un type de champ particulièrement [intéressant et puissant](http://buildwithcraft.com/features/matrix) dont vous disposez dans Craft. Il vous permet de créer des champs qui combinent différents blocs et de définir la structure pour chacun de ces blocs.
+Matrix certainly is one of the most intersting field type available with Craft. Essentially, it allows you to define a data structure for several types of content blocks (using Craft's other field types) and then to combine and arrange these blocks of content.
 
-Vous pourriez par exemple créer un champ `modularBody` avec la configuration suivante:
+For example, you could create a `modularBody` Matrix field with the following configuration:
 
-- block `textModule`
-	- `text` rich text field
-- block `imageModule`
-	- `file` Asset file limited to 1
-	- `caption` Textfied (128)
-	- `copyright` Textfied (128)
+- `textModule` block type
+	- `textContent`rich text field (redactor)
+- `quoteModule` block type
+	- `quoteText` Textfied (256)
+	- `quoteAuthor` Textfied (128)
+- `imageModule`block type
+	- `imageFile` Asset file (limited to 1)
+	- `imageCaption` Textfied (128)
+	- `imageCopyright` Textfied (128)
+	- `imageFullwidth` Lightswitch field
 
-Une telle configuration permettra à vos utilisateurs de composer leurs items comme ils le souhaitent en créant et en arrangeant à leur guise n'importe quelle combinaison de blocs texte et de blocs images.
+Such a Matrix field would allow your users to combine and arrange those text, image and quote blocks when creating their entries in the control panel, giving them a lot of flexibility.
 
-Au niveau du templating, vous pouvez également contrôler très précisément le code HTML généré. Nous utilisons ici [le tag `switch` propre à Craft](http://buildwithcraft.com/docs/templating/tags#switch).
+At the template level, you stay fully in control of the generated HTML code. We are using a special `{% switch %}` tag available for Craft.
 
 ```twig
 {# Modular Body #}
@@ -975,50 +979,69 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 	{% switch module.type %}
 
 		{% case "textModule" %}
-			{{ module.text }}
+
+			{{ module.textContent }}
+
+		{% case "quoteModule" %}
+
+			<blockquote>
+				{{ module.quoteText }}
+				<footer><cite>{{ module.quoteAuthor }}</cite></footer>
+			</blockquote>
 
 		{% case "imageModule" %}
-			{% set image = module.file.first() %}
 
-			<figure class="figure">
+			{% set image = module.imageFile.first() %}
+			<figure class="figure{% if module.imageFullwidth %} figure--full{% endif %}">
 				<img src="{{ image.getUrl(smallThumb) }}" alt="{{ image.title }}" />
 				<figcaption class="figure__info">
-					<p class="figure__caption">{{ module.caption }}</p>
-					<p class="figure__copyright">{{ module.copyright }}</p>
+					<p class="figure__caption">{{ module.imageCaption }}</p>
+					<p class="figure__copyright">{{ module.imageCopyright }}</p>
 				</figcaption>
 			</figure>
 
-	{% endswitch %}
+		{% endswitch %}
 
 {% endfor %}
 ```
 
-## Exercices
+## Exercises
 
-### A faire ensemble
+### Together
 
-Construire un blog simple. Chaque post devra inclure une image afin de pouvoir pratiquer les transformations d'images dans Craft.
+We are going to build a simple blog sporting the following pages:
 
-### A faire seul
+1. Homepage
+	- single section
+	- displays only the last 3 blogposts
+2. Blog archive page
+	- paginated list with 5 posts on each page
+	- blogposts can be filtered using categories
+3. Blog detail page
+	- blogposts must have images so we can learn to use image transforms
+4. About page
+	- single section
 
-1. Ajouter une page d'archive à votre blog qui permet de visualiser les posts par année en utilisant du dynamic routing.
-2. Créer une section "portfolio" vous permettant de présenter vos travaux. Créer une navigation dans les pages de détail permettant de naviguer de page de détail à page de détail.
+### On your own
 
-## Ressources
+1. Add the possibility to filter post by year on the blog archive page using dynamic routing.
+2. Add a "portfolio" section to present case studies. Use a Matrix field and create links allowing you to navigate to the previous / next case study in the list.
 
-- [Documentation officielle](http://buildwithcraft.com/docs/introduction) de Craft
-- [Articles Help & Support](http://buildwithcraft.com/help) officiels
-- [Documentation Twig](http://twig.sensiolabs.org/doc/templates.html) pour les template designers
-- [Screencast Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/) : une bonne entrée en matière.
-- [Straight up Craft](http://straightupcraft.com/): Un site de ressources concernant Craft et une liste des développeurs actifs et des plugins existants.
-- [Quelques videos](http://straightupcraft.com/learn-craft-cms) sur Straight up Craft
-- [On the Rocks](https://github.com/pixelandtonic/ontherocks) : un site de démonstration dont le code est sur Github : pratique pour voir comment sont faits les templates.
-- [Craft sur Google Plus](https://plus.google.com/communities/106505340287442511226) : la communauté Craft sur G+
-- [Episode de CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly) avec Brandon Kelly
-- [Interview de Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) par the Nerdary
-- [Introduction au templating avec Craft](http://withchief.com/blog/basics-of-templating-in-craft) par [Jamie Pittock](https://twitter.com/jamiepittock) sur Withchief
-- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) par l'inimitable [Stephen Lewis](https://twitter.com/monooso) : quelques bons exemples au niveau du templating.
-- [Craft Cookbook](http://www.craftcookbook.net) : sites d'exemples courts et précis. Bonne introduction au templating avec Craft et Twig.
-- [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): une présentation de [Brandon Kelly](https://twitter.com/brandonkelly) et une très bonne introduction à Twig.
-- [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): une présentation de [Trevor Davis](https://twitter.com/trevor_davis). Quelques bons trucs et astuces si vous ne connaissez pas encore Twig et Craft.
-- [Craft stackexchange site](http://craftcms.stackexchange.com/): poser vos questions concernant Craft et obtenir des réponses rapidement.
+## Resources
+
+- [Official documentation](http://buildwithcraft.com/docs/introduction) for Craft
+- [Official Help & Support articles](http://buildwithcraft.com/help) on the Craft website.
+- [Craft stackexchange site](http://craftcms.stackexchange.com/): ask questions, get answers. The whole Pixel&Tonic team is on it.
+- [Craft on Google Plus](https://plus.google.com/communities/106505340287442511226): Craft community, monitoried by the fine folks at Pixel&Tonic
+- [Twig documentation](http://twig.sensiolabs.org/doc/templates.html) for template designers
+- [Screencast by Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/): a very good intro for visual learners.
+- [Straight up Craft](http://straightupcraft.com/): A goldmine of Craft resources, a directory of existing plugins and a list of active developers.
+- [Essential videos](http://straightupcraft.com/learn-craft-cms) on Straight up Craft
+- [On the Rocks](https://github.com/pixelandtonic/ontherocks): a demo website available on Github. Good learning resource for templating.
+- [CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly): Craft episode with Brandon Kelly
+- [Interview with Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) on the Nerdary (I miss Kenny Meyers)
+- [Craft CMS: The (very) basics of templating](http://withchief.com/blog/basics-of-templating-in-craft) by [Jamie Pittock](https://twitter.com/jamiepittock) on withchief.com
+- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) by [Stephen Lewis](https://twitter.com/monooso "The undisputed king of title attributes"): very instructive templating examples.
+- [Craft Cookbook](http://www.craftcookbook.net): another good problem solving resource for Craft by [Stephen Lewis](https://twitter.com/monooso "Yes, him again") and the community.
+- [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): by [Brandon Kelly](https://twitter.com/brandonkelly) a well rounded introduction to Twig as a templating language.
+- [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): a slidedeck by [Trevor Davis](https://twitter.com/trevor_davis). A nice collection of tips and tricks for Twig and Craft.
