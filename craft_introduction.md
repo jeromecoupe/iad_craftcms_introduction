@@ -89,13 +89,13 @@ Les fields peuvent être groupés au sein de groupes. Ces groupes n'ont qu'une f
 
 ### Globals
 
-A côté des sections et des entries, les globals peuvent être utilisées pour stocker du contenu auquel il est possible d'accéder dans vos templates: tagline, coordonnées de contact, code Google Analytics, etc.
+A côté des sections et des entries, les [globals](http://buildwithcraft.com/docs/globals) peuvent être utilisées pour stocker du contenu auquel il est possible d'accéder dans vos templates: tagline, coordonnées de contact, code Google Analytics, etc.
 
 Vous pouvez créer des groupes de contenus en utilisant les global sets. Chaque set de globals possède son field layout et donc sa propre data structure. Les différences notables avec les sections et les entries sont que les globals ne possèdent pas d'URL et ne peuvent donc pas être visualisées comme les entries à l'aide de la fonction "live preview".
 
 ### Users
 
-Dans Craft, les utilisateurs servent à gérer les permissions données aux divers utilisateurs du système.
+Dans Craft, les [utilisateurs](http://buildwithcraft.com/docs/users) servent à gérer les permissions données aux divers utilisateurs du système.
 
 Les utilisateurs peuvent être assignés à divers groupes. Ces groupes sont utilisés pour gérer les permissions données aux utilisateurs qui en sont membres. Un utilisateur peut être assigné à plusieurs groupes.
 
@@ -103,21 +103,21 @@ La data structure des utilisateurs peut être aussi complexe que souhaitée. Via
 
 ### Assets
 
-Les assets vous permettent de gérer vos fichiers Craft. Vos Assets sont enregistrés dans des Asset Sources qui correspondent à des dossiers physiques sur votre serveur.
+Les [assets](http://buildwithcraft.com/docs/assets) vous permettent de gérer vos fichiers Craft. Vos Assets sont enregistrés dans des Asset Sources qui correspondent à des dossiers physiques sur votre serveur.
 
-De multiples transformations d'images peuvent être réalisées sur vos assets: crop, scale, quality, etc. Ces transformations vous permettent de créer vos thumbnails pour l'ensemble de votre site à partir d'une image de base.
+De multiples [transformations d'images](http://buildwithcraft.com/docs/image-transforms) peuvent être réalisées sur vos assets: crop, scale, quality, etc. Ces transformations vous permettent de créer vos thumbnails pour l'ensemble de votre site à partir d'une image de base.
 
 Un field layout est associé à chaque Asset Source et vous permet de créer une data-structure en y d'associant des custom fields. Vos documents peuvent donc avoir une data-structure différente de vos photos par exemple.
 
 ### Tags
 
-Les tags vous permettent de créer des *folksonomies* et de les appliquer à vos Entries, Users ou Assets.
+Les [tags](http://buildwithcraft.com/docs/tags) vous permettent de créer des *folksonomies* et de les appliquer à vos Entries, Users ou Assets.
 
 Chaque tag doit être assigné à un groupe et chaque groupe de tags possède un field layout. Vous pouvez donc créer des structures de données assez complexes pour chacun de vos groupes de tags.
 
 ### Categories
 
-Les categories vous permettent de créer des taxonomies et de les appliquer à vos Entries, Users ou Assets.
+Les [categories](http://buildwithcraft.com/docs/categories) vous permettent de créer des taxonomies et de les appliquer à vos Entries, Users ou Assets.
 
 Chaque catégorie doit être assignée à un groupe.
 
@@ -127,7 +127,7 @@ Chaque catégorie doit être assignée à un groupe.
 
 ### Relations
 
-L'une des grandes forces de Craft c'est qu'il est possible très facilement de créer des relations entre Entries, Users, Assets et Tags.
+L'une des grandes forces de Craft c'est qu'il est possible très facilement de créer des [relations](http://buildwithcraft.com/docs/relations) entre Entries, Users, Assets et Tags.
 
 Pour cela, Craft met à votre disposition des champs relationnels spécifiques:
 
@@ -143,7 +143,7 @@ Pour exploiter ces relations dans vos templates, Craft met à votre disposition 
 
 ### Routing
 
-L'un des autres éléments intéressant de Craft c'est le routing dynamique, qui permet de séparer structure des URLs et architecture de dossiers et de fichiers.
+L'un des autres éléments intéressant de Craft c'est le [routing](http://buildwithcraft.com/docs/routing) dynamique, qui permet de séparer structure des URLs et architecture de dossiers et de fichiers.
 
 Comme nous l'avons déjà vu, Craft cous permet de spécifier une structure d'URL propre pour chaque Entry, User, Asset, Tags and Categories.
 
@@ -268,26 +268,26 @@ Comme dit plus haut, vous pouvez assigner une valeur à une variable dans Twig e
 
 [Twig](http://twig.sensiolabs.org/doc/filters/index.html) et [Craft](http://buildwithcraft.com/docs/templating/filters) possèdent des filtres qui peuvent être appliqués à vos différents types de variables pour les modifier. Ces filtres offrent de nombreuses possibilités et permettent à Craft de se passer de nombreux plugins pour effectuer des tâches simples. Voici quelques exemples de ce qu'il est possible d'accomplir:
 
-Convertir une string en title case
+Convertir une string en title case:
 
 ```twig
 {{ entry.title|title }}
 ```
 
-Réaliser des opérations sur les dates et les formatter
+Réaliser des opérations sur les dates et les formatter:
 
 ```twig
 {{ entry.postDate|date_modify("+1 day")|date("m/d/Y") }}
 ```
 
-Déterminer la longueur d'une string, d'un array ou d'un objet
+Déterminer la longueur d'une string, d'un array ou d'un objet:
 
 ```twig
 {% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
 {{ allEntries|length }}
 ```
 
-Vous pouvez également appliquer des filtres à plusieurs lignes de votre template et pas seulement à une variable.
+Vous pouvez également appliquer des filtres à plusieurs lignes de votre template et pas seulement à une variable:
 
 ```twig
 {% filter upper %}
@@ -295,7 +295,7 @@ Vous pouvez également appliquer des filtres à plusieurs lignes de votre templa
 {% endfilter %}
 ```
 
-Ces filtres peuvent également être combinés
+Ces filtres peuvent également être combinés:
 
 ```twig
 {{ "Hello World"|upper|slice(0,5) }}
@@ -325,7 +325,7 @@ Les [fonctions disponibles dans Twig](http://twig.sensiolabs.org/doc/functions/i
 
 #### Structures de contrôle et conditionnels
 
-Twig vous permet de créer des structures de contrôles complexes à l'aide de conditionnels.
+Twig vous permet de créer des structures de contrôles à l'aide de conditionnels.
 
 ```twig
 {% if allEntries|length %}
@@ -333,7 +333,7 @@ Twig vous permet de créer des structures de contrôles complexes à l'aide de c
 {% endif %}
 ```
 
-If / else
+**If / else**
 
 ```twig
 {% if userGender == "female" %}
@@ -343,7 +343,7 @@ If / else
 {% endif %}
 ```
 
-Conditions imbriquées
+**Conditions imbriquées**
 
 ```twig
 {% if user %}
@@ -359,14 +359,14 @@ Conditions imbriquées
 {% endif %}
 ```
 
-Conditions cumulées
+**Conditions cumulées**
 
 ```twig
 {% if user and user.male %}
 {% if superAdmin or admin %}
 ```
 
-Loop
+**Loop**
 
 ```twig
 {% for entry in allEntries %}
@@ -417,15 +417,15 @@ Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 <head>
 	<meta charset="utf-8">
 
-	<title>{% if htmlTitle is defined %}{{ htmlTitle }} - Mysite{% else %}My generic title{% endif %}</title>
+	<title>{% if htmlTitle is defined %}{{ htmlTitle }}{% else %}My generic title{% endif %} - Mysite</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="shortcut icon" href="{{ siteUrl }}/favicon.ico">
-	<link rel="stylesheet" media="screen" href="{{ siteUrl }}/assets/css/screen.css">
-	<link rel="stylesheet" media="print" href="{{ siteUrl }}/assets/css/print.css">
+	<link rel="shortcut icon" href="{{ siteUrl }}favicon.ico">
+	<link rel="stylesheet" media="screen" href="{{ siteUrl }}assets/css/screen.css">
+	<link rel="stylesheet" media="print" href="{{ siteUrl }}assets/css/print.css">
 
-	<script src="{{ siteUrl }}/assets/js/libs/modernizr.js"></script>
+	<script src="{{ siteUrl }}assets/js/libs/modernizr.js"></script>
 
 </head>
 
@@ -660,7 +660,7 @@ Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/in
 
 ##### Pagination
 
-Craft vous permet de [paginer vos résultats](http://buildwithcraft.com/docs/templating/tags#paginate) à l'aide du tag `paginate` et de construire une interface de pagination à l'aide des variables qui l'accompagnent.
+Craft vous permet de [paginer vos résultats](http://buildwithcraft.com/docs/templating/tags#paginate) à l'aide du tag  `{% paginate %}` et de construire une interface de pagination à l'aide des variables qui l'accompagnent. Attention, le tag `{% paginate %}` nécessite un objet ElementCriteriaModel comme paramètre. N'utilisez simplement pas la méthode `find()` de l'objet. 
 
 ```twig
 {% paginate craft.entries.section('news').limit(5) as entries %}
@@ -735,50 +735,56 @@ Le même principe est d'application lorsqu'une page de catégorie est affichée.
 
 ```twig
 {#
- # This template gets loaded whenever a Category URL is
- # requested. That’s because a Category group Template setting is
- # set to “news/index”, the path to this template.
- #}
+# This template gets loaded whenever a Category URL is
+# requested. That’s because a Category group Template setting is
+# set to “news/index”, the path to this template.
+#}
 
 {# layout used #}
 {% extends "layouts/_base.html" %}
 
-{% set allCategories = craft.categories.group('newsTopics').find() %}
-
-{#
- #	- craft automatically creates a 'category' variable if it detects you are on a category template
- #  - we are just checking whether that category variable exists or not
- #  - depending on its existence, we set our list of entries
- #}
-
-{% if category is defined %}
-	{% set currentCategory = category.slug %}
-	{% set entries = craft.entries.section('news').relatedTo(category).limit(10).find(); %}
-{% else %}
-	{% set currentCategory = 'all' %}
-	{% set entries = craft.entries.section('news').limit(10).find(); %}
-{% endif %}
-
 {% block content %}
 
+	{#
+	# - craft automatically creates a 'category' variable if it detects you are on a category template
+	#  - we are just checking whether that category variable exists or not
+	#  - depending on its existence, we set our list of entries
+	#}
+
+	{% set allCategories = craft.categories.group('newsTopics').find() %}
+
+	{% if category is defined %}
+		{% set currentCategory = category.slug %}
+		{% set allNews = craft.entries.section('news').relatedTo(category).limit(10) %}
+	{% else %}
+		{% set currentCategory = 'all' %}
+		{% set allNews = craft.entries.section('news').limit(10) %}
+	{% endif %}
+
 	{# display entries list #}
-	{% for entry in entries %}
-		{% if loop.first %}<ul>{% endif %}
-			<article>
-				<p class="meta-info"><time datetime="{{ entry.postDate|date("Y-m-d") }}">{{ entry.postDate|date("F j, Y") }}</time></p>
-				<h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
-				<p>{{ entry.summary }}</p>
-			</article>
-		{% if loop.last %}</ul>{% endif %}
-	{% endfor %}
+	{% paginate allNews as entries %}
+
+		{% for entry in entries %}
+			{% if loop.first %}<ul>{% endif %}
+				<article>
+					<p class="meta-info"><time datetime="{{ entry.postDate|date("Y-m-d") }}">{{ entry.postDate|date("F j, Y") }}</time></p>
+					<h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+					<p>{{ entry.summary }}</p>
+				</article>
+			{% if loop.last %}</ul>{% endif %}
+		{% else %}
+			<p>No news found</p>
+		{% endfor %}
+
+	{% endpaginate %}
 
 	{# display categories list #}
 	{% for category in allCategories %}
 		{% if loop.first %}
 			<ul>
-				<li><a href="{{ siteUrl }}news/"{% if currentCategory == "all" %} class="current"{% endif %}>All Categories</a></li>
+			<li><a href="{{ siteUrl }}news/"{% if currentCategory == "all" %} class="current"{% endif %}>All Categories</a></li>
 		{% endif %}
-				<li><a href="{{ category.url }}"{% if currentCategory == category.slug %} class="current"{% endif %}>{{ category.title }}</a></li>
+			<li><a href="{{ category.url }}"{% if currentCategory == category.slug %} class="current"{% endif %}>{{ category.title }}</a></li>
 
 		{% if loop.last %}</ul>{% endif %}
 	{% endfor %}

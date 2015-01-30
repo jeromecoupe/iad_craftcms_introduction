@@ -2,9 +2,9 @@
 
 ## Craft
 
-[Craft](http://buildwithcraft.com/) is a young and very capable CMS created by [Pixel & Tonic](http://pixelandtonic.com/). Craft is developed using open source technologies like PHP and MySQL and is based on a PHP framework that has a great track record: [Yii](http://www.yiiframework.com/).
+[Craft](http://buildwithcraft.com/) is a young and very capable CMS created by [Pixel & Tonic](http://pixelandtonic.com/). Craft is developed using open source technologies like PHP and MySQL and is based on a PHP framework with a great track record: [Yii](http://www.yiiframework.com/).
 
-Compared to other products, Craft focuses on the essential: defining and managing your content in the most modular and flexible way possible. If you need comments, a forum or e-commerce, you will have to turn to plugins.
+Craft focuses on the essentials: defining and managing your content in the most modular and flexible way possible. For example, localisation is built in from the get go but if you need comments, a forum or e-commerce, you will have to turn to add-ons.
 
 ### A modular pricing model
 
@@ -12,19 +12,19 @@ This flexibility is present into the pricing of the product itself.
 
 - The "Core" version of Craft is free and allows you to easily develop and manage sites with a relatively simple data structure.
 - The "Client" version costs $199 and allows you to use more advanced features in terms of content management but only offers you basic user management.
-- The "Pro" version costs $299 and allows you to use all the features of Craft, including its adavanced multilingual capabilities and granular user management.
+- The "Pro" version costs $299 and allows you to use all the features of Craft, including its advanced multilingual capabilities and granular user management.
 
 # Strengths
 
 In my opinion, the main strengths of Craft are:
 
-- An unparalleled flexibility in the definition of your item types and of their data structure. The 16 field types available by default allow for an extremely modular approach of your content.
-- Speaking of modular fields, Matrix is certainly Craft's main asset in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
-- Using Twig as its templating language. Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularily and flexibility for your templates are amazing.
-- An impressive amount of features available out of the box, designed to make your life and the life of your users easier: live preview, responsive control panel, one click updates, multiple environments configurations, etc.
-- Freedom to build your own URL structure: there is almost no relation between your URL structure and your folder and files structure, thanks to a very flexible routing mechanism.
-- An integrated and comprehensive solution for multilingual sites.
-- A fantastic development and support team.
+1. An unparalleled flexibility in the definition of your item types and of their data structure. The 16 field types available by default allow for an extremely modular approach of your content.
+2. Speaking of modular fields, Matrix is certainly Craft's main asset in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
+3. Using Twig as its templating language. Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularily and flexibility for your templates are amazing.
+4. An integrated and comprehensive solution for multilingual sites with great localisation features.
+5. An impressive amount of features available out of the box, designed to make your life and the life of your users easier: live preview, responsive control panel, one click updates, multiple environments configurations, etc.
+6. Freedom to build your own URL structure: there is almost no relation between your URL structure and your folder and files structure, thanks to a very flexible routing mechanism.
+7. A fantastic development and support team.
 
 ## Define and structure your project
 
@@ -34,7 +34,7 @@ Craft allows you to create a very flexible and modular data structure for your p
 
 With Craft, your content will mainly live in entries. Those entries are grouped under entry types to form sections.
 
-The data structure of those entries is created by assigning custom fields to the entry types you defined for each sections. For each of those entry type, you can create a field layout defining which fields will be used by all entries of that type in a given section.
+The data structure of those entries is created by assigning custom fields to the entry types you defined for each sections. For each of those entry types, you can create a field layout defining which fields will be used by all entries of that type in a given section.
 
 There are [three types of sections](http://buildwithcraft.com/docs/sections-and-entries): singles, channels and structures.
 
@@ -58,7 +58,7 @@ Using the section configuration screen you can define
 - The URL format for all entries in that section.
 - The template Craft should load to display entries belonging to that section.
 
-Channel sections can contain various entry types, each having their own data structure. Creating a blog allowing you to post various types of content is for example very easy. All you need is a channel section with various entry types (blogposts, links, videos, pictures, etc.)
+Channel sections can contain various entry types, each having their own data structure. For example creating a blog allowing you to post various types of content is very easy. All you need is a channel section with various entry types (blogposts, links, videos, pictures, etc.)
 
 For each entry type defined in your section, you can define the data structure of entries by assigning custom fields to a field layout.
 
@@ -66,7 +66,7 @@ These entry types can easily be [used in routing and URL structures](http://buil
 
 #### Structure sections
 
-Structure sections behave a lot like channel sections: they can contain various entry types and the URL structure of their entries can be specified. The main difference is that their entries can be manually ordered in a hierachical tree. You can  specify the number of levels in that hierarchy.
+Structure sections behave a lot like channel sections: they can contain various entry types and the URL structure of their entries can be specified. The main difference is that their entries can be manually ordered in a hierarchical tree. You can  specify the number of levels in that hierarchy.
 
 Using the section configuration screen you can define
 
@@ -85,13 +85,13 @@ Fields can be grouped into field groups. These groups are there purely for conve
 
 ### Globals
 
-Next to sections and entries, globals can be used to store bits of content or options you want your client to be able to edit easily: tagline, contact data, Google Analytics code, number of entries to display in lists, etc.
+Next to sections and entries, [globals](http://buildwithcraft.com/docs/globals) can be used to store bits of content or options you want your client to be able to edit easily: tagline, contact data, Google Analytics code, number of entries to display in lists, etc.
 
 Those globals can be grouped together using global sets. Each global set has its own field layout and thus its own data structure. The big difference between global sets and single entries are that global sets do not have their own URLs and cannot make use of the "live preview" function.
 
 ### Users
 
-Craft has powerful and granular user management allowing you to manage the permissions for all users of the system.
+Craft has [powerful and granular user management](http://buildwithcraft.com/docs/users) allowing you to manage the permissions for all users of the system.
 
 Users can be assigned to various user groups. Permissions can be managed at a user group or at a user level. A user can be assigned to multiple groups.
 
@@ -99,21 +99,21 @@ The data structure for your users can be defined easily. A unique field layout a
 
 ### Assets
 
-Assets allow you to manage your files with Craft (images, videos, sounds, PDFs, etc). Assets are assigned to Asset Sources corresponding to folders on your server, or on external Cloud servers like Rackspace or Amazon S3 if you are the proud owner of a Craft Pro license.
+[Assets](http://buildwithcraft.com/docs/assets) allow you to manage your files with Craft (images, videos, sounds, PDFs, etc). Assets are assigned to Asset Sources corresponding to folders on your server, or on external Cloud servers like Rackspace or Amazon S3 if you are the proud owner of a Craft Pro license.
 
-Craft allows you to apply transformations (crop, fit, scale, quality, etc.) to images automatically, either in the control panel or dynamically through templates. That feature allows you to generate all the thumbnails you needs from an initial image.
+Craft allows you to apply [transformations](http://buildwithcraft.com/docs/image-transforms) (crop, fit, scale, quality, etc.) to images automatically, either in the control panel or dynamically through templates. That feature allows you to generate all the thumbnails you needs from an initial image.
 
 A field layout is available for each Asset Source. Using it in combination with custom fields allow you to create complex data structure for each of your assets types. For example, documents can have a different data structure than photos.
 
 ### Tags
 
-Tags allow you to create *folksonomies* and apply them to your Entries, Users or Assets.
+[Tags](http://buildwithcraft.com/docs/tags) allow you to create *folksonomies* and apply them to your Entries, Users or Assets.
 
 Every tag must be assigned to a group and each tag group has a field layout. You can create complex data structures for each of your tag groups if needed.
 
 ### Categories
 
-Categories allow you to create taxonomies and apply them to your Entries, Users or Assets.
+[Categories](http://buildwithcraft.com/docs/categories) allow you to create taxonomies and apply them to your Entries, Users or Assets.
 
 Each category must be assigned to a group and each of them has a dedicated field layout.
 
@@ -124,7 +124,7 @@ For each category group, the edit screen allows you to:
 
 ### Relations
 
-One of Craft's great strength is its relations system. You can easily craete relations between Entries, Users, Assets and Tags through a series of relational field types:
+One of Craft's great strength is its [relations system](http://buildwithcraft.com/docs/relations). You can easily create relations between Entries, Users, Assets and Tags through a series of relational field types:
 
 - **Assets**: allows you to establish a "one to one" or "one to many" relation to Assets.
 - **Entries**: allows you to establish a "one to one" or "one to many" relation to Entries.
@@ -138,7 +138,7 @@ To display and work with these relations in your templates, Craft is giving you 
 
 ### Routing
 
-Another interesting aspect of Craft is its dynamic routing system, which allows you separate your URL structure from your folders and files structure.
+Another interesting aspect of Craft is its [dynamic routing system](http://buildwithcraft.com/docs/routing), which allows you separate your URL structure from your folders and files structure.
 
 At the most basic level, we have already seen that Craft allows you to specify the URL structure of each of your Entries, Users, Assets, Tags and Categories.
 
@@ -152,7 +152,7 @@ If you need more possibilities than those the Control Panel gives you, you can [
 
 Craft also has a [very powerful built-in search system](http://buildwithcraft.com/docs/searching) based on a `search` parameter that can be used with `craft.entries`, `craft.users`, `craft.assets` and `craft.tags`.
 
-For performance reasons, Craft uses indexes for its search functionalities and those indexes can be updated or rebuilt [@TODO] directly from the control panel.
+For performance reasons, Craft uses indexes for its search functionalities and those indexes can be updated or [rebuilt](http://buildwithcraft.com/docs/searching#rebuilding-your-search-indexes) directly from the control panel.
 
 It is also easy to build [dynamic search forms](http://buildwithcraft.com/docs/templating/search-form) for your project. All you need to do is to use the `craft.request` tag to be able to [use the GET/POST parameters](http://buildwithcraft.com/docs/templating/craft.request) passed by your form in the context of your results template.
 
@@ -212,7 +212,7 @@ Loop on the `allEntries` object to create `entry` objects and display their titl
 {% endfor %}
 ```
 
-Create a [control structure](http://twig.sensiolabs.org/doc/templates.html#control-structure) to check if the `allENtries` variables contains at least one entry.
+Create a [control structure](http://twig.sensiolabs.org/doc/templates.html#control-structure) to check if the `allEntries` variables contains at least one entry.
 
 ```twig
 {% if allEntries|length %}
@@ -257,26 +257,26 @@ As shown earlier, you can easily assign a value to a variable using the `{% set 
 
 [Twig](http://twig.sensiolabs.org/doc/filters/index.html) and [Craft](http://buildwithcraft.com/docs/templating/filters) have filters that can be applied to your variables and modify or manipulate them. It means that Craft doesn't need any plugin to perform simple tasks in your templates. Here are some examples of what can be done using filters:
 
-Convert a string to title case:
+Convert a string to title case.
 
 ```twig
 {{ entry.title|title }}
 ```
 
-Dates operations and formatting
+Dates operations and formatting.
 
 ```twig
 {{ entry.postDate|date_modify("+1 day")|date("m/d/Y") }}
 ```
 
-Determine the length of a string, array or object:
+Determine the length of a string, array or object.
 
 ```twig
 {% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
 {{ allEntries|length }}
 ```
 
-It's also possible to apply a filter to multiple lines of your templates:
+It's also possible to apply a filter to multiple lines of your templates.
 
 ```twig
 {% filter upper %}
@@ -284,7 +284,7 @@ It's also possible to apply a filter to multiple lines of your templates:
 {% endfilter %}
 ```
 
-Filters can also be combined:
+Filters can also be combined.
 
 ```twig
 {{ "Hello World"|upper|slice(0,5) }}
@@ -307,7 +307,7 @@ Filters can also be combined:
 {{ range[1..10] }}
 ```
 
-`dump()` is only accessible in Craft when [Dev Mode is enabled](http://buildwithcraft.com/help/dev-mode) in your config/general.php file. Essential for debugging.
+`dump()` is only accessible in Craft when [Dev Mode is enabled](http://buildwithcraft.com/help/dev-mode) in your `config/general.php` file. Essential for debugging.
 
 ```twig
 {{ dump(entry) }}
@@ -315,7 +315,7 @@ Filters can also be combined:
 
 #### Control structures and conditonals
 
-Twig allows you to use complex control structures and conditionals.
+Twig allows you to use control structures and conditionals.
 
 **if**
 
@@ -379,7 +379,7 @@ Twig allows you to use complex control structures and conditionals.
 {% endfor %}
 ```
 
-#### Mathematical expresions and string manipulations
+#### Mathematical expressions and string manipulations
 
 Twig knows [Math](http://twig.sensiolabs.org/doc/templates.html#math) and allows you to manipulate character strings easily using [filters](http://twig.sensiolabs.org/doc/filters/index.html).
 
@@ -394,7 +394,7 @@ Twig allows you to control how your code is displayed, including [at the whitesp
 
 #### Template inheritance, includes and macros: stay DRY
 
-These three concepts are at the heart of Twig as a templating language. They enable you to create effiscient templates and avoid redundancy, allowing you to comply with the infamous "Don't Repeat Yourself" (DRY) principle.
+These three concepts are at the heart of Twig as a templating language. They enable you to create efficient templates and avoid redundancy, allowing you to comply with the infamous "Don't Repeat Yourself" (DRY) principle.
 
 ##### Template inheritance
 
@@ -413,7 +413,7 @@ Let's see how it works practically with a very simple example:
 <head>
 	<meta charset="utf-8">
 
-	<title>{% if htmlTitle is defined %}{{ htmlTitle }} - Mysite{% else %}My generic title{% endif %}</title>
+	<title>{% if htmlTitle is defined %}{{ htmlTitle }}{% else %}My generic title{% endif %} - Mysite</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -459,13 +459,13 @@ Let's see how it works practically with a very simple example:
 
 The `news/index.html` template extends the base layout template. The content defined in the "content" block of the child template replaces / supersedes the content of the "content" block in the parent template.
 
-As a side note, the name of the "parent" template begins with an underscore to tell Craft that template is hidden and cannot be accessed directly via a web browser. If any URL segment begins with an underscore (template or template group), Craft will display a 404.
+As a side note, the name of the "parent" template begins with an underscore to tell Craft that template is hidden and cannot be accessed directly via a web browser. If any segment of a URL begins with an underscore (template or template group), Craft will display a 404.
 
 Typically, your layouts, includes and entry templates should all be hidden.
 
 ##### Includes
 
-If you have code that is repeated in many templates, it is generally a good idea to use includes `{% include %}`. Since Twig compiles everything down to raw PHP, there is no performance penalty for using includes.
+If you have code that is repeated in many templates, it is generally a good idea to use includes `{% include %}`. Since Twig compiles everything down to raw PHP, there is no real performance penalty for using includes.
 
 ```twig
 {% include '_sidebars/default.html' %}
@@ -473,7 +473,7 @@ If you have code that is repeated in many templates, it is generally a good idea
 
 #### Macros
 
-Twig [Macros](http://twig.sensiolabs.org/doc/tags/macro.html) are comparable to mixins in Sass. They are small reusable chunks of code. I use them mainly with form related messages.
+Twig [Macros](http://twig.sensiolabs.org/doc/tags/macro.html) are comparable to mixins in Sass. They are small reusable chunks of code.
 
 A Macro is defined using the `{% macro %}` and `{% endmacro %}` tags. Macro can be loaded from an external file, or reside in the file they are used in.
 
@@ -507,12 +507,12 @@ If the macro is defined in an external file, we simply reference the path to the
 
 ### Retrieve and display your data with Craft
 
-In Craft, you interact with the database using ElementCriteriaModel objects. It sounds complicated but it is in fact quite simple:
+In Craft, you interact with the database using [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) objects. It sounds complicated but it is in fact quite simple:
 
 1. you create an ElementCriteriaModel for the type of data you want to get from the database (entries, users, assets, etc.)
 2. you specify the parameters (limit, order, filters, etc.) you want to use.
 3. Craft then fetches what you need from the database
-4. Craft returns an ElementModel or an array of ElementModels objects ([EntryModel](http://buildwithcraft.com/docs/templating/entrymodel) for entries, [UserModel](http://buildwithcraft.com/docs/templating/usermodel) for users, [AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel) for assets, [CategoryModel](http://buildwithcraft.com/docs/templating/categorymodel) for categories and [TagModel](http://buildwithcraft.com/docs/templating/tagmodel) for tags).
+4. Craft returns an ElementModel or an array of ElementModel objects ([EntryModel](http://buildwithcraft.com/docs/templating/entrymodel) for entries, [UserModel](http://buildwithcraft.com/docs/templating/usermodel) for users, [AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel) for assets, [CategoryModel](http://buildwithcraft.com/docs/templating/categorymodel) for categories and [TagModel](http://buildwithcraft.com/docs/templating/tagmodel) for tags).
 5. You can then display those objects or arrays of objects in your template.
 
 `craft.entries`, `craft.users`, `craft.assets`, `craft.categories` and `craft.tags` will be your main tools to retrieve and display your data.
@@ -569,7 +569,6 @@ Both syntaxes are valid and each of them has its place. The object notation is p
 } %}
 
 {% set totalEntries = craft.entries.total(params) %}
-
 Total entries: {{ totalEntries }}
 
 {% for entry in craft.entries.find(params) %}
@@ -648,7 +647,6 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 ```twig
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
 
-
 {% for entry in allEntries %}
 
 	{% if loop.first %}<div class="row">{% endif %}
@@ -679,7 +677,7 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 
 ##### Pagination
 
-Craft allows you to [paginate your results](http://buildwithcraft.com/docs/templating/tags#paginate) using the `paginate` tag and to build a pagination interface using the related variables.
+Craft allows you to [paginate your results](http://buildwithcraft.com/docs/templating/tags#paginate) using the `paginate` tag and to build simple or more complex pagination interfaces using the related variables. One small caveat: the paginate tag needs an ElementCriteriaModel as parameter. Just don't call `find()` on the object.
 
 ```twig
 {% paginate craft.entries.section('news').limit(5) as entries %}
@@ -764,32 +762,38 @@ The same logic applies with categories. When Craft is loading an URL correspondi
 
 {% block content %}
 
+ {#
+	#	- craft automatically creates a 'category' variable if it detects you are on a category template
+	#  - we are just checking whether that category variable exists or not
+	#  - depending on its existence, we set our list of entries
+	#}
+
 	{% set allCategories = craft.categories.group('newsTopics').find() %}
 
-		{#
-		#	- craft automatically creates a 'category' variable if it detects you are on a category template
-		#  - we are just checking whether that category variable exists or not
-		#  - depending on its existence, we set our list of entries
-		#}
-
-		{% if category is defined %}
-			{% set currentCategory = category.slug %}
-			{% set entries = craft.entries.section('news').relatedTo(category).limit(10).find(); %}
-		{% else %}
-			{% set currentCategory = 'all' %}
-			{% set entries = craft.entries.section('news').limit(10).find(); %}
-		{% endif %}
+	{% if category is defined %}
+		{% set currentCategory = category.slug %}
+		{% set allNews = craft.entries.section('news').relatedTo(category).limit(10) %}
+	{% else %}
+		{% set currentCategory = 'all' %}
+		{% set allNews = craft.entries.section('news').limit(10) %}
+	{% endif %}
 
 	{# display entries list #}
-	{% for entry in entries %}
-		{% if loop.first %}<ul>{% endif %}
-			<article>
-				<p class="meta-info"><time datetime="{{ entry.postDate|date("Y-m-d") }}">{{ entry.postDate|date("F j, Y") }}</time></p>
-				<h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
-				<p>{{ entry.summary }}</p>
-			</article>
-		{% if loop.last %}</ul>{% endif %}
-	{% endfor %}
+	{% paginate allNews as entries %}
+
+		{% for entry in entries %}
+			{% if loop.first %}<ul>{% endif %}
+				<article>
+					<p class="meta-info"><time datetime="{{ entry.postDate|date("Y-m-d") }}">{{ entry.postDate|date("F j, Y") }}</time></p>
+					<h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+					<p>{{ entry.summary }}</p>
+				</article>
+			{% if loop.last %}</ul>{% endif %}
+		{% else %}
+			<p>No news found</p>
+		{% endfor %}
+
+	{% endpaginate %}
 
 	{# display categories list #}
 	{% for category in allCategories %}
@@ -833,8 +837,8 @@ When you define a transform in the Control Panel and you name it `thumbnail`, yo
 
 ```twig
 {% if myAssetField | length %}
-{% set heroImage = myAssetField.first() %}
-<img src="{{ heroImage.getUrl('thumbnail') }} width="{{ asset.getWidth('thumbnail') }}" height="{{ asset.getHeight('thumbnail') }}" alt="{{ heroImage.title }}">
+	{% set heroImage = myAssetField.first() %}
+	<img src="{{ heroImage.getUrl('thumbnail') }} width="{{ asset.getWidth('thumbnail') }}" height="{{ asset.getHeight('thumbnail') }}" alt="{{ heroImage.title }}">
 {% endif %}
 ```
 
@@ -854,7 +858,7 @@ You can also specify your trabsforms diretly in your templates
 {% endif %}
 ```
 
-## Slightly advanced functionalities
+## Slightly more advanced functionalities
 
 ### Redactor configurations
 
@@ -888,7 +892,7 @@ return array(
 );
 ```
 
-You can pretty much override any [configuration settings](http://buildwithcraft.com/docs/config-settings) that way. Craft also allows you to create and use [environment specific variables](http://buildwithcraft.com/docs/multi-environment-configs#environment-specific-variables). You can name those any way you want and use them in your templates or to create dynamic configurations in Craft's control panel.
+You can pretty much override any [configuration settings](http://buildwithcraft.com/docs/config-settings) that way. Craft also allows you to create and use [environment specific variables](http://buildwithcraft.com/docs/multi-environment-configs#environment-specific-variables). You can name those any way you want and use them to create dynamic configurations in Craft's control panel. You can also [use them in your templates](http://buildwithcraft.com/docs/templating/craft.config) using the `craft.config.myvariable` syntax
 
 ```
 return array(
@@ -921,11 +925,11 @@ return array(
 You can then use those variables in the Control Panel, for example when defining file system paths and url for your asset sources to make them environment specific.
 
 ```
-{serverPath}/assets/images/
-{rootUrl}/assets/images/
+{serverPath}assets/images/
+{rootUrl}assets/images/
 ```
 
-Such dynamic configurations can also be used for your database paramaters in  `craft/config/db.php`.
+Such dynamic configurations can also be used for your database paramaters in `craft/config/db.php`.
 
 **Example**: craft/config/db.php
 
@@ -1029,18 +1033,18 @@ We are going to build a simple blog sporting the following pages:
 
 ## Resources
 
-- [Official documentation](http://buildwithcraft.com/docs/introduction) for Craft
+- [Official documentation](http://buildwithcraft.com/docs/introduction) for Craft.
 - [Official Help & Support articles](http://buildwithcraft.com/help) on the Craft website.
 - [Craft stackexchange site](http://craftcms.stackexchange.com/): ask questions, get answers. The whole Pixel&Tonic team is on it.
-- [Craft on Google Plus](https://plus.google.com/communities/106505340287442511226): Craft community, monitoried by the fine folks at Pixel&Tonic
-- [Twig documentation](http://twig.sensiolabs.org/doc/templates.html) for template designers
+- [Craft on Google Plus](https://plus.google.com/communities/106505340287442511226): Craft community, monitored by the fine folks at Pixel&Tonic.
+- [Twig documentation](http://twig.sensiolabs.org/doc/templates.html) for template designers.
 - [Screencast by Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/): a very good intro for visual learners.
 - [Straight up Craft](http://straightupcraft.com/): A goldmine of Craft resources, a directory of existing plugins and a list of active developers.
-- [Essential videos](http://straightupcraft.com/learn-craft-cms) on Straight up Craft
+- [Essential videos](http://straightupcraft.com/learn-craft-cms) on Straight up Craft.
 - [On the Rocks](https://github.com/pixelandtonic/ontherocks): a demo website available on Github. Good learning resource for templating.
 - [CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly): Craft episode with Brandon Kelly
-- [Interview with Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) on the Nerdary (I miss Kenny Meyers)
-- [Craft CMS: The (very) basics of templating](http://withchief.com/blog/basics-of-templating-in-craft) by [Jamie Pittock](https://twitter.com/jamiepittock) on withchief.com
+- [Interview with Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) on the Nerdary.
+- [Craft CMS: The (very) basics of templating](http://withchief.com/blog/basics-of-templating-in-craft) by [Jamie Pittock](https://twitter.com/jamiepittock).
 - [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) by [Stephen Lewis](https://twitter.com/monooso "The undisputed king of title attributes"): very instructive templating examples.
 - [Craft Cookbook](http://www.craftcookbook.net): another good problem solving resource for Craft by [Stephen Lewis](https://twitter.com/monooso "Yes, him again") and the community.
 - [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): by [Brandon Kelly](https://twitter.com/brandonkelly) a well rounded introduction to Twig as a templating language.
