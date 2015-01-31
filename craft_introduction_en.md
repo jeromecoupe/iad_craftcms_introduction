@@ -19,8 +19,8 @@ This flexibility is present into the pricing of the product itself.
 In my opinion, the main strengths of Craft are:
 
 1. An unparalleled flexibility in the definition of your item types and of their data structure. The 16 field types available by default allow for an extremely modular approach of your content.
-2. Speaking of modular fields, Matrix is certainly Craft's main asset in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
-3. Using Twig as its templating language. Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularily and flexibility for your templates are amazing.
+2. Speaking of modular fields, Matrix certainly is Craft's main asset in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
+3. Using Twig as its templating language. Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularity and flexibility for your templates are amazing.
 4. An integrated and comprehensive solution for multilingual sites with great localisation features.
 5. An impressive amount of features available out of the box, designed to make your life and the life of your users easier: live preview, responsive control panel, one click updates, multiple environments configurations, etc.
 6. Freedom to build your own URL structure: there is almost no relation between your URL structure and your folder and files structure, thanks to a very flexible routing mechanism.
@@ -62,7 +62,7 @@ Channel sections can contain various entry types, each having their own data str
 
 For each entry type defined in your section, you can define the data structure of entries by assigning custom fields to a field layout.
 
-These entry types can easily be [used in routing and URL structures](http://buildwithcraft.com/help/entry-type-urls) as well as in your templates with [craft.entries tags and conditionals](http://buildwithcraft.com/docs/templating/entrymodel#type).
+These entry types can easily be [used in routing and URL structures](http://buildwithcraft.com/help/entry-type-urls) as well as in your templates with [`craft.entries` tags and conditionals](http://buildwithcraft.com/docs/templating/entrymodel#type).
 
 #### Structure sections
 
@@ -113,7 +113,7 @@ Every tag must be assigned to a group and each tag group has a field layout. You
 
 ### Categories
 
-[Categories](http://buildwithcraft.com/docs/categories) allow you to create taxonomies and apply them to your Entries, Users or Assets.
+[Categories](http://buildwithcraft.com/docs/categories) allow you to create *taxonomies* and apply them to your Entries, Users or Assets.
 
 Each category must be assigned to a group and each of them has a dedicated field layout.
 
@@ -144,7 +144,7 @@ At the most basic level, we have already seen that Craft allows you to specify t
 
 If that's not enough to cover all your needs, you can also create dynamic routes independently. For each route you create, you can specify which template must be loaded by Craft. An easy to understand example is [a template giving access to a yearly archive of entries](http://buildwithcraft.com/help/entry-archive#yearly-archive-pages).
 
-When you create a dynamic route with the structure of `blog/archive/{year}` calling the template `blog/archive`, the URLs `blog/archive/2013` and `blog/archive/2012` will load the same template and make a `{year}` variable accessible to to Twig in that template. You can for example use it with the [`after`](http://buildwithcraft.com/docs/templating/craft.entries#after) and [`before`](http://buildwithcraft.com/docs/templating/craft.entries#before) perameters of a `craft.entries` tag.
+When you create a dynamic route with the structure of `blog/archive/{year}` calling the template `blog/archive`, the URLs `blog/archive/2013` and `blog/archive/2012` will load the same template and make a `{year}` variable accessible to to Twig in that template. You can for example use it with the [`after`](http://buildwithcraft.com/docs/templating/craft.entries#after) and [`before`](http://buildwithcraft.com/docs/templating/craft.entries#before) parameters of a `craft.entries` tag.
 
 If you need more possibilities than those the Control Panel gives you, you can [manage your routes in a more advanced way](http://buildwithcraft.com/docs/routing#advanced-routing) using the `config/routes.php` file. That will give you access to all the power of regular expressions in your URL matching patterns.
 
@@ -166,7 +166,7 @@ All your templates are in the `craft/templates` folder. You can change that loca
 
 Craft uses [Twig](http://twig.sensiolabs.org/), created by Fabien Potencier, as its templating language. Twig compiles all your templates down to raw PHP, which means it os blazing fast. Twig has a small learning curve if you have never done any programming but remains very [accessible to front-end developers](http://twig.sensiolabs.org/doc/templates.html).
 
-Coupled with Craft specific tags, functions and filters, Twig enables you to access your data and manipulate them in your templates. For a quick introduction to Twig other than what follows, have a look at "[Twig for deigners](http://www.slideshare.net/brandonkelly212/twig-for-designers)", a presentation by Brandon Kelly available on Slideshare.
+Coupled with Craft specific tags, functions and filters, Twig enables you to access your data and manipulate them in your templates. For a quick introduction to Twig other than what follows, have a look at "[Twig for designers](http://www.slideshare.net/brandonkelly212/twig-for-designers)", a presentation by Brandon Kelly available on Slideshare.
 
 #### Main tags in Twig
 
@@ -560,7 +560,7 @@ or
 {% endfor %}
 ```
 
-Both syntaxes are valid and each of them has its place. The object notation is particularily useful if you need to reuse the parameters multiple times in your template. Here is an example fetching the entries themselves and the number of entries using the same parameters passed as an object.
+Both syntaxes are valid and each of them has its place. The object notation is particularly useful if you need to reuse the parameters multiple times in your template. Here is an example fetching the entries themselves and the number of entries using the same parameters passed as an object.
 
 ```twig
 {% set params = {
@@ -600,7 +600,7 @@ You can easily display alternate content if not entries are found, just by using
 
 ##### "Loop", "cycle" and "is divisible by"
 
-When using a `{% for %}` loop, it is sometimes useful to know at which iteration of the loop you are currently at. Typical tasts include opening and closing a `<ul>` at the beginning and at the end of a loop, or displaying something every x iterations. Twig gives you the [`loop`](http://twig.sensiolabs.org/doc/tags/for.html#the-loop-variable) variable, the [`cycle`](http://twig.sensiolabs.org/doc/functions/cycle.html) function and the [`is divisibleby`](http://twig.sensiolabs.org/doc/tests/divisibleby.html) test for those jobs.
+When using a `{% for %}` loop, it is sometimes useful to know at which iteration of the loop you are currently at. Typical tests include opening and closing a `<ul>` at the beginning and at the end of a loop, or displaying something every x iterations. Twig gives you the [`loop`](http://twig.sensiolabs.org/doc/tags/for.html#the-loop-variable) variable, the [`cycle`](http://twig.sensiolabs.org/doc/functions/cycle.html) function and the [`is divisibleby`](http://twig.sensiolabs.org/doc/tests/divisibleby.html) test for those jobs.
 
 **Example**: using the `loop` variable
 
@@ -677,7 +677,7 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 
 ##### Pagination
 
-Craft allows you to [paginate your results](http://buildwithcraft.com/docs/templating/tags#paginate) using the `paginate` tag and to build simple or more complex pagination interfaces using the related variables. One small caveat: the paginate tag needs an ElementCriteriaModel as parameter. Just don't call `find()` on the object.
+Craft allows you to [paginate your results](http://buildwithcraft.com/docs/templating/tags#paginate) using the `{% paginate %}` tag and to build simple or more complex pagination interfaces using the related variables. One small caveat: the `{% paginate %}` tag needs an ElementCriteriaModel as parameter. Just don't call `find()` on the object.
 
 ```twig
 {% paginate craft.entries.section('news').limit(5) as entries %}
@@ -811,7 +811,7 @@ The same logic applies with categories. When Craft is loading an URL correspondi
 
 #### Globals
 
-Globals are used to store content that will be made globally accessible to all your templates. They are typically used to create configuration options or variables that need to be editable by adminisrators but that doe not belong in sections.
+Globals are used to store content that will be made globally accessible to all your templates. They are typically used to create configuration options or variables that need to be editable by administrators but that doe not belong in sections.
 
 Globals can be accessed easily via their global set handle followed by their global handle. For example, a global called `tagline` in a `companyInfo` global set would be accessed this way:
 
@@ -829,9 +829,9 @@ Articles in the help section are showing you how to list [all the tags used by t
 
 #### Assets and transformations
 
-The `craft.assets` tag will allow you to acces your assets. This tag also has a series of parameters, some of which are tied to assets-specific functionalities or behaviour. `craft.assets` functions like `craft.enries` except that it returns a single `[AssetModel](@TODO)` or an array of those.
+The `craft.assets` tag will allow you to access your assets. This tag also has a series of parameters, some of which are tied to assets-specific functionalities or behaviour. `craft.assets` functions like `craft.enries` except that it returns a single `[AssetModel](@TODO)` or an array of those.
 
-If yor assets are images, Crfat allows you to create transforms tied to all your asset groups. These transforms will generate thumbnails for all your assets. Those transforms can be specified in the control panel and generated when assets are uploaded (Settings > Assets > Imade Transforms) or they can be specified in your template and generated dynamically when assets are requested for the first time.
+If your assets are images, Craft allows you to create transforms tied to all your asset groups. These transforms will generate thumbnails for all your assets. Those transforms can be specified in the control panel and generated when assets are uploaded (Settings > Assets > Image Transforms) or they can be specified in your template and generated dynamically when assets are requested for the first time.
 
 When you define a transform in the Control Panel and you name it `thumbnail`, you can access them in your templates in the following way:
 
@@ -842,7 +842,7 @@ When you define a transform in the Control Panel and you name it `thumbnail`, yo
 {% endif %}
 ```
 
-You can also specify your trabsforms diretly in your templates
+You can also specify your transforms directly in your templates
 
 ```twig
 {% set transform = {
@@ -862,9 +862,9 @@ You can also specify your trabsforms diretly in your templates
 
 ### Redactor configurations
 
-Craft uses [Redactor](http://imperavi.com/redactor/) as a WYSIWYG solution for rich text fields. WHen you create a rich text field, you can choose the Redactor configuration you want to apply to that field.
+Craft uses [Redactor](http://imperavi.com/redactor/) as a WYSIWYG solution for rich text fields. When you create a rich text field, you can choose the Redactor configuration you want to apply to that field.
 
-These configurations can be easily created and modified with JSON files stored in the `craft/config/redactor/` folder. The name of yor JSON file will be the name of the configuration in the Control Panel.
+These configurations can be easily created and modified with JSON files stored in the `craft/config/redactor/` folder. The name of your JSON file will be the name of the configuration in the Control Panel.
 
 ### Multiple environments configurations
 
@@ -929,7 +929,7 @@ You can then use those variables in the Control Panel, for example when defining
 {rootUrl}assets/images/
 ```
 
-Such dynamic configurations can also be used for your database paramaters in `craft/config/db.php`.
+Such dynamic configurations can also be used for your database parameters in `craft/config/db.php`.
 
 **Example**: craft/config/db.php
 
@@ -957,7 +957,7 @@ return array(
 
 ### Matrix
 
-Matrix certainly is one of the most intersting field type available with Craft. Essentially, it allows you to define a data structure for several types of content blocks (using Craft's other field types) and then to combine and arrange these blocks of content.
+Matrix certainly is one of the most interesting field type available with Craft. Essentially, it allows you to define a data structure for several types of content blocks (using Craft's other field types) and then to combine and arrange these blocks of content.
 
 For example, you could create a `modularBody` Matrix field with the following configuration:
 
@@ -1028,8 +1028,8 @@ We are going to build a simple blog sporting the following pages:
 
 ### On your own
 
-1. Add the possibility to filter post by year on the blog archive page using dynamic routing.
-2. Add a "portfolio" section to present case studies. Use a Matrix field and create links allowing you to navigate to the previous / next case study in the list.
+1. Add the possibility to filter posts by year on the blog archive page using dynamic routing.
+2. Add a "portfolio" section to present case studies. Use a Matrix field to be able to mix image and text in case studies. Create links allowing you to navigate to the previous / next case study in the list.
 
 ## Resources
 
@@ -1049,3 +1049,4 @@ We are going to build a simple blog sporting the following pages:
 - [Craft Cookbook](http://www.craftcookbook.net): another good problem solving resource for Craft by [Stephen Lewis](https://twitter.com/monooso "Yes, him again") and the community.
 - [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): by [Brandon Kelly](https://twitter.com/brandonkelly) a well rounded introduction to Twig as a templating language.
 - [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): a slidedeck by [Trevor Davis](https://twitter.com/trevor_davis). A nice collection of tips and tricks for Twig and Craft.
+- [Manipulating Craft's ElementCriteriaModel objects with Twig](http://www.webstoemp.com/blog/manipulating-craft-elementcriteriamodel-with-twig/): a simple but powerful technique to build complex functionalities with only a few lines of Twig.
