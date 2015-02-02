@@ -124,7 +124,7 @@ For each category group, the edit screen allows you to:
 
 ### Relations
 
-One of Craft's great strength is its [relations system](http://buildwithcraft.com/docs/relations). You can easily create relations between Entries, Users, Assets and Tags through a series of relational field types:
+One of Craft's great strengths is its [relations system](http://buildwithcraft.com/docs/relations). You can easily create relations between Entries, Users, Assets and Tags through a series of relational field types:
 
 - **Assets**: allows you to establish a "one to one" or "one to many" relation to Assets.
 - **Entries**: allows you to establish a "one to one" or "one to many" relation to Entries.
@@ -164,7 +164,7 @@ All your templates are in the `craft/templates` folder. You can change that loca
 
 ### Twig as a templating language
 
-Craft uses [Twig](http://twig.sensiolabs.org/), created by Fabien Potencier, as its templating language. Twig compiles all your templates down to raw PHP, which means it os blazing fast. Twig has a small learning curve if you have never done any programming but remains very [accessible to front-end developers](http://twig.sensiolabs.org/doc/templates.html).
+Craft uses [Twig](http://twig.sensiolabs.org/), created by Fabien Potencier, as its templating language. Twig compiles all your templates down to raw PHP, which means it is blazing fast. Twig has a small learning curve if you have never done any programming but remains very [accessible to front-end developers](http://twig.sensiolabs.org/doc/templates.html).
 
 Coupled with Craft specific tags, functions and filters, Twig enables you to access your data and manipulate them in your templates. For a quick introduction to Twig other than what follows, have a look at "[Twig for designers](http://www.slideshare.net/brandonkelly212/twig-for-designers)", a presentation by Brandon Kelly available on Slideshare.
 
@@ -186,7 +186,7 @@ Twig comment tags are not rendered in the compiled template: `{# This is a comme
 
 `{{ Output }}`: These tags allow you to output strings, numbers, booleans, arrays and objects in your templates. Most of the time you will be outputting variables that you or Craft sets.
 
-Exemples:
+Examples:
 
 - `{{ "Hello world" }}`: displays the string "Hello world"
 - `{{ entry.title }}`: displays the title property of an entry object
@@ -194,7 +194,7 @@ Exemples:
 
 ##### Execution and logic tags
 
-`{% Execution / Logique %}`: these tags allow you to execute tasks and can be used to create variables, loops, control structures, etc.
+`{% Execution / Logic %}`: these tags allow you to execute tasks and can be used to create variables, loops, control structures, etc.
 
 Examples:
 
@@ -313,7 +313,7 @@ Filters can also be combined.
 {{ dump(entry) }}
 ```
 
-#### Control structures and conditonals
+#### Control structures and conditionals
 
 Twig allows you to use control structures and conditionals.
 
@@ -398,9 +398,9 @@ These three concepts are at the heart of Twig as a templating language. They ena
 
 ##### Template inheritance
 
-Template inheritance is a central concept in Twig, as it is in many other templating languages for the web. We will generally work with a "parent" template defining the skeleton of the page, its different blocks and one or more "children" templates. These children template will extend the partent template and define the content of each of those blocks.
+Template inheritance is a central concept in Twig, as it is in many other templating languages for the web. We will generally work with a "parent" template defining the skeleton of the page, its different blocks and one or more "children" templates. These children templates will extend the parent template and define the content of each of those blocks.
 
-Variables defined in "children" templates can be accessed in the "parent" template, unless
+Variables defined in "children" templates can be accessed in the "parent" template.
 
 Let's see how it works practically with a very simple example:
 
@@ -521,7 +521,7 @@ We will mainly work with the `craft.entries` tag in this introduction. Since all
 
 #### Entries
 
-[`craft.entries`](http://buildwithcraft.com/docs/templating/craft.entries) is going to be you main tool to retrieve and display your entries.
+[`craft.entries`](http://buildwithcraft.com/docs/templating/craft.entries) is going to be your main tool to retrieve and display your entries.
 
 - `craft.entries.find()` allow you to retrieve all entries corresponding to the specified criteria.
 - `craft.entries.total()` allow you to retrieve the total number of entries corresponding to the specified criteria.
@@ -581,7 +581,7 @@ Total entries: {{ totalEntries }}
 
 ##### No results
 
-You can easily display alternate content if not entries are found, just by using [an `{% else %}` clause in your `{% for %}` loop](http://twig.sensiolabs.org/doc/tags/for.html#the-else-clause).
+You can easily display alternate content if no entries are found, just by using [an `{% else %}` clause in your `{% for %}` loop](http://twig.sensiolabs.org/doc/tags/for.html#the-else-clause).
 
 ```twig
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -642,7 +642,7 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 {% endfor %}
 ```
 
-**Example**: using the `is divisible by` test to insert an element every 2 itérations.
+**Example**: using the `is divisible by` test to insert an element every 2 iterations.
 
 ```twig
 {% set allEntries = craft.entries.section('news').limit(4).find() %}
@@ -811,7 +811,7 @@ The same logic applies with categories. When Craft is loading an URL correspondi
 
 #### Globals
 
-Globals are used to store content that will be made globally accessible to all your templates. They are typically used to create configuration options or variables that need to be editable by administrators but that doe not belong in sections.
+Globals are used to store content that will be made globally accessible to all your templates. They are typically used to create configuration options or variables that need to be editable by administrators but that do not belong in sections.
 
 Globals can be accessed easily via their global set handle followed by their global handle. For example, a global called `tagline` in a `companyInfo` global set would be accessed this way:
 
@@ -819,17 +819,17 @@ Globals can be accessed easily via their global set handle followed by their glo
 
 #### Tags
 
-You can access and display tags using `craft.tags` and its [related parameters](http://buildwithcraft.com/docs/templating/craft.tags). It works just like `craft.entries` but returns a `[TagModel](@TODO)` object or an array of those.
+You can access and display tags using `craft.tags` and its [related parameters](http://buildwithcraft.com/docs/templating/craft.tags). It works just like `craft.entries` but returns a `[TagModel](http://buildwithcraft.com/docs/templating/tagmodel)` object or an array of those.
 
 Articles in the help section are showing you how to list [all the tags used by the entries in a given section](http://buildwithcraft.com/help/active-tags) or how use a dynamic route to create an [archive page listing all the entries related to a tag](http://buildwithcraft.com/help/tag-urls).
 
 #### Users
 
-`craft.users` allows you to access and display the users of your website. The tag functions like `craft.entries` but returns a single `[UserModel](@TODO)` or an array of those. The `craft.users` tag also has [a series parameters](http://buildwithcraft.com/docs/templating/craft.users), some of which are tied to users-specific functionalities or behaviours.
+`craft.users` allows you to access and display the users of your website. The tag functions like `craft.entries` but returns a single `[UserModel](http://buildwithcraft.com/docs/templating/usermodel)` or an array of those. The `craft.users` tag also has [a series parameters](http://buildwithcraft.com/docs/templating/craft.users), some of which are tied to users-specific functionalities or behaviours.
 
 #### Assets and transformations
 
-The `craft.assets` tag will allow you to access your assets. This tag also has a series of parameters, some of which are tied to assets-specific functionalities or behaviour. `craft.assets` functions like `craft.enries` except that it returns a single `[AssetModel](@TODO)` or an array of those.
+The `craft.assets` tag will allow you to access your assets. This tag also has a series of parameters, some of which are tied to assets-specific functionalities or behaviour. `craft.assets` functions like `craft.entries` except that it returns a single `[AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel)` or an array of those.
 
 If your assets are images, Craft allows you to create transforms tied to all your asset groups. These transforms will generate thumbnails for all your assets. Those transforms can be specified in the control panel and generated when assets are uploaded (Settings > Assets > Image Transforms) or they can be specified in your template and generated dynamically when assets are requested for the first time.
 

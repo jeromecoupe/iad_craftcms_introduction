@@ -735,10 +735,10 @@ Le même principe est d'application lorsqu'une page de catégorie est affichée.
 
 ```twig
 {#
-# This template gets loaded whenever a Category URL is
-# requested. That’s because a Category group Template setting is
-# set to “news/index”, the path to this template.
-#}
+ # This template gets loaded whenever a Category URL is
+ # requested. That’s because a Category group Template setting is
+ # set to “news/index”, the path to this template.
+ #}
 
 {# layout used #}
 {% extends "layouts/_base.html" %}
@@ -746,10 +746,10 @@ Le même principe est d'application lorsqu'une page de catégorie est affichée.
 {% block content %}
 
 	{#
-	# - craft automatically creates a 'category' variable if it detects you are on a category template
-	#  - we are just checking whether that category variable exists or not
-	#  - depending on its existence, we set our list of entries
-	#}
+	 # - craft automatically creates a 'category' variable if it detects you are on a category template
+	 #  - we are just checking whether that category variable exists or not
+	 #  - depending on its existence, we set our list of entries
+	 #}
 
 	{% set allCategories = craft.categories.group('newsTopics').find() %}
 
@@ -802,17 +802,17 @@ Vous pouvez y accéder très facilement via leur handle de global set suivi de l
 
 #### Tags
 
-Dans Craft, on accède aux tags avec `craft.tags`, qui [possède un certain nombre de paramètres](http://buildwithcraft.com/docs/templating/craft.tags) et fonctionne dans l'ensemble comme `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
+Dans Craft, on accède aux tags avec `craft.tags`, qui [possède un certain nombre de paramètres](http://buildwithcraft.com/docs/templating/craft.tags) et fonctionne dans l'ensemble comme `craft.entries` mais retourne un objet ou un array d'objets `[TagModel](http://buildwithcraft.com/docs/templating/tagmode)`.
 
 Deux articles sur buildwithcraft.com vous montrent comment obtenir une [liste de tous les tags utilisés par les entries d'une section](http://buildwithcraft.com/help/active-tags), ou encore comment créer, à l'aide d'une route dynamique, [une page d'archive reprenant toutes les entries liées à un tag](http://buildwithcraft.com/help/tag-urls).
 
 #### Users
 
-Le tag `craft.users` permet d'accéder aux utilisateurs de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.users). Son fonctionnement est semblable au tag `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
+Le tag `craft.users` permet d'accéder aux utilisateurs de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.users). Son fonctionnement est semblable au tag `craft.entries` mais il retourne un objet ou un array d'objets `[UserModel](http://buildwithcraft.com/docs/templating/usermodel)`.
 
 #### Assets et transformations
 
-Le tag `craft.assets` permet d'accéder aux Assets de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.assets). Son fonctionnement est semblable au tag `craft.entries` dans la mesure où il retourne un objet [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel).
+Le tag `craft.assets` permet d'accéder aux Assets de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.assets). Son fonctionnement est semblable au tag `craft.entries` dans la mesure où il retourne un objet `[AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel)`.
 
 Si vos assets sont des images, Craft vous permet d'effectuer des transformations de celles-ci, soit à l'upload (via votre control panel: Settings > Assets > Image Transforms), soit dynamiquement dans vos templates.
 
