@@ -160,7 +160,7 @@ It is also easy to build [dynamic search forms](http://buildwithcraft.com/docs/t
 
 Now that you know how to create complex data structures for your projects, let's dive into creating your templates with Craft.
 
-All your templates are in the `craft/templates` folder. You can change that location using the `[CRAFT_TEMPLATES_PATH](http://buildwithcraft.com/docs/php-constants#craft-templates-path)` constant.
+All your templates are in the `craft/templates` folder. You can change that location using the [`CRAFT_TEMPLATES_PATH`](http://buildwithcraft.com/docs/php-constants#craft-templates-path) constant.
 
 ### Twig as a templating language
 
