@@ -896,37 +896,39 @@ You can pretty much override any [configuration settings](http://buildwithcraft.
 
 ```
 return array(
-    '*' => array(
-        'omitScriptNameInUrls' => true,
-    ),
+  '*' => array(
+    'omitScriptNameInUrls' => true,
+  ),
 
-    'domain.dev' => array(
-        'devMode' => true,
+  'domain.dev' => array(
+    'devMode' => true,
+		'siteUrl' => 'http://www.domain.dev/',
 
-        'environmentVariables' => array(
-            'rootUrl'        => 'http://www.domain.dev/',
-            'serverPath' => '/users/sitename/web/'
-            'cpTrigger'      => 'adminpanel',
-        )
-    ),
-
-    'domain.com' => array(
-        'cooldownDuration' => 0,
-
-        'environmentVariables' => array(
-            'rootUrl'        => 'http://www.domain.com/',
-            'serverPath' => '/users/domain/htdocs/'
-            'cpTrigger'      => 'adminpanel',
-        )
+    'environmentVariables' => array(
+      'basePath'   => '/localprojects/sitename/htdocs/'
+      'baseUrl'  	 => 'http://www.domain.dev/'
+      'cpTrigger'  => 'adminpanel'
     )
+  ),
+
+  'domain.com' => array(
+    'cooldownDuration' => 0,
+		'siteUrl' => 'http://www.domain.com/',
+
+    'environmentVariables' => array(
+		  'basePath'   => '/var/www/sitename/htdocs/'
+		  'baseUrl'    => 'http://www.domain.com/'
+      'cpTrigger'  => 'adminpanel',
+    )
+  )
 );
 ```
 
 You can then use those variables in the Control Panel, for example when defining file system paths and url for your asset sources to make them environment specific.
 
 ```
-{serverPath}assets/images/
-{rootUrl}assets/images/
+{basePath}assets/images/
+{baseUrl}assets/images/
 ```
 
 Such dynamic configurations can also be used for your database parameters in `craft/config/db.php`.

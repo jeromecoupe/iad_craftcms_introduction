@@ -808,11 +808,11 @@ Deux articles sur buildwithcraft.com vous montrent comment obtenir une [liste de
 
 #### Users
 
-Le tag `craft.users` permet d'accéder aux utilisateurs de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.users). Son fonctionnement est semblable au tag `craft.entries` mais il retourne un objet ou un array d'objets `[UserModel](http://buildwithcraft.com/docs/templating/usermodel)`.
+Le tag `craft.users` permet d'accéder aux utilisateurs de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.users). Son fonctionnement est semblable au tag `craft.entries` mais il retourne un objet ou un array d'objets [`UserModel`](http://buildwithcraft.com/docs/templating/usermodel).
 
 #### Assets et transformations
 
-Le tag `craft.assets` permet d'accéder aux Assets de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.assets). Son fonctionnement est semblable au tag `craft.entries` dans la mesure où il retourne un objet `[AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel)`.
+Le tag `craft.assets` permet d'accéder aux Assets de votre site. Ce tag possède lui aussi [un certain nombre de paramètres, dont certains lui sont propres](http://buildwithcraft.com/docs/templating/craft.assets). Son fonctionnement est semblable au tag `craft.entries` dans la mesure où il retourne un objet [`AssetFileModel`](http://buildwithcraft.com/docs/templating/assetfilemodel).
 
 Si vos assets sont des images, Craft vous permet d'effectuer des transformations de celles-ci, soit à l'upload (via votre control panel: Settings > Assets > Image Transforms), soit dynamiquement dans vos templates.
 
@@ -877,30 +877,39 @@ Pour compléter cela, vous pouvez également utiliser ce que Craft appelle des [
 
 ```
 return array(
-    '*' => array(
-        'omitScriptNameInUrls' => true,
-    ),
+  '*' => array(
+    'omitScriptNameInUrls' => true,
+  ),
 
-    'domain.dev' => array(
-        'devMode' => true,
+  'domain.dev' => array(
+    'devMode' => true,
+		'siteUrl' => 'http://www.domain.dev/',
 
-        'environmentVariables' => array(
-            'siteUrl'        => 'http://www.domain.dev/',
-            'fileSystemPath' => '/users/sitename/htdocs/'
-            'cpTrigger'      => 'adminpanel',
-        )
-    ),
-
-    'domain.com' => array(
-        'cooldownDuration' => 0,
-
-        'environmentVariables' => array(
-            'siteUrl'        => 'http://www.domain.com/',
-            'fileSystemPath' => '/users/domain/htdocs/'
-            'cpTrigger'      => 'adminpanel',
-        )
+    'environmentVariables' => array(
+      'basePath'   => '/localprojects/sitename/htdocs/'
+      'baseUrl'  	 => 'http://www.domain.dev/'
+      'cpTrigger'  => 'adminpanel'
     )
+  ),
+
+  'domain.com' => array(
+    'cooldownDuration' => 0,
+		'siteUrl' => 'http://www.domain.com/',
+
+    'environmentVariables' => array(
+		  'basePath'   => '/var/www/sitename/htdocs/'
+		  'baseUrl'    => 'http://www.domain.com/'
+      'cpTrigger'  => 'adminpanel',
+    )
+  )
 );
+```
+
+Vous pouvez maintenant utiliser ces variables d'environnement dans votre Control panel, par exemple pour définir les chemins et URL de vos asset sources pour les rendre dynamiques en fonction de l'environnement.
+
+```
+{basePath}assets/images/
+{baseUrl}assets/images/
 ```
 
 Ces différents environnements peuvent également être utilisés pour les paramètres de configuration de votre base de données dans le fichier `craft/config/db.php`.
