@@ -802,7 +802,7 @@ Vous pouvez y accéder très facilement via leur handle de global set suivi de l
 
 #### Tags
 
-Dans Craft, on accède aux tags avec `craft.tags`, qui [possède un certain nombre de paramètres](http://buildwithcraft.com/docs/templating/craft.tags) et fonctionne dans l'ensemble comme `craft.entries` mais retourne un objet ou un array d'objets `[TagModel](http://buildwithcraft.com/docs/templating/tagmode)`.
+Dans Craft, on accède aux tags avec `craft.tags`, qui [possède un certain nombre de paramètres](http://buildwithcraft.com/docs/templating/craft.tags) et fonctionne dans l'ensemble comme `craft.entries` mais retourne un objet ou un array d'objets [`TagModel`](http://buildwithcraft.com/docs/templating/tagmode).
 
 Deux articles sur buildwithcraft.com vous montrent comment obtenir une [liste de tous les tags utilisés par les entries d'une section](http://buildwithcraft.com/help/active-tags), ou encore comment créer, à l'aide d'une route dynamique, [une page d'archive reprenant toutes les entries liées à un tag](http://buildwithcraft.com/help/tag-urls).
 
