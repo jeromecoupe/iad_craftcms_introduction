@@ -1,6 +1,8 @@
 # Craft by Pixel&Tonic: Introduction
 
-## Craft
+## Introduction
+
+### Technologies et ethos
 
 [Craft](http://buildwithcraft.com/) est un CMS récent créé par [Pixel & Tonic](http://pixelandtonic.com/). Craft est développé à l'aide de technologies open source comme PHP et MySQL et s'appuie sur un framework PHP qui a fait ses preuves: [Yii](http://www.yiiframework.com/).
 
@@ -10,9 +12,15 @@ Comparé à d'autres produits, Craft est axé sur l'essentiel: définir et gére
 
 Cette flexibilité est présente jusque dans [le pricing](http://buildwithcraft.com/pricing) du produit lui même.
 
-- La version "Core" de Craft est gratuite et vous permet de développer facilement des sites assez simples en terme de data structure.
-- Une version "Client" à 199$ vous permet de disposer de fonctionnalités plus avancées et d'une gestion utilisateurs basique.
+- La version "Core" de Craft est gratuite et vous permet de profiter de toutes les fonctionnalités de Craft hormis la gestion utilisateurs, les fonctionnalités multilingues et celles liées à des stockages de données externe (Amazon S3, Rackspace Cloud et Google Cloud Storage).
+- Une version "Client" à 199$ vous permet de disposer en plus d'une gestion utilisateurs basique et de fonctionnaités de personnalisation au niveau des écrans de login ou des messages utilisateurs.
 - Une version "Pro" à 299$ vous permet de disposer de toutes les fonctionnalités de Craft, y compris ses fonctionnalités multilingue et de gestion d'utilisateurs.
+
+### Une plateforme de e-commerce intégrée
+
+En Décembre 2015, Pixel & Tonic a sorti [Craft Commerce](https://craftcommerce.com), une plateforme de e-commerce pour Craft CMS. Une licence coûte $700 et vous donne droit à [une liste impressionnante de fonctionalités](https://craftcommerce.com/features), des mises à jour gratuites pendant toute la durée de votre projet ainsi qu'un support de qualité.
+
+Nous ne couvrirons pas Craft Commerce lors de cette introduction à Craft CMS. Sachez seulement que Craft Commerce fait largement appel aux mêmes concepts que Craft, que ce soit pour la création de votre data structure ou au niveau de vos templates. Vous vous sentirez en tarrain familier. Si vous cherchez un module de e-commerce étroitement intégré avec un CMS, Craft Commerce est certainement une option à considérer.
 
 ### Atouts
 
@@ -663,43 +671,41 @@ Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/in
 Craft vous permet de [paginer vos résultats](http://buildwithcraft.com/docs/templating/tags#paginate) à l'aide du tag  `{% paginate %}` et de construire une interface de pagination à l'aide des variables qui l'accompagnent. Attention, le tag `{% paginate %}` nécessite un objet ElementCriteriaModel comme paramètre. N'utilisez simplement pas la méthode `find()` de l'objet.
 
 ```twig
-{% paginate craft.entries.section('news').limit(5) as entries %}
+{% paginate craft.entries.section('news').limit(5) as paginate, entries %}
 
-	{# get paginated entries #}
-	{% for entry in entries %}
-		<article>
-			<h3 class="title-item"><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
-			<p class="meta-info">Posted on {{ entry.postDate.format('F d, Y') }}</p>
-			{{ entry.body }}
-			<p><a href="{{ entry.url }}">Read More</a></p>
-		</article>
-	{% endfor %}
+{# get paginated entries #}
+{% for entry in entries %}
+	<article>
+		<h3 class="title-item"><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
+		<p class="meta-info">Posted on {{ entry.postDate.format('F d, Y') }}</p>
+		{{ entry.body }}
+		<p><a href="{{ entry.url }}">Read More</a></p>
+	</article>
+{% endfor %}
 
-	{# Build pagnation interface if more than 1 page #}
-	{% if paginate.totalPages > 1 %}
-		<ul class="hlist pagination">
-			{% if paginate.prevUrl %}
-				<li><a href="{{ paginate.prevUrl }}">Previous Page</a></li>
-			{% endif %}
+{# Build pagination interface if more than 1 page #}
+{% if paginate.totalPages > 1 %}
+	<ul class="hlist pagination">
+		{% if paginate.prevUrl %}
+			<li><a href="{{ paginate.prevUrl }}">Previous Page</a></li>
+		{% endif %}
 
-			{% for page, url in paginate.getPrevUrls(2) %}
-			    <li><a href="{{ url }}">{{ page }}</a></li>
-			{% endfor %}
+		{% for page, url in paginate.getPrevUrls(2) %}
+		    <li><a href="{{ url }}">{{ page }}</a></li>
+		{% endfor %}
 
-			<li class="current"><a href="{{ paginate.getPageUrl( paginate.currentPage ) }}">{{ paginate.currentPage }}</a></li>
+		<li class="current"><a href="{{ paginate.getPageUrl( paginate.currentPage ) }}">{{ paginate.currentPage }}</a></li>
 
-			{% for page, url in paginate.getNextUrls(2) %}
-			    <li><a href="{{ url }}">{{ page }}</a></li>
-			{% endfor %}
+		{% for page, url in paginate.getNextUrls(2) %}
+		    <li><a href="{{ url }}">{{ page }}</a></li>
+		{% endfor %}
 
-			{% if paginate.nextUrl %}
-				<li><a href="{{ paginate.nextUrl }}">Next Page</a></li>
-			{% endif %}
+		{% if paginate.nextUrl %}
+			<li><a href="{{ paginate.nextUrl }}">Next Page</a></li>
+		{% endif %}
 
-		</ul>
-	{% endif %}
-
-{% endpaginate %}
+	</ul>
+{% endif %}
 ```
 
 ##### Page de détail et variable "entry"
@@ -762,21 +768,43 @@ Le même principe est d'application lorsqu'une page de catégorie est affichée.
 	{% endif %}
 
 	{# display entries list #}
-	{% paginate allNews as entries %}
+	{% paginate allNews as paginate, entries %}
 
-		{% for entry in entries %}
-			{% if loop.first %}<ul>{% endif %}
-				<article>
-					<p class="meta-info"><time datetime="{{ entry.postDate|date("Y-m-d") }}">{{ entry.postDate|date("F j, Y") }}</time></p>
-					<h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
-					<p>{{ entry.summary }}</p>
-				</article>
-			{% if loop.last %}</ul>{% endif %}
-		{% else %}
-			<p>No news found</p>
-		{% endfor %}
+	{% for entry in entries %}
+		{% if loop.first %}<ul>{% endif %}
+			<article>
+				<p class="meta-info"><time datetime="{{ entry.postDate|date("Y-m-d") }}">{{ entry.postDate|date("F j, Y") }}</time></p>
+				<h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+				<p>{{ entry.summary }}</p>
+			</article>
+		{% if loop.last %}</ul>{% endif %}
+	{% else %}
+		<p>No news found</p>
+	{% endfor %}
 
-	{% endpaginate %}
+  {# Build pagination interface if more than 1 page #}
+  {% if paginate.totalPages > 1 %}
+  	<ul class="hlist pagination">
+  		{% if paginate.prevUrl %}
+  			<li><a href="{{ paginate.prevUrl }}">Previous Page</a></li>
+  		{% endif %}
+
+  		{% for page, url in paginate.getPrevUrls(2) %}
+  		    <li><a href="{{ url }}">{{ page }}</a></li>
+  		{% endfor %}
+
+  		<li class="current"><a href="{{ paginate.getPageUrl( paginate.currentPage ) }}">{{ paginate.currentPage }}</a></li>
+
+  		{% for page, url in paginate.getNextUrls(2) %}
+  		    <li><a href="{{ url }}">{{ page }}</a></li>
+  		{% endfor %}
+
+  		{% if paginate.nextUrl %}
+  			<li><a href="{{ paginate.nextUrl }}">Next Page</a></li>
+  		{% endif %}
+
+  	</ul>
+  {% endif %}
 
 	{# display categories list #}
 	{% for category in allCategories %}
