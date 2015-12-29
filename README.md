@@ -1,8 +1,10 @@
-# Cours IAD: Introduction à Craft
+# Introduction to Craft CMS
 
-Ce cours est une introduction à [Craft](http://buildwithcraft.com/), un CMS créé par [Pixel & Tonic](http://pixelandtonic.com/). Workshop donné à l'Institut des Arts de Diffusion par Jérôme Coupé.
+This course is an introduction to [Craft](http://buildwithcraft.com/), a CMS created by [Pixel & Tonic](http://pixelandtonic.com/).
 
-- [Version Française](/craft_introduction_fr.md)
+Workshop by [Jérôme Coupé](http://webstoemp.com) - Institut des Arts de Diffusion
+
 - [English version](/craft_introduction_en.md)
+- [Version Française](/craft_introduction_fr.md)
 
-Licence: [Creative Commons Attribution 4.0 International license](http://creativecommons.org/licenses/by/4.0/)
+[Creative Commons Attribution 4.0 International license](http://creativecommons.org/licenses/by/4.0/)
