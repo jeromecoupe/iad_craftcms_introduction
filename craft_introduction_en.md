@@ -16,7 +16,7 @@ This flexibility is present into the pricing of the product itself.
 - The "Client" version costs $199 and offers you basic user management as well as the possibility to customise login screens and user messages and emails.
 - The "Pro" version costs $299 and allows you to use all the features of Craft, including its advanced multilingual capabilities, granular user management and support for external data storage solutions.
 
-### A fully integrated e-ommerce platform
+### A fully integrated e-commerce platform
 
 In December 2015, Pixel & Tonic released their first party e-commerce module for Craft dubbed [Craft Commerce](https://craftcommerce.com). A one-time license of Craft Commerce for one site is $700. For that price, you get [a ton of features](https://craftcommerce.com/features), free upgrades for the lifetime of your project and great support from the P&T team.
 
