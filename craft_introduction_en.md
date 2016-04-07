@@ -1080,3 +1080,5 @@ We are going to build a simple blog sporting the following pages:
 - [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): by [Brandon Kelly](https://twitter.com/brandonkelly) a well rounded introduction to Twig as a templating language.
 - [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): a slidedeck by [Trevor Davis](https://twitter.com/trevor_davis). A nice collection of tips and tricks for Twig and Craft.
 - [Manipulating Craft's ElementCriteriaModel objects with Twig](http://www.webstoemp.com/blog/manipulating-craft-elementcriteriamodel-with-twig/): a simple but powerful technique to build complex functionalities with only a few lines of Twig.
+- [Using Macros to improve consistency in your Craft CMS templates](http://withchief.com/blog/using-macros-to-improve-consistency-in-your-craft-cms-templates): a blogpost by [Jamie Pittock](https://twitter.com/jamiepittock) on the Chief blog.
+- [Combined search and filters using Craft CMS](http://webstoemp.com/blog/combined-searches-and-filters-craft-cms/): by yours truly on Webstoemp.
