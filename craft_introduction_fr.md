@@ -1282,7 +1282,7 @@ Deux choses importantes cependant:
 </form>
 ```
 
-### Utiliser Craft comme un headless CMS: Element API plugin
+### Utiliser Craft comme un CMS headless: Element API plugin
 
 Vous pouvez également utiliser Craft comme un CMS headless, c'est à dire un CMS rendant les contenus accessibles via une API (souvent une API JSON). Dans ce scénario, votre CMS ne se charge pas d'afficher les contenus et n'est pas en charge des templates ou des vues mais est uniquement chargé de créer, supprimer, modifier et organiser vos contenus.
 
