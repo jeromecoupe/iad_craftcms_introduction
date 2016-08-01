@@ -1,8 +1,5 @@
 # An introduction to Craft, a CMS by Pixel&Tonic
 
-* auto-gen TOC:
-{:toc}
-
 ## Introduction
 
 ### Technologies and ethos
