@@ -604,7 +604,16 @@ Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouv
 Une macro est définie à l'aide des tags `{% macro %}` et `{% endmacro %}`, soit dans un fichier externe, soit dans le même fichier dans lequel elle est utilisée.
 
 ```twig
-{% macro errors(list) %}  {% if list|length %}    <ul class="errors">      {% for error in list %}        <li>{{ error }}</li>      {% endfor %}    </ul>  {% endif %}{% endmacro %}```
+{% macro errors(list) %}
+  {% if list|length %}
+    <ul class="errors">
+      {% for error in list %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+```
 
 ```twig
 {% macro dateText(date) %}
@@ -621,12 +630,17 @@ Les macros sont appelées / importées à l'aide du tag `{% import %}`
 Si la macro est définie dans le même fichier
 
 ```twig
-{% import _self as formErrors %}{{ formErrors.errors(entry.allErrors) }}```
+{% import _self as formErrors %}
+{{ formErrors.errors(entry.allErrors) }}
+```
 
 Si la macro est définie dans un fichier extérieur
 
 ```twig
-{% import "_macros/dates" as dateHelpers %}{{ dateHelpers.dateText(entry.postDate) }}```
+{% import "_macros/dates" as dateHelpers %}
+{{ dateHelpers.dateText(entry.postDate) }}
+```
+
 ## Templating 2: Récupérer vos données avec Craft
 
 Avec Craft, vous intéragissez avec la base de données en utilisant des objets ElementCriteriaModel. Cela à l'air très compliqué mais c'est en fait un concept assez simple:
@@ -789,7 +803,15 @@ Lorsque une boucle `{% for %}` est utilisée, il est souvent très pratique de p
 
 Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/index.html) valent également la peine d'être consultés, notamment le test `is defined`. Les tests disponibles dans Twig sont:
 
-- `is constant`- `is defined`- `is divisible by`- `is empty`- `is even`- `is iterable`- `is null`- `is odd`- `is same as`
+- `is constant`
+- `is defined`
+- `is divisible by`
+- `is empty`
+- `is even`
+- `is iterable`
+- `is null`
+- `is odd`
+- `is same as`
 
 #### Pagination
 
@@ -1076,7 +1098,7 @@ Voici quelques techniques et concepts à explorer pour utiliser Craft de façon 
 
 ### Créer des queries complexes en utilisant Twig pour manipuler les `ElementCriteriaModels`
 
-Comme nous l'avons vu plus haut, les prinicpaux tags de Craft comme par exemple `craft.entries` acceptent des objets comme paramètres. Twig permet facilement de créer et de manipuler des objets à l'aide de filtres tels que `merge` et `slide`. Craft possède également des filtres propres tels que `without` et `intersect` qui s'avèrent bien utiles.
+Comme nous l'avons vu plus haut, les principaux tags de Craft comme par exemple `craft.entries` acceptent des objets comme paramètres. Twig permet facilement de créer et de manipuler des objets à l'aide de filtres tels que `merge` et `slide`. Craft possède également des filtres propres tels que `without` et `intersect` qui s'avèrent bien utiles.
 
 En combinant ces deux éléments, il devient possible de créer des [queries complexes](https://webstoemp.com/blog/manipulating-craft-elementcriteriamodel-with-twig/) et de construire des [fonctionnalités relativement avancées](https://webstoemp.com/blog/combined-searches-and-filters-craft-cms/) assez facilement.
 
@@ -1111,9 +1133,9 @@ Voici un exemple simple. Vous avez laissé la possiblité à vos utilisateurs de
 {% endfor %}
 ```
 
-### Interfaces de navigation en utilisant un channel e type structure
+### Interfaces de navigation en utilisant un channel de type structure
 
-Si vous essayez d'avoir une entry (single) pour chaque page de votre site, Craft permet facilement de disposer d'une navigation principale flexible et pouvant même être mise à jour par vos utilisateurs. J'utilise généralement une section de type structure pour fournir ce genre de fonctionnalité. Voici un exemple  avec une navigation à un seul niveau. Il suffit de créer une section de type structure `mainnav` et deux champs: `mainnavLabel` (textfield) et `mainnavLink` (entries, limité à 1 entry et à des entries de type single). Une simple boucle `for` suffit à créer notre navigation.
+Si vous essayez d'avoir une entry (single) pour chaque page de votre site, Craft permet facilement de disposer d'une navigation principale flexible et pouvant même être mise à jour par les éditeurs du site. J'utilise généralement une section de type structure pour fournir ce genre de fonctionnalité. Voici un exemple  avec une navigation à un seul niveau. Il suffit de créer une section de type structure `mainnav` et deux champs: `mainnavLabel` (textfield) et `mainnavLink` (entries, limité à 1 entry et à des entries de type single). Une simple boucle `for` suffit à créer notre navigation.
 
 ```twig
 {% set nav = craft.entries.section('mainnav').find() %}
@@ -1143,7 +1165,7 @@ Je vis et je travaille en Belgique, un pays qui compte trois langues officielles
 
 ### Optimisation de queries et eager-loading
 
-Un problème courant avec les bases de données est connu sous le nom de "problème n+1". Ce problème se pose lorsque vous devez traverser ue collection d'objets ayant des relations avec d'autres: pour chaque objet dans la collection, `1 + n` queries sont générées puisque chaque objet de la collection peut être lié à `n` objets. Une exmeple simple avec Craft consite à demander une série d'entries, chaque entry ayant un asset lié. Lorsque Craft charge ces entries, il va créer `n` queries additionnelles pour vérifier si un asset lié existe ou pas. C'est le comportement par défaut de Craft, qui porte le nom de "lazy loading".
+Un problème courant avec les bases de données est connu sous le nom de "problème n+1". Ce problème se pose lorsque vous devez traverser ue collection d'objets ayant des relations avec d'autres: pour chaque objet dans la collection, `1 + n` queries sont générées puisque chaque objet de la collection peut être lié à `n` objets. Une exemple simple avec Craft consiste à demander une série d'entries, chaque entry ayant un asset lié. Lorsque Craft charge ces entries, il va créer `n` queries additionnelles pour vérifier si un asset lié existe ou pas. C'est le comportement par défaut de Craft, qui porte le nom de "lazy loading".
 
 "[Eager-loading](https://craftcms.com/docs/templating/eager-loading-elements)" est une façon d'indiquer à Craft que lorsqu'il va chercher ces entries, chacune d'entre elles possède également un asset qu'il faudra aller chercher lui aussi. Une fois prévenu, Craft va aller chercher les entries et les assets liés en utilisant le moins de queries MySQL possible. Pour faire de l'eager loading, il suffit d'utiliser le paramètre `with` dans vos tags `craft.entries` par exemple.
 
@@ -1174,26 +1196,26 @@ Eager loading (assets):
 {% endfor %}
 ```
 
-Utilsier de l'eager loading peut devenir plus complexe. Vous pouvez utiliser l'eager loading avec entries, assets, catégories, tags ou users. Vous pouvez également l'utiliser avec des assets transforms et des Matrix Blocks. Vous pouvez également utiliser l'eager loading pour charger des éléments liés imbriqués, ce qui m'a déjà coûté quelques cheveux blancs. [Un excellent guide concernant l'eager loading](https://straightupcraft.com/articles/examples-of-eager-loading-elements-in-twig-and-php) est disponible sur Straight Up Craft si vous voulez vous pencher d'avantage sur la question.
+Utiliser de l'eager loading peut devenir plus complexe. Vous pouvez utiliser l'eager loading avec entries, assets, catégories, tags ou users. Vous pouvez également l'utiliser avec des assets transforms et des Matrix Blocks. Vous pouvez également utiliser l'eager loading pour charger des éléments liés imbriqués, ce qui m'a déjà coûté quelques cheveux blancs. [Un excellent guide concernant l'eager loading](https://straightupcraft.com/articles/examples-of-eager-loading-elements-in-twig-and-php) est disponible sur Straight Up Craft si vous voulez vous pencher d'avantage sur la question.
 
 Voici néanmoins un exemple plus complexe à utiliser si chaque entry possède un champs Matrix qui contient un champs asset pour lequel un tranform nommé `thumbnail` est défini dans le template et appliqué:
 
 ```twig
 {% set thumbnail = {
-	mode: 'crop',
+  mode: 'crop',
   position: 'center-center'
-	width: 800,
-	height: 450,
-	quality: 75
+  width: 800,
+  height: 450,
+  quality: 75
 }%}
 
 {% set items = craft.entries({
-    section: 'blogposts',
-    with: [
-      ['matrixFieldHandle.blockTypeHandle:assetFieldHandle', {
-        withTransforms: [thumbnail]
-      }]
-    ]
+  section: 'blogposts',
+  with: [
+    ['matrixFieldHandle.blockTypeHandle:assetFieldHandle', {
+      withTransforms: [thumbnail]
+    }]
+  ]
 }) %}
 
 {% for item in items %}
@@ -1226,17 +1248,17 @@ Bien utilisé, le caching vous fera gagner pas mal de performance. Le tag `{% ca
 - Des champs Matrix comportant des champs relationnels (entries, assets, users, categories, tags)
 - Affichage de données provenant d'un site tiers (Twitter, etc.)
 
-Vous pouvez tester l'efficacité de vos tratégies de caching en activant le `devMode`, en supprimant les caches dans le control panel (paramètres, Outils) et en rafraîchissant votre page en onsulatant la Console dans les outils de dévelopement de votre navigateur. Regardez le "profiling summary report", qui vous donnera le nombre total de queries exécutées par Craft et le temps de rendu de la page.
+Vous pouvez tester l'efficacité de vos tratégies de caching en activant le `devMode`, en supprimant les caches dans le control panel (paramètres, Outils) et en rafraîchissant votre page en consultant la Console dans les outils de dévelopement de votre navigateur. Regardez le "profiling summary report", qui vous donnera le nombre total de queries exécutées par Craft et le temps de rendu de la page.
 
-Lors du premier refresh de la page après avoir vidé les caches, toutes les queries seront exécutées et le HTML généré sera enregistré dans la base de données. Lorsque vous rafraichirez la page our la seconde fois, Craft ne fera que récuérer le HTML et vous devriez constater une baisse importante du nombre de queries et du temps de rendu de la page.
+Lors du premier refresh de la page après avoir vidé les caches, toutes les queries seront exécutées et le HTML généré sera enregistré dans la base de données. Lorsque vous rafraichirez la page pour la seconde fois, Craft ne fera que récuérer le HTML et vous devriez constater une baisse importante du nombre de queries et du temps de rendu de la page.
 
 ### Formulaires front-end: entry form et guest entries
 
-Par défaut, Craft permet la création d'[entry forms](https://craftcms.com/docs/templating/entry-form) pour le front-end de votre site. Ces formulaires peuvent uniquement petre utilisés par des utilisateurs enregistrés. Vous pouvez également autoriser des utilisateurs anonymes à poster des entries en utilisant le plugin [Guest Entries](https://github.com/pixelandtonic/GuestEntries) développé par Pixel&Tonic. Ce plugin vous permt de choisir pour quelles sections vous souhaitez autoriser des entries anonymes et quel auteur par défaut doit petre spécifié pour ces entries.
+Par défaut, Craft permet la création d'[entry forms](https://craftcms.com/docs/templating/entry-form) pour le front-end de votre site. Ces formulaires peuvent uniquement être utilisés par des utilisateurs enregistrés. Vous pouvez également autoriser des utilisateurs anonymes à poster des entries en utilisant le plugin [Guest Entries](https://github.com/pixelandtonic/GuestEntries) développé par Pixel&Tonic. Ce plugin vous permt de choisir pour quelles sections vous souhaitez autoriser des entries anonymes et quel auteur par défaut doit être spécifié pour ces entries.
 
 En couplant cela avec un plugin de notification tel que Sprout Email ou un plugin que vous aurez écrit en utilisant les événements et le service email de Craft, vous pouvez facilement créer des applications simples comme un système de booking pour un événement gratuit.
 
-La syntaxe à utiliser pour créer ces formulaires front-end est assez simple. La configuration se fait pour la plupart grâce à des champs de forulaires cachés.
+La syntaxe à utiliser pour créer ces formulaires front-end est assez simple. La configuration se fait pour la plupart grâce à des champs de formulaire cachés.
 
 Deux choses importantes cependant:
 
