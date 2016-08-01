@@ -977,17 +977,17 @@ Globals can be accessed easily via their global set handle followed by their glo
 
 ### Tags
 
-You can access and display tags using `craft.tags` and its [related parameters](http://buildwithcraft.com/docs/templating/craft.tags). It works just like `craft.entries` but returns a `[TagModel](http://buildwithcraft.com/docs/templating/tagmodel)` object or an array of those.
+You can access and display tags using `craft.tags` and its [related parameters](http://buildwithcraft.com/docs/templating/craft.tags). It works just like `craft.entries` but returns a [`TagModel`](http://buildwithcraft.com/docs/templating/tagmodel) object or an array of those.
 
 Articles in the help section are showing you how to list [all the tags used by the entries in a given section](http://buildwithcraft.com/help/active-tags) or how use a dynamic route to create an [archive page listing all the entries related to a tag](http://buildwithcraft.com/help/tag-urls).
 
 ### Users
 
-`craft.users` allows you to access and display the users of your website. The tag functions like `craft.entries` but returns a single `[UserModel](http://buildwithcraft.com/docs/templating/usermodel)` or an array of those. The `craft.users` tag also has [a series parameters](http://buildwithcraft.com/docs/templating/craft.users), some of which are tied to users-specific functionalities or behaviours.
+`craft.users` allows you to access and display the users of your website. The tag functions like `craft.entries` but returns a single [`UserModel`](http://buildwithcraft.com/docs/templating/usermodel) or an array of those. The `craft.users` tag also has [a series parameters](http://buildwithcraft.com/docs/templating/craft.users), some of which are tied to users-specific functionalities or behaviours.
 
 ### Assets and transforms
 
-The `craft.assets` tag will allow you to access your assets. This tag also has a series of parameters, some of which are tied to assets-specific functionalities or behaviour. `craft.assets` works like `craft.entries` except that it returns a single `[AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel)` or an array of those.
+The `craft.assets` tag will allow you to access your assets. This tag also has a series of parameters, some of which are tied to assets-specific functionalities or behaviour. `craft.assets` works like `craft.entries` except that it returns a single [`AssetFileModel`](http://buildwithcraft.com/docs/templating/assetfilemodel) or an array of those.
 
 If your assets are images, Craft allows you to create transforms tied to all your asset groups. Transforms will generate thumbnails for all your assets. Transforms can be specified in the control panel and generated when assets are uploaded (Settings > Assets > Image Transforms) or they can be specified in your template and generated dynamically when assets are requested for the first time.
 
@@ -1098,7 +1098,7 @@ Here are some techniques and concepts you might want to look at to explore Craft
 
 ### Manipulating `ElementCriteriaModels` with Twig: complex queries
 
-As we have seen earlier, Craft tags like `craft.entries` can be passed objects as parameters in order for them to perform complex queries. Twig, on the other hand, allows you to easily create and manipulate objects using the `merge` and `slice` filters as well as Craft's own `without` and `intersect` filters.
+As we have seen earlier, Craft tags like `craft.entries` can be passed objects as parameters. Twig, on the other hand, allows you to easily create and manipulate objects using the `merge` and `slice` filters as well as Craft's own `without` and `intersect` filters.
 
 Combining those abilities allows you to [create advanced queries](https://webstoemp.com/blog/manipulating-craft-elementcriteriamodel-with-twig/) and [relatively complex functionalities](https://webstoemp.com/blog/combined-searches-and-filters-craft-cms/) with ease.
 
@@ -1169,7 +1169,7 @@ A common problem with databases is known as "the n+1 problem". In a nutshell, th
 
 "[Eager-loading](https://craftcms.com/docs/templating/eager-loading-elements)" is just a way to tell Craft, when you are making that main query for the entries, that each entry has a related asset that it should load too. Craft is then performing a more complex MySQL query under the hood loading all entries and related assets using as few queries as possible. You do that by using the `with` parameter in your `craft.entries` tag.
 
-Without asset eager loading:
+**Without asset eager loading:**
 
 ```twig
 {% set items = craft.entries({
@@ -1181,7 +1181,7 @@ Without asset eager loading:
 {% endfor %}
 ```
 
-With asset eager loading:
+**With asset eager loading:**
 
 ```twig
 {% set items = craft.entries({
@@ -1202,20 +1202,20 @@ Here is a more complex example to use if each entry has a matrix field containin
 
 ```twig
 {% set thumbnail = {
-	mode: 'crop',
+  mode: 'crop',
   position: 'center-center'
-	width: 800,
-	height: 450,
-	quality: 75
+  width: 800,
+  height: 450,
+  quality: 75
 }%}
 
 {% set items = craft.entries({
-    section: 'blogposts',
-    with: [
-      ['matrixFieldHandle.blockTypeHandle:assetFieldHandle', {
-        withTransforms: [thumbnail]
-      }]
-    ]
+  section: 'blogposts',
+  with: [
+    ['matrixFieldHandle.blockTypeHandle:assetFieldHandle', {
+      withTransforms: [thumbnail]
+    }]
+  ]
 }) %}
 
 {% for item in items %}
@@ -1231,12 +1231,15 @@ Craft automatically clears caches when elements within `{% cache %}` and `{% end
 
 ```twig
 {% cache for 1 month %}
+  {# some code to cache #}
 {% endcache %}
 
 {% cache for 3 days %}
+  {# some code to cache #}
 {% endcache %}
 
 {% cache for 7 hours %}
+  {# some code to cache #}
 {% endcache %}
 ```
 
@@ -1339,7 +1342,7 @@ We are going to build a simple blog sporting the following pages:
 ### On your own
 
 1. Add the possibility to filter posts by year on the blog archive page using dynamic routing.
-2. Add a "portfolio" section to present case studies. Use a Matrix field to be able to mix image and text in case studies. Create links allowing you to navigate to the previous / next case study in the list.
+2. Add a "portfolio" section to present case studies. Use a Matrix field to be able to mix images and text blocks in case studies. Create links allowing you to navigate to the previous / next case study in the list.
 3. Add a search tool and a search result page
 
 ## Resources

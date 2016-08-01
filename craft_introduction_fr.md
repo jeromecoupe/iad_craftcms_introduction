@@ -1065,7 +1065,7 @@ Personellement, je préfère simplifier mes templates et placer l'ensemble des v
     {% case "imageModule" %}
       {% include '_matrixblocks/imagemodule.html' %}
 
-    {% endswitch %}
+  {% endswitch %}
 
 {% endfor %}
 ```
@@ -1180,20 +1180,20 @@ Voici néanmoins un exemple plus complexe à utiliser si chaque entry possède u
 
 ```twig
 {% set thumbnail = {
-	mode: 'crop',
+  mode: 'crop',
   position: 'center-center'
-	width: 800,
-	height: 450,
-	quality: 75
+  width: 800,
+  height: 450,
+  quality: 75
 }%}
 
 {% set items = craft.entries({
-    section: 'blogposts',
-    with: [
-      ['matrixFieldHandle.blockTypeHandle:assetFieldHandle', {
-        withTransforms: [thumbnail]
-      }]
-    ]
+  section: 'blogposts',
+  with: [
+    ['matrixFieldHandle.blockTypeHandle:assetFieldHandle', {
+      withTransforms: [thumbnail]
+    }]
+  ]
 }) %}
 
 {% for item in items %}
@@ -1209,12 +1209,15 @@ Craft va automatiquement effacer les caches lorsque des élements compris entre 
 
 ```twig
 {% cache for 1 month %}
+  {# some code to cache #}
 {% endcache %}
 
 {% cache for 3 days %}
+  {# some code to cache #}
 {% endcache %}
 
 {% cache for 7 hours %}
+  {# some code to cache #}
 {% endcache %}
 ```
 
@@ -1319,8 +1322,8 @@ Construire un blog simple.
 ### A faire seul
 
 1. Ajouter une page d'archive à votre blog qui permet de visualiser les posts par année en utilisant du dynamic routing.
-2. Créer une section "portfolio" vous permettant de présenter vos travaux. Créer une navigation dans les pages de détail permettant de naviguer de page de détail à page de détail.
-3. Add a search tool and a search result page
+2. Créer une section "portfolio" vous permettant de présenter vos travaux. Utilisez un champs Matrix pour pouvoir composer les case studies en alternant images et blocks de textes. Créer une navigation dans les pages de détail permettant de naviguer vers les case studies précédents et suivants.
+3. Ajouter un moteur de recherche et une page de résultats
 
 ## Ressources
 
