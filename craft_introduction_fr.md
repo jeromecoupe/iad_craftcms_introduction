@@ -1205,23 +1205,28 @@ Voici néanmoins un exemple plus complexe à utiliser si chaque entry possède u
 
 [Le tag `{% cache %}`](https://craftcms.com/docs/templating/cache) peut être utilisé pour améliorer la performance de certaines parties de templates. Lorsque le template est chargé pour la première fois, les parties de templates cachées vont exécutées les queries nécessaires pour récupérer les élements souhaités et vont ensuite stocker l'HTML produit dans la base de données. Lorsque ce template est chargé après cette requète initiale, Craft va seulement chargé le HTML stocké dans la base de données au lieu d'exécuter à nouveau l'ensemble des queries.  
 
-Craft va automatiquement effacer les caches lorsque des élements compris entre les tags `{% cache %}` et `{% endcache %}` sont supprimés ou mis à jour. Vous pouvez également spécifier la durée de vie de vos caches. La durée par défault est celle spécifiée par le paramètre de configuration `[cacheDuration](https://craftcms.com/docs/config-settings#cacheDuration)` (sa valeur par défaut est d'un jour).
+Craft va automatiquement effacer les caches lorsque des élements compris entre les tags `{% cache %}` et `{% endcache %}` sont supprimés ou mis à jour. Vous pouvez également spécifier la durée de vie de vos caches. La durée par défault si vous ne spécfiez pas une valeur pour le paramètre `for` est celle spécifiée par le paramètre de configuration `[cacheDuration](https://craftcms.com/docs/config-settings#cacheDuration)`. Sa valeur par défaut est d'un jour. Vous pouvez également faire en sorte que vos caches n'expirent jamais à moins qu'un élément qu'ils conteinnent soit créé, supprimé ou modifié en mettant la valeur de `cacheDuration` à `false`. Spécifier une valeur pour le paramètre `for` prendra toujours le pas sur cette configuration.
 
 ```twig
+{% cache %}
+  {# some code to cache for the duration specified by
+  the 'cacheDuration' configuration option #}
+{% endcache %}
+
 {% cache for 1 month %}
-  {# some code to cache #}
+  {# some code to cache for one month #}
 {% endcache %}
 
 {% cache for 3 days %}
-  {# some code to cache #}
+  {# some code to cache for three days #}
 {% endcache %}
 
 {% cache for 7 hours %}
-  {# some code to cache #}
+  {# some code to cache for seven hours #}
 {% endcache %}
 ```
 
-L'utilisation de caching doit idéalement se faire sur des templates déjà optimisés. Une couche de caching appliquée sur un template qui n'est pas optimisé est un emplatre sur une jambe de bois.
+Le caching doit idéalement se faire sur des templates déjà optimisés. Une couche de caching appliquée sur un template qui n'est pas optimisé est un emplatre sur une jambe de bois.
 
 Bien utilisé, le caching vous fera gagner pas mal de performance. Le tag `{% cache %}` est principalement utilisé lors des cas de figures suivants:
 

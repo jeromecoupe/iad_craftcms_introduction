@@ -1227,21 +1227,28 @@ Here is a more complex example to use if each entry has a matrix field containin
 
 [Craft's `{% cache %}` tag](https://craftcms.com/docs/templating/cache) can be used to speed up the performance of certain parts of your templates. Cached parts of a template will run needed database queries the first time a user hits the template and store the resulting html in the database. The next time a user hits that template, Craft is only going to fetch the stored HTML instead of running all those queries again.
 
-Craft automatically clears caches when elements within `{% cache %}` and `{% endcache %}` tags are deleted or updated. You can also specify a cache duration in your templates. The default duration is the one specified by the `[cacheDuration](https://craftcms.com/docs/config-settings#cacheDuration)` config setting (default is one day)
+Craft automatically clears caches when elements within `{% cache %}` and `{% endcache %}` tags are deleted or updated. You can also specify a cache duration in your templates. The default duration if you do not define one using the tag parameters is the one specified by the `[cacheDuration](https://craftcms.com/docs/config-settings#cacheDuration)` config setting. The default is 24 hours. You can set all caches to never expire unless elements they contain are created, updated or deleted by setting your `cacheDuration` to `false`. That behaviour will be overridden for any cache tag with a `for` parameter set to any duration.
 
 ```twig
+{% cache %}
+  {# some code to cache for the duration specified by
+  the 'cacheDuration' configuration option #}
+{% endcache %}
+
 {% cache for 1 month %}
-  {# some code to cache #}
+  {# some code to cache for one month #}
 {% endcache %}
 
 {% cache for 3 days %}
-  {# some code to cache #}
+  {# some code to cache for three days #}
 {% endcache %}
 
 {% cache for 7 hours %}
-  {# some code to cache #}
+  {# some code to cache for seven hours #}
 {% endcache %}
 ```
+
+Caching should be used on templates that already have been optimised, for example by using eager-loading. Caching templates or arts of templates that are performing poorly is not a viable long term solution.
 
 That can result in big performance gains. Prime targets for the `{% cache %}` tag are:
 
