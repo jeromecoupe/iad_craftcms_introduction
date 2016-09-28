@@ -68,15 +68,15 @@ The rest of your array keys will reference domain names or parts thereof on your
 ```
 return array(
     '*' => array(
-        'omitScriptNameInUrls' => true,
+      'omitScriptNameInUrls' => true
     ),
 
     'domain.dev' => array(
-        'devMode' => true,
+      'devMode' => true
     ),
 
     'domain.com' => array(
-        'cooldownDuration' => 0,
+      'cooldownDuration' => 0
     )
 );
 ```
@@ -86,7 +86,7 @@ You can pretty much override any [configuration settings](http://buildwithcraft.
 ```
 return array(
   '*' => array(
-    'omitScriptNameInUrls' => true,
+    'omitScriptNameInUrls' => true
   ),
 
   'domain.dev' => array(
@@ -94,8 +94,8 @@ return array(
     'siteUrl' => 'http://www.domain.dev/',
 
     'environmentVariables' => array(
-      'basePath'   => '/localprojects/sitename/htdocs/'
-      'baseUrl'     => 'http://www.domain.dev/'
+      'basePath'   => '/localprojects/sitename/htdocs/',
+      'baseUrl'    => 'http://www.domain.dev/',
       'cpTrigger'  => 'adminpanel'
     )
   ),
@@ -105,9 +105,9 @@ return array(
     'siteUrl' => 'http://www.domain.com/',
 
     'environmentVariables' => array(
-      'basePath'   => '/var/www/sitename/htdocs/'
-      'baseUrl'    => 'http://www.domain.com/'
-      'cpTrigger'  => 'adminpanel',
+      'basePath'   => '/var/www/sitename/htdocs/',
+      'baseUrl'    => 'http://www.domain.com/',
+      'cpTrigger'  => 'adminpanel'
     )
   )
 );
@@ -127,21 +127,21 @@ Such dynamic configurations can also be used for your database parameters in `cr
 ```
 return array(
     '*' => array(
-        'tablePrefix' => 'craft',
+      'tablePrefix' => 'craft'
     ),
 
     'domain.dev' => array(
-        'server' => 'localhost',
-        'user' => 'root',
-        'password' => 'password',
-        'database' => 'webstoemp',
+      'server'   => 'localhost',
+      'user'     => 'root',
+      'password' => 'password',
+      'database' => 'webstoemp'
     ),
 
     'domain.com' => array(
-        'server' => 'localhost',
-        'user' => 'myownuser',
-        'password' => 'strongpassword',
-        'database' => 'webstoemp',
+      'server'   => 'localhost',
+      'user'     => 'myownuser',
+      'password' => 'strongpassword',
+      'database' => 'webstoemp'
     ),
 );
 ```

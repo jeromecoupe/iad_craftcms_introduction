@@ -66,15 +66,15 @@ Les valeurs dans le tableau `*` sont appliquées à tous les environnements
 ```
 return array(
     '*' => array(
-        'omitScriptNameInUrls' => true,
+      'omitScriptNameInUrls' => true
     ),
 
     'domain.dev' => array(
-        'devMode' => true,
+      'devMode' => true
     ),
 
     'domain.com' => array(
-        'cooldownDuration' => 0,
+      'cooldownDuration' => 0
     )
 );
 ```
@@ -84,16 +84,16 @@ Pour compléter cela, vous pouvez également utiliser ce que Craft appelle des [
 ```
 return array(
   '*' => array(
-    'omitScriptNameInUrls' => true,
+    'omitScriptNameInUrls' => true
   ),
 
   'domain.dev' => array(
-    'devMode' => true,
-    'siteUrl' => 'http://www.domain.dev/',
+    'devMode'  => true,
+    'siteUrl'  => 'http://www.domain.dev/',
 
     'environmentVariables' => array(
-      'basePath'   => '/localprojects/sitename/htdocs/'
-      'baseUrl'     => 'http://www.domain.dev/'
+      'basePath'   => '/localprojects/sitename/htdocs/',
+      'baseUrl'    => 'http://www.domain.dev/',
       'cpTrigger'  => 'adminpanel'
     )
   ),
@@ -103,9 +103,9 @@ return array(
     'siteUrl' => 'http://www.domain.com/',
 
     'environmentVariables' => array(
-      'basePath'   => '/var/www/sitename/htdocs/'
-      'baseUrl'    => 'http://www.domain.com/'
-      'cpTrigger'  => 'adminpanel',
+      'basePath'   => '/var/www/sitename/htdocs/',
+      'baseUrl'    => 'http://www.domain.com/',
+      'cpTrigger'  => 'adminpanel'
     )
   )
 );
@@ -125,21 +125,21 @@ Ces différents environnements peuvent également être utilisés pour les param
 ```
 return array(
     '*' => array(
-        'tablePrefix' => 'craft',
+      'tablePrefix' => 'craft'
     ),
 
     'domain.dev' => array(
-        'server' => 'localhost',
-        'user' => 'root',
-        'password' => 'password',
-        'database' => 'domain_craft',
+      'server'   => 'localhost',
+      'user'     => 'root',
+      'password' => 'password',
+      'database' => 'domain_craft'
     ),
 
     'domain.com' => array(
-        'server' => 'localhost',
-        'user' => 'user',
-        'password' => 'strongpassword',
-        'database' => 'domain_craft',
+      'server'   => 'localhost',
+      'user'     => 'user',
+      'password' => 'strongpassword',
+      'database' => 'domain_craft'
     ),
 );
 ```
