@@ -42,7 +42,7 @@ Après avoir vérifié que votre serveur est capable de faire tourner Craft, il 
 
 ### Version control
 
-L plupart des développeurs utilisent Git pour maintenir leur code et en gérer les différentes versions. Certains préfèrent ne pas include Craft dans le repository de leurs projets. Pour ma part, je préfère inclure Craft. Cela rend les choses plus facile lorsqu'on travaille en équipe: une fois Craft mis à jour, il l'est pour l'ensemble de l'équipe. Il est cependant préférable [d'include certains dossiers dans son fichier .gitignore](https://craftcms.com/support/craft-storage-gitignore) pour éviter les problèmes. Voici ce que j'utilise généralement:
+La plupart des développeurs utilisent Git pour maintenir leur code et en gérer les différentes versions. Certains préfèrent ne pas include Craft dans le repository de leurs projets. Pour ma part, je préfère inclure Craft. Cela rend les choses plus facile lorsqu'on travaille en équipe: une fois Craft mis à jour, il l'est pour l'ensemble de l'équipe. Il est cependant préférable [d'include certains dossiers dans son fichier .gitignore](https://craftcms.com/support/craft-storage-gitignore) pour éviter les problèmes. Voici ce que j'utilise généralement:
 
 ```
 # Craft stuff
@@ -99,6 +99,41 @@ return array(
   ),
 
   'domain.com' => array(
+    'cooldownDuration' => 0,
+    'siteUrl' => 'http://www.domain.com/',
+
+    'environmentVariables' => array(
+      'basePath'   => '/var/www/sitename/htdocs/',
+      'baseUrl'    => 'http://www.domain.com/',
+      'cpTrigger'  => 'adminpanel'
+    )
+  )
+);
+```
+
+Vos développeurs peuvent chacun utiliser une architecture de dossiers locale différentes, dans ce cas, une petite adaptation s'impose au niveau de la variable `basepath` en local:
+
+```
+// dynamic basepath definition (useful if devs have different local paths)
+define('BASEPATH', realpath(CRAFT_BASE_PATH . '/../') . '/');
+
+return array(
+  '*' => array(
+    'omitScriptNameInUrls' => true
+  ),
+
+  '.dev' => array(
+    'devMode'  => true,
+    'siteUrl'  => 'http://www.domain.dev/',
+
+    'environmentVariables' => array(
+      'basePath'   => BASEPATH.'public/',
+      'baseUrl'    => 'http://www.domain.dev/',
+      'cpTrigger'  => 'adminpanel'
+    )
+  ),
+
+  '.com' => array(
     'cooldownDuration' => 0,
     'siteUrl' => 'http://www.domain.com/',
 
