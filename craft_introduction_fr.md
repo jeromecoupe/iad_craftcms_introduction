@@ -69,11 +69,11 @@ return array(
       'omitScriptNameInUrls' => true
     ),
 
-    'domain.dev' => array(
+    '.dev' => array(
       'devMode' => true
     ),
 
-    'domain.com' => array(
+    '.com' => array(
       'cooldownDuration' => 0
     )
 );
@@ -84,28 +84,27 @@ Pour compléter cela, vous pouvez également utiliser ce que Craft appelle des [
 ```
 return array(
   '*' => array(
-    'omitScriptNameInUrls' => true
+    'omitScriptNameInUrls' => true,
+    'cpTrigger'  => 'adminpanel'
   ),
 
-  'domain.dev' => array(
+  '.dev' => array(
     'devMode'  => true,
     'siteUrl'  => 'http://www.domain.dev/',
 
     'environmentVariables' => array(
       'basePath'   => '/localprojects/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.dev/',
-      'cpTrigger'  => 'adminpanel'
+      'baseUrl'    => 'http://www.domain.dev/'
     )
   ),
 
-  'domain.com' => array(
+  '.com' => array(
     'cooldownDuration' => 0,
     'siteUrl' => 'http://www.domain.com/',
 
     'environmentVariables' => array(
       'basePath'   => '/var/www/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.com/',
-      'cpTrigger'  => 'adminpanel'
+      'baseUrl'    => 'http://www.domain.com/'
     )
   )
 );
@@ -119,7 +118,8 @@ define('BASEPATH', realpath(CRAFT_BASE_PATH . '/../') . '/');
 
 return array(
   '*' => array(
-    'omitScriptNameInUrls' => true
+    'omitScriptNameInUrls' => true,
+    'cpTrigger'  => 'adminpanel'
   ),
 
   '.dev' => array(
@@ -128,8 +128,7 @@ return array(
 
     'environmentVariables' => array(
       'basePath'   => BASEPATH.'public/',
-      'baseUrl'    => 'http://www.domain.dev/',
-      'cpTrigger'  => 'adminpanel'
+      'baseUrl'    => 'http://www.domain.dev/'
     )
   ),
 
@@ -139,8 +138,7 @@ return array(
 
     'environmentVariables' => array(
       'basePath'   => '/var/www/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.com/',
-      'cpTrigger'  => 'adminpanel'
+      'baseUrl'    => 'http://www.domain.com/'
     )
   )
 );
@@ -163,14 +161,14 @@ return array(
       'tablePrefix' => 'craft'
     ),
 
-    'domain.dev' => array(
+    '.dev' => array(
       'server'   => 'localhost',
       'user'     => 'root',
       'password' => 'password',
       'database' => 'domain_craft'
     ),
 
-    'domain.com' => array(
+    '.com' => array(
       'server'   => 'localhost',
       'user'     => 'user',
       'password' => 'strongpassword',
