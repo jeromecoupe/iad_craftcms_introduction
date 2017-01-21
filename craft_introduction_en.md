@@ -146,40 +146,6 @@ return array(
 );
 ```
 
-Vos développeurs peuvent chacun utiliser une architecture de dossiers locale différentes, dans ce cas, une petite adaptation s'impose au niveau de la variable `basepath` en local:
-
-```
-// dynamic basepath definition (useful if devs have different local paths)
-define('BASEPATH', realpath(CRAFT_BASE_PATH . '/../') . '/');
-
-return array(
-  '*' => array(
-    'omitScriptNameInUrls' => true,
-    'cpTrigger'  => 'adminpanel'
-  ),
-
-  '.dev' => array(
-    'devMode'  => true,
-    'siteUrl'  => 'http://www.domain.dev/',
-
-    'environmentVariables' => array(
-      'basePath'   => BASEPATH.'public/',
-      'baseUrl'    => 'http://www.domain.dev/'
-    )
-  ),
-
-  '.com' => array(
-    'cooldownDuration' => 0,
-    'siteUrl' => 'http://www.domain.com/',
-
-    'environmentVariables' => array(
-      'basePath'   => '/var/www/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.com/'
-    )
-  )
-);
-```
-
 You can then use those variables in the Control Panel, for example when defining file system paths and url for your asset sources to make them environment specific.
 
 ```
