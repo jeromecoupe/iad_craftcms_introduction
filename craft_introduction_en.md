@@ -61,7 +61,7 @@ Craft offers a native way to deal with multiple environments configurations thro
 
 First, define a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support.
 
-The rest of your array keys will reference domain names or parts thereof on your different servers. Craft will check those keys against the `$_SERVER['SERVER_NAME']` PHP variable an look for a (partial) match.
+The rest of your array keys will reference domain names or parts thereof on your different servers. Craft will check those keys against the `$_SERVER['SERVER_NAME']` PHP variable and look for a (partial) match.
 
 **Example**: `craft/config/general.php`
 
@@ -113,40 +113,6 @@ return array(
 ```
 
 If your developers are each using different files and folders architectures locally, that file need to be slightly adapted regarding the `basepath`variable, which you can make dynamic.
-
-```
-// dynamic basepath definition (useful if devs have different local paths)
-define('BASEPATH', realpath(CRAFT_BASE_PATH . '/../') . '/');
-
-return array(
-  '*' => array(
-    'omitScriptNameInUrls' => true,
-    'cpTrigger'  => 'adminpanel'
-  ),
-
-  '.dev' => array(
-    'devMode'  => true,
-    'siteUrl'  => 'http://www.domain.dev/',
-
-    'environmentVariables' => array(
-      'basePath'   => BASEPATH.'public/',
-      'baseUrl'    => 'http://www.domain.dev/'
-    )
-  ),
-
-  '.com' => array(
-    'cooldownDuration' => 0,
-    'siteUrl' => 'http://www.domain.com/',
-
-    'environmentVariables' => array(
-      'basePath'   => '/var/www/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.com/'
-    )
-  )
-);
-```
-
-Vos développeurs peuvent chacun utiliser une architecture de dossiers locale différentes, dans ce cas, une petite adaptation s'impose au niveau de la variable `basepath` en local:
 
 ```
 // dynamic basepath definition (useful if devs have different local paths)
