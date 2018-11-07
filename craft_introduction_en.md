@@ -10,15 +10,26 @@ Craft focuses on the essentials: defining and managing your content in the most 
 
 ### A modular pricing model
 
-This flexibility is present into the pricing of the product itself.
+This flexibility is present into the [pricing model](https://craftcms.com/pricing) of the product itself.
 
-- The "Core" version of Craft is free. You can enjoy all functionalities of Craft except for its user management and permissions, multilingual capabilities and support for external data storage solutions (Amazon S3, Rackspace Cloud and Google Cloud Storage)
-- The "Client" version costs $199 and offers you basic user management as well as the possibility to customise login screens and user messages and emails.
-- The "Pro" version costs $299 and allows you to use all the features of Craft, including its advanced multilingual capabilities, granular user management and support for external data storage solutions.
+- The "Solo" version of Craft is free. You can enjoy all functionalities of Craft except for its user management and permissions. The only account available is an admin account.
+- The "Pro" version costs $299 and offers you full user management as well as the possibility brand the system.
+
+#### Licenses
+
+Craft licenses are perpetual, meaning you can use the version you purchased indefinitely. You also get one year of Developer support and updates bundled with your purchase.
+
+If you want updates and support after that, you will have to pay $59 for one year of upgrades and support. You can pay that license fee whenever you need it.
+
+#### Trial versions
+
+[You can test Craft Pro and all its functionalities](https://craftcms.com/guides/try-craft-pro-plugins-before-buying) for an indefinite amount of time provided that you are on a local or stanging domain that can be identified as such. Personally, I use `myprojectname.craft.test` for all my local projects.
 
 ### A fully integrated e-commerce platform
 
-In December 2015, Pixel & Tonic released their first party e-commerce module for Craft dubbed [Craft Commerce](https://craftcommerce.com). A one-time license of Craft Commerce for one site is $700. For that price, you get [a ton of features](https://craftcommerce.com/features), free upgrades for the lifetime of your project and great support from the P&T team.
+Pixel & Tonic released a first party e-commerce module for Craft dubbed [Craft Commerce](https://craftcms.com/commerce). A one-time license of Craft Commerce for one site is $999. For that price, you get [a ton of features](https://craftcms.com/features) and everything you need to create and manage an online store.
+
+A "Lite" version of Commerce is also available with much simpler e-commerce capabilities for a price of $199 per project.
 
 Covering Craft Commerce is not in the scope of this introduction to Craft but just know Craft Commerce shares a lot of characteristics with Craft core as far as data structure creation and templating are concerned so you won't feel lost. If you need tight e-commerce integration with your CMS, Craft Commerce is definitely an option to consider.
 
@@ -28,42 +39,51 @@ In my opinion, the main strengths of Craft are:
 
 1. An unparalleled flexibility in the definition of your item types and of their data structure. The 16 field types available by default allow for an extremely modular approach of your content.
 2. Speaking of modular fields, Matrix certainly is Craft's main asset in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
-3. Using Twig as its templating language. Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularity and flexibility for your templates are amazing.
+3. Using [Twig as its templating language](http://twig.sensiolabs.org/doc/templates.html). Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularity and flexibility for your templates are amazing.
 4. An integrated and comprehensive solution for multilingual sites with great localisation features.
 5. An impressive amount of features available out of the box, designed to make your life and the life of your users easier: live preview, responsive control panel, one click updates, multiple environments configurations, etc.
 6. Freedom to build your own URL structure: there is almost no relation between your URL structure and your folder and files structure, thanks to a very flexible routing mechanism.
 7. A fantastic development and support team.
 
-## Installation and configuration
+## 1. Installation and configuration
 
 ### Setting things up
 
-After checking your server has everything it needs to run Craft, all you have to do is [follow a simple procedure](https://craftcms.com/docs/installing) to install Craft and check your permissions. This should go smoothly.
+After checking your server has everything it needs to run Craft, all you have to do is [follow a simple procedure](https://docs.craftcms.com/v3/installation.html) to install Craft and check your permissions. This should go smoothly.
 
 ### Version control
 
-Any developer worth its salt is version controlling its work using Git these days. Some people prefer leaving Craft itself out of the repository, I personally like to keep Craft version controlled as well. It makes it easier when you work in a team: if one of you makes the update, everyone gets it. There are, however, some [files and folders you want to include in your `.gitignore` file](https://craftcms.com/support/craft-storage-gitignore). This is what I generally use:
+Any developer worth its salt is version controlling its work using Git these days. Craft has its own .gitignore file (https://github.com/craftcms/craft/blob/master/storage/.gitignore). You only have to take care of your own files. This is the .gitignore file I generally use as a starting point:
 
 ```
-# Craft stuff
-# ----------------------------
-craft/storage/backups/
-craft/storage/runtime/
+# Standard Craft stuff
+# ----------------------
+.env
+vendor/
+.DS_Store
 
-# User uploaded files
-# ---------------------------
-public/uploads/
+# uploaded resources
+# ----------------------
+web/uploads/**/*
+
+# dist files
+# ----------------------
+web/dist/
+
+# node modules
+# ----------------------
+node_modules/
 ```
 
 ### Multiple environments configurations
 
-Craft offers a native way to deal with multiple environments configurations through the use of nested arrays and [environment-specific variables ](http://buildwithcraft.com/docs/multi-environment-configs) in your `general.php` and `db.php` configuration files.
+Craft offers a native way to deal with multiple environments configurations through the use of nested arrays and [environment-specific variables ](https://docs.craftcms.com/v3/config/environments.html) in your `config/general.php` and `config/db.php` configuration files.
 
 First, define a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support.
 
 The rest of your array keys will reference domain names or parts thereof on your different servers. Craft will check those keys against the `$_SERVER['SERVER_NAME']` PHP variable an look for a (partial) match.
 
-**Example**: `craft/config/general.php`
+**Example**: `config/general.php`
 
 ```
 return array(
@@ -71,7 +91,7 @@ return array(
       'omitScriptNameInUrls' => true
     ),
 
-    '.dev' => array(
+    '.test' => array(
       'devMode' => true
     ),
 
@@ -81,115 +101,11 @@ return array(
 );
 ```
 
-You can pretty much override any [configuration settings](http://buildwithcraft.com/docs/config-settings) that way. Craft also allows you to create and use [environment specific variables](http://buildwithcraft.com/docs/multi-environment-configs#environment-specific-variables). You can name those any way you want and use them to create dynamic configurations in Craft's control panel. You can also [use them in your templates](http://buildwithcraft.com/docs/templating/craft.config) using the `craft.config.myvariable` syntax
+You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
 
-```
-return array(
-  '*' => array(
-    'omitScriptNameInUrls' => true,
-    'cpTrigger'  => 'adminpanel'
-  ),
+The same logic applies to your database configuration settings.
 
-  '.dev' => array(
-    'devMode' => true,
-    'siteUrl' => 'http://www.domain.dev/',
-
-    'environmentVariables' => array(
-      'basePath'   => '/localprojects/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.dev/'
-    )
-  ),
-
-  '.com' => array(
-    'cooldownDuration' => 0,
-    'siteUrl' => 'http://www.domain.com/',
-
-    'environmentVariables' => array(
-      'basePath'   => '/var/www/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.com/'
-    )
-  )
-);
-```
-
-If your developers are each using different files and folders architectures locally, that file need to be slightly adapted regarding the `basepath`variable, which you can make dynamic.
-
-```
-// dynamic basepath definition (useful if devs have different local paths)
-define('BASEPATH', realpath(CRAFT_BASE_PATH . '/../') . '/');
-
-return array(
-  '*' => array(
-    'omitScriptNameInUrls' => true,
-    'cpTrigger'  => 'adminpanel'
-  ),
-
-  '.dev' => array(
-    'devMode'  => true,
-    'siteUrl'  => 'http://www.domain.dev/',
-
-    'environmentVariables' => array(
-      'basePath'   => BASEPATH.'public/',
-      'baseUrl'    => 'http://www.domain.dev/'
-    )
-  ),
-
-  '.com' => array(
-    'cooldownDuration' => 0,
-    'siteUrl' => 'http://www.domain.com/',
-
-    'environmentVariables' => array(
-      'basePath'   => '/var/www/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.com/'
-    )
-  )
-);
-```
-
-Vos développeurs peuvent chacun utiliser une architecture de dossiers locale différentes, dans ce cas, une petite adaptation s'impose au niveau de la variable `basepath` en local:
-
-```
-// dynamic basepath definition (useful if devs have different local paths)
-define('BASEPATH', realpath(CRAFT_BASE_PATH . '/../') . '/');
-
-return array(
-  '*' => array(
-    'omitScriptNameInUrls' => true,
-    'cpTrigger'  => 'adminpanel'
-  ),
-
-  '.dev' => array(
-    'devMode'  => true,
-    'siteUrl'  => 'http://www.domain.dev/',
-
-    'environmentVariables' => array(
-      'basePath'   => BASEPATH.'public/',
-      'baseUrl'    => 'http://www.domain.dev/'
-    )
-  ),
-
-  '.com' => array(
-    'cooldownDuration' => 0,
-    'siteUrl' => 'http://www.domain.com/',
-
-    'environmentVariables' => array(
-      'basePath'   => '/var/www/sitename/htdocs/',
-      'baseUrl'    => 'http://www.domain.com/'
-    )
-  )
-);
-```
-
-You can then use those variables in the Control Panel, for example when defining file system paths and url for your asset sources to make them environment specific.
-
-```
-{basePath}assets/images/
-{baseUrl}assets/images/
-```
-
-Such dynamic configurations can also be used for your database parameters in `craft/config/db.php`.
-
-**Example**: craft/config/db.php
+**Example**: `craft/config/db.php`
 
 ```
 return array(
@@ -197,31 +113,157 @@ return array(
       'tablePrefix' => 'craft'
     ),
 
-    '.dev' => array(
+    '.test' => array(
       'server'   => 'localhost',
       'user'     => 'root',
       'password' => 'password',
-      'database' => 'webstoemp'
+      'database' => 'mylocaldatabase'
     ),
 
     '.com' => array(
       'server'   => 'localhost',
-      'user'     => 'myownuser',
+      'user'     => 'username',
       'password' => 'strongpassword',
-      'database' => 'webstoemp'
+      'database' => 'myproductiondatabase'
     ),
 );
 ```
 
-When you work in teams, having everyone suing the same URL in their local dev environments is no big deal. Local paths and folder architecture are another problem, since everyone's local filesystem is likely to be different.
+Because your developers likely use different files and folders architectures locally and because sensitives informations like database credentials should ideally not be committed to a repository, Craft allows you to use a `.env` file at the root of your project. You can then use values specified in that `.env` files in `craft/config/general.php` and `craft/config/db.php`.
 
-### Redactor configurations
+You can also use those values to create [Yii aliases](https://docs.craftcms.com/v3/config/environments.html#aliases) that can then be used in the control panel and in your templates.
 
-Craft uses [Redactor](http://imperavi.com/redactor/) as a WYSIWYG solution for rich text fields. When you create a rich text field, you can choose the Redactor configuration you want to apply to that field.
+Here is an  exemple of what it looks like:
 
-These configurations can be easily created and modified with JSON files stored in the `craft/config/redactor/` folder. The name of your JSON file will be the name of the configuration in the Control Panel.
+**Example**: `.env`
 
-## Create your data structure: tools of the trade
+```
+# The environment Craft is currently running in ('dev', 'staging', 'production', etc.)
+ENVIRONMENT="dev"
+
+# The secure key Craft will use for hashing and encrypting data
+SECURITY_KEY="superlonghashkey"
+
+# The database driver that will be used ('mysql' or 'pgsql')
+DB_DRIVER="mysql"
+
+# The database server name or IP address (usually this is 'localhost' or '127.0.0.1')
+DB_SERVER="localhost"
+
+# The database username to connect with
+DB_USER="root"
+
+# The database password to connect with
+DB_PASSWORD="mypassword"
+
+# The name of the database to select
+DB_DATABASE="mycraftdb"
+
+# The port to connect to the database with. Will default to 5432 for PostgreSQL and 3306 for MySQL.
+DB_PORT="3306"
+
+# Base URL (no trailing slash)
+BASE_URL="http://myproject.craft.test"
+
+# Base PATH (no trailing slash)
+BASE_PATH="/data/weblocal/myproject/web"
+```
+
+**Example**: `config/general.php`
+
+```
+<?php
+/**
+ * General Configuration
+ *
+ * All of your system's general configuration settings go in here. You can see a
+ * list of the available settings in vendor/craftcms/cms/src/config/GeneralConfig.php.
+ *
+ * @see craft\config\GeneralConfig
+ */
+
+return [
+    // Global settings
+    '*' => [
+      // Default Week Start Day (0 = Sunday, 1 = Monday...)
+      'defaultWeekStartDay' => 1,
+
+      // Enable CSRF Protection (recommended)
+      'enableCsrfProtection' => true,
+
+      // Whether generated URLs should omit 'index.php'
+      'omitScriptNameInUrls' => true,
+
+      // Control Panel trigger word
+      'cpTrigger' => 'admin',
+
+      // The secure key Craft will use for hashing and encrypting data
+      'securityKey' => getenv('SECURITY_KEY'),
+    ],
+
+    // Dev environment settings
+    '.test' => [
+      'devMode' => true,
+      'aliases' => [
+        '@environment' => getenv('ENVIRONMENT'),
+        '@baseUrl' => getenv('BASE_URL'),
+        '@assetsBaseUrl' => getenv('BASE_URL').'/uploads',
+        '@assetsBasePath' => getenv('BASE_PATH').'/uploads',
+      ]
+    ],
+
+    // Production environment settings
+    '.com' => [
+      'aliases' => [
+        '@environment' => 'production',
+        '@baseUrl' => 'https://myproject.com',
+        '@assetsBaseUrl' => 'https://myproject.com/uploads',
+        '@assetsBasePath' => '/myproject.com/web/uploads',
+      ],
+    ],
+];
+```
+
+**Example**: `config/db.php`
+```
+return array(
+  'driver' => getenv('DB_DRIVER'),
+  'server' => getenv('DB_SERVER'),
+  'user' => getenv('DB_USER'),
+  'password' => getenv('DB_PASSWORD'),
+  'database' => getenv('DB_DATABASE'),
+  'schema' => getenv('DB_SCHEMA'),
+  'tablePrefix' => getenv('DB_TABLE_PREFIX'),
+  'port' => getenv('DB_PORT')
+);
+```
+
+You can then use those aliases in the Control Panel, for example when defining file system paths and url for your asset sources to make them environment specific.
+
+```
+{@assetsBasePath}/partners_logos/
+{@assetsBasePath}/partners_logos/
+```
+
+You can also use those aliases in your templates using the [Craft `alias` function](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
+
+```twig
+{% if alias('@environment') == 'production' %}
+  {# include Google Analytics code #}
+{% endif %}
+```
+
+Of course, values defined via dotEnv and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your webserver configuration, be it Apache or Nginx. `.env` file are not used in production and hosting providers will offer you a way to configure environment variables at the server level.
+
+### Rich text configurations
+
+Craft allows you to use [CKEditor](https://ckeditor5.github.io/) or [Redactor](http://imperavi.com/redactor/) as WYSIWYG solutions if you want your users to be able to enter rich text. Both are available as free plugins in the plugin store.
+
+I have always used Redactor with pretty simple configurations.
+
+Redactor configurations can be easily created and modified with JSON files stored in the `config/redactor/` folder. The filenames of your JSON files will be the names of configurations available in the Control Panel for the Redactor field.
+
+## 2. Create your data structure
 
 Craft allows you to create very flexible and modular data structures for your projects.
 
@@ -351,19 +393,13 @@ For performance reasons, Craft uses indexes for its search functionalities and t
 
 It is also easy to build [dynamic search forms](http://buildwithcraft.com/docs/templating/search-form) for your project. All you need to do is to use the `craft.request` tag to be able to [use the GET/POST parameters](http://buildwithcraft.com/docs/templating/craft.request) passed by your form in the context of your results template.
 
-## Templating part 1: using Twig
-
-Now that you know how to create complex data structures for your projects, let's dive into creating your templates with Craft.
-
-All your templates are in the `craft/templates` folder. You can change that location using the [`CRAFT_TEMPLATES_PATH`](http://buildwithcraft.com/docs/php-constants#craft-templates-path) constant.
-
-### Twig as a templating language
+## Twig as templating language
 
 Craft uses [Twig](http://twig.sensiolabs.org/), created by Fabien Potencier, as its templating language. Twig compiles all your templates down to raw PHP, which means it is blazing fast. Twig has a small learning curve if you have never done any programming but remains very [accessible to front-end developers](http://twig.sensiolabs.org/doc/templates.html).
 
 Coupled with Craft specific tags, functions and filters, Twig enables you to access your data and manipulate them in your templates. For a quick introduction to Twig other than what follows, have a look at "[Twig for designers](http://www.slideshare.net/brandonkelly212/twig-for-designers)", a presentation by Brandon Kelly available on Slideshare.
 
-#### Main tags in Twig
+### Main tags in Twig
 
 On top of the [tags available in Twig](http://twig.sensiolabs.org/doc/tags/index.html), Craft also has [a few tags of its own](http://buildwithcraft.com/docs/templating/tags). We will cover some of them in the rest of this course.
 
@@ -373,11 +409,11 @@ Twig has three main types of tags:
 - `{{ Output }}`
 - `{% Execution / Logic %}`
 
-##### Comment tags
+#### Comment tags
 
 Twig comment tags are not rendered in the compiled template: `{# This is a comment: not rendered in the compiled template #}`.
 
-##### Output tags, variables and properties
+#### Output tags, variables and properties
 
 `{{ Output }}`: These tags allow you to output strings, numbers, booleans, arrays and objects in your templates. Most of the time you will be outputting variables that you or Craft sets.
 
@@ -387,7 +423,7 @@ Examples:
 - `{{ entry.title }}`: displays the title property of an entry object
 - `{{ 8 + 2 }}`: displays 10
 
-##### Execution and logic tags
+#### Execution and logic tags
 
 `{% Execution / Logic %}`: these tags allow you to execute tasks and can be used to create variables, loops, control structures, etc.
 
@@ -415,7 +451,7 @@ Create a [control structure](http://twig.sensiolabs.org/doc/templates.html#contr
 {% endif %}
 ```
 
-##### Never use tags inside other tags
+#### Never use tags inside other tags
 
 These are incorrect:
 
@@ -431,7 +467,7 @@ You will have to use the following syntaxes
 {% set total = itemPrice * itemsNbr %}
 ```
 
-#### Data types and variables with Twig
+### Data types and variables with Twig
 
 Twig supports 5 big data types:
 
@@ -448,7 +484,7 @@ As shown earlier, you can easily assign a value to a variable using the `{% set 
 {% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
 ```
 
-#### Filters
+### Filters
 
 [Twig](http://twig.sensiolabs.org/doc/filters/index.html) and [Craft](http://buildwithcraft.com/docs/templating/filters) have filters that can be applied to your variables and modify or manipulate them. It means that Craft doesn't need any plugin to perform simple tasks in your templates. Here are some examples of what can be done using filters:
 
@@ -485,7 +521,7 @@ Filters can also be combined.
 {{ "Hello World"|upper|slice(0,5) }}
 ```
 
-#### Functions
+### Functions
 
 [Twig](http://twig.sensiolabs.org/doc/functions/index.html) and [Craft](http://buildwithcraft.com/docs/templating/functions) both have functions allowing you to execute functions on your data.
 
@@ -508,7 +544,7 @@ Filters can also be combined.
 {{ dump(entry) }}
 ```
 
-#### Control structures and conditionals
+### Control structures and conditionals
 
 Twig allows you to use control structures and conditionals.
 
@@ -574,7 +610,7 @@ Twig allows you to use control structures and conditionals.
 {% endfor %}
 ```
 
-#### Mathematical expressions and string manipulations
+### Mathematical expressions and string manipulations
 
 Twig knows [Math](http://twig.sensiolabs.org/doc/templates.html#math) and allows you to manipulate character strings easily using [filters](http://twig.sensiolabs.org/doc/filters/index.html).
 
@@ -583,15 +619,15 @@ Twig knows [Math](http://twig.sensiolabs.org/doc/templates.html#math) and allows
 {{ "Hello World"|slice(0,5) }}
 ```
 
-#### Whitespace control
+### Whitespace control
 
 Twig allows you to control how your code is displayed, including [at the whitespace level](http://twig.sensiolabs.org/doc/templates.html#whitespace-control), which, if you are using `inline-block`, is a godsend.
 
-#### Template inheritance, includes and macros: stay DRY
+### Template inheritance, includes and macros: stay DRY
 
 These three concepts are at the heart of Twig as a templating language. They enable you to create efficient templates and avoid redundancy, allowing you to comply with the infamous "Don't Repeat Yourself" (DRY) principle.
 
-##### Template inheritance
+#### Template inheritance
 
 Template inheritance is a central concept in Twig, as it is in many other templating languages for the web. We will generally work with a "parent" template defining the skeleton of the page, its different blocks and one or more "children" templates. These children templates will extend the parent template and define the content of each of those blocks.
 
@@ -658,7 +694,7 @@ As a side note, the name of the "parent" template begins with an underscore to t
 
 Typically, your layouts, includes and entry templates should all be hidden.
 
-##### Includes
+#### Includes
 
 If you have code that is repeated in many templates, it is generally a good idea to use includes `{% include %}`. Since Twig compiles everything down to raw PHP, there is no real performance penalty for using includes.
 
@@ -666,7 +702,7 @@ If you have code that is repeated in many templates, it is generally a good idea
 {% include '_sidebars/default.html' %}
 ```
 
-#### Macros
+### Macros
 
 Twig [Macros](http://twig.sensiolabs.org/doc/tags/macro.html) are comparable to mixins in Sass. They are small reusable chunks of code.
 
@@ -710,7 +746,7 @@ If the macro is defined in an external file, we simply reference the path to the
 {{ dateHelpers.dateText(entry.postDate) }}
 ```
 
-## Templating part 2: Retrieve and display your data
+## Retrieve, manipulate and display your data
 
 In Craft, you interact with the database using [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) objects. It sounds complicated but it is in fact quite simple:
 

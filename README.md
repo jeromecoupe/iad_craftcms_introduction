@@ -1,6 +1,6 @@
 # Introduction to Craft CMS
 
-This course is an introduction to [Craft](http://buildwithcraft.com/), a CMS created by [Pixel & Tonic](http://pixelandtonic.com/).
+This course is an introduction to [Craft](http://craftcms.com/), a CMS created by [Pixel & Tonic](http://pixelandtonic.com/).
 
 Workshop by [Jérôme Coupé](http://webstoemp.com) - Institut des Arts de Diffusion
 
