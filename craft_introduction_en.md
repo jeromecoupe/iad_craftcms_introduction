@@ -273,7 +273,7 @@ With Craft, your content will mainly live in entries. Those entries are grouped 
 
 The data structure of those entries is created by assigning custom fields to the entry types you defined for each sections. For each of those entry types, you can create a field layout defining which fields will be used by all entries of that type in a given section.
 
-There are [three types of sections](http://buildwithcraft.com/docs/sections-and-entries): singles, channels and structures.
+There are [three types of sections](https://docs.craftcms.com/v3/sections-and-entries.html): singles, channels and structures.
 
 #### Single sections
 
@@ -299,7 +299,7 @@ Channel sections can contain various entry types, each having their own data str
 
 For each entry type defined in your section, you can define the data structure of entries by assigning custom fields to a field layout.
 
-These entry types can easily be [used in routing and URL structures](http://buildwithcraft.com/help/entry-type-urls) as well as in your templates with [`craft.entries` tags and conditionals](http://buildwithcraft.com/docs/templating/entrymodel#type).
+These entry types can easily be [used in routing and URL structures](https://craftcms.com/guides/entry-type-urls) as well as in your templates with [`craft.entries` tags and conditionals](https://docs.craftcms.com/v2/templating/entrymodel.html#properties).
 
 #### Structure sections
 
@@ -314,7 +314,7 @@ For each entry type defined in your section, you can define the data structure o
 
 ### Fields, Field Groups and Field Layouts
 
-Craft comes natively with [16 field types](http://buildwithcraft.com/docs/fields) through which you can define the data structure of your entries.
+Craft comes natively with [numerous field types](https://docs.craftcms.com/v3/fields.html) through which you can define the data structure of your entries.
 
 A field can be applied to several entries, users, assets, tags, categories or globals via a "field layout" allowing you to perform operations on the fields (ordering, make mandatory or not, etc) via a drag and drop interface.
 
@@ -322,13 +322,13 @@ Fields can be grouped into field groups. These groups are there purely for conve
 
 ### Globals
 
-Next to sections and entries, [globals](http://buildwithcraft.com/docs/globals) can be used to store bits of content or options you want your client to be able to edit easily: tagline, contact data, Google Analytics code, number of entries to display in lists, etc.
+Next to sections and entries, [globals](https://docs.craftcms.com/v3/globals.html) can be used to store bits of content or options you want your client to be able to edit easily: tagline, contact data, Google Analytics code, number of entries to display in lists, etc.
 
 Those globals can be grouped together using global sets. Each global set has its own field layout and thus its own data structure. The big difference between global sets and single entries are that global sets do not have their own URLs and cannot make use of the "live preview" function.
 
 ### Users
 
-Craft has [powerful and granular user management](http://buildwithcraft.com/docs/users) allowing you to manage the permissions for all users of the system.
+Craft has [powerful and granular user management](https://docs.craftcms.com/v3/users.html) allowing you to manage the permissions for all users of the system.
 
 Users can be assigned to various user groups. Permissions can be managed at a user group or at a user level. A user can be assigned to multiple groups.
 
@@ -336,21 +336,21 @@ The data structure for your users can be defined easily. A unique field layout a
 
 ### Assets
 
-[Assets](http://buildwithcraft.com/docs/assets) allow you to manage your files with Craft (images, videos, sounds, PDFs, etc). Assets are assigned to Asset Sources corresponding to folders on your server, or on external Cloud servers like Rackspace or Amazon S3 if you are the proud owner of a Craft Pro license.
+[Assets](https://docs.craftcms.com/v3/assets.html) allow you to manage your files with Craft (images, videos, sounds, PDFs, etc). Assets are assigned to Asset Sources corresponding to folders on your server, or on external Cloud servers like Rackspace or Amazon S3 if you are the proud owner of a Craft Pro license.
 
-Craft allows you to apply [transforms](http://buildwithcraft.com/docs/image-transforms) (crop, fit, scale, quality, etc.) to images automatically, either in the control panel or dynamically through templates. That feature allows you to generate all the thumbnails you needs from an initial image.
+Craft allows you to apply [transforms](https://docs.craftcms.com/v3/image-transforms.html) (crop, fit, scale, quality, etc.) to images automatically, either in the control panel or dynamically through templates. That feature allows you to generate all the thumbnails you needs from an initial image.
 
 A field layout is available for each Asset Source. Using it in combination with custom fields allow you to create complex data structure for each of your assets types. For example, documents can have a different data structure than photos.
 
 ### Tags
 
-[Tags](http://buildwithcraft.com/docs/tags) allow you to create *folksonomies* and apply them to your Entries, Users or Assets.
+[Tags](https://docs.craftcms.com/v3/tags.html) allow you to create *folksonomies* and apply them to your Entries, Users or Assets.
 
 Every tag must be assigned to a group and each tag group has a field layout. You can create complex data structures for each of your tag groups if needed.
 
 ### Categories
 
-[Categories](http://buildwithcraft.com/docs/categories) allow you to create *taxonomies* and apply them to your Entries, Users or Assets.
+[Categories](https://docs.craftcms.com/v3/categories.html) allow you to create *taxonomies* and apply them to your Entries, Users or Assets.
 
 Each category must be assigned to a group and each of them has a dedicated field layout.
 
@@ -361,7 +361,7 @@ For each category group, the edit screen allows you to:
 
 ### Relations
 
-One of Craft's great strengths is its [relations system](http://buildwithcraft.com/docs/relations). You can easily create relations between Entries, Users, Assets and Tags through a series of relational field types:
+One of Craft's great strengths is its [relations system](https://docs.craftcms.com/v3/relations.html). You can easily create relations between Entries, Users, Assets and Tags through a series of relational field types:
 
 - **Assets**: allows you to establish a "one to one" or "one to many" relation to Assets.
 - **Entries**: allows you to establish a "one to one" or "one to many" relation to Entries.
@@ -371,29 +371,29 @@ One of Craft's great strengths is its [relations system](http://buildwithcraft.c
 
 For each of those field, you can specify how many items can be linked and from what source(s) they come from.
 
-To display and work with these relations in your templates, Craft is giving you a very powerful tool in the form of the [`relatedTo`](http://buildwithcraft.com/docs/relations#the-relatedTo-param) parameter. You can use that parameter with `craft.entries`, `craft.users`, `craft.assets`, `craft.tags` and `craft.categories`.
+To display and work with these relations in your templates, Craft is giving you a very powerful tool in the form of the [`relatedTo`](https://docs.craftcms.com/v3/relations.html#the-relatedto-parameter) parameter. You can use that parameter with `craft.entries`, `craft.users`, `craft.assets`, `craft.tags` and `craft.categories`.
 
 ### Routing
 
-Another interesting aspect of Craft is its [dynamic routing system](http://buildwithcraft.com/docs/routing), which allows you separate your URL structure from your folders and files structure.
+Another interesting aspect of Craft is its [dynamic routing system](https://docs.craftcms.com/v3/routing.html), which allows you separate your URL structure from your folders and files structure.
 
 At the most basic level, we have already seen that Craft allows you to specify the URL structure of each of your Entries, Users, Assets, Tags and Categories.
 
-If that's not enough to cover all your needs, you can also create dynamic routes independently. For each route you create, you can specify which template must be loaded by Craft. An easy to understand example is [a template giving access to a yearly archive of entries](http://buildwithcraft.com/help/entry-archive#yearly-archive-pages).
+If that's not enough to cover all your needs, you can also create dynamic routes independently. For each route you create, you can specify which template must be loaded by Craft. An easy to understand example is [a template giving access to a yearly archive of entries](https://craftcms.com/guides/creating-an-archive-page-for-entries#yearly-archive-pages).
 
-When you create a dynamic route with the structure of `blog/archive/{year}` calling the template `blog/archive`, the URLs `blog/archive/2013` and `blog/archive/2012` will load the same template and make a `{year}` variable accessible to to Twig in that template. You can for example use it with the [`after`](http://buildwithcraft.com/docs/templating/craft.entries#after) and [`before`](http://buildwithcraft.com/docs/templating/craft.entries#before) parameters of a `craft.entries` tag.
+When you create a dynamic route with the structure of `blog/archive/{year}` calling the template `blog/archive`, the URLs `blog/archive/2013` and `blog/archive/2012` will load the same template and make a `{year}` variable accessible to to Twig in that template. You can for example use it with the [`after`](https://docs.craftcms.com/v3/dev/element-queries/entry-queries.html#after) and [`before`](https://docs.craftcms.com/v3/dev/element-queries/entry-queries.html#before) parameters of `craft.entries()`.
 
-If you need more possibilities than those the Control Panel gives you, you can [manage your routes in a more advanced way](http://buildwithcraft.com/docs/routing#advanced-routing) using the `config/routes.php` file. That will give you access to all the power of regular expressions in your URL matching patterns.
+If you need more possibilities than those the Control Panel gives you, you can [manage your routes in a more advanced way](https://docs.craftcms.com/v3/routing.html#advanced-routing-with-url-rules) using the `config/routes.php` file. That will give you access to all the power of regular expressions in your URL matching patterns.
 
 ### Search
 
-Craft also has a [very powerful built-in search system](http://buildwithcraft.com/docs/searching) based on a `search` parameter that can be used with `craft.entries`, `craft.users`, `craft.assets` and `craft.tags`.
+Craft also has a [very powerful built-in search system](https://docs.craftcms.com/v3/searching.html) based on a `search` parameter that can be used with `craft.entries()`, `craft.users()`, `craft.assets()` and `craft.tags()`.
 
-For performance reasons, Craft uses indexes for its search functionalities and those indexes can be updated or [rebuilt](http://buildwithcraft.com/docs/searching#rebuilding-your-search-indexes) directly from the control panel.
+For performance reasons, Craft uses indexes for its search functionalities and those indexes can be updated or rebuilt directly from the control panel.
 
-It is also easy to build [dynamic search forms](http://buildwithcraft.com/docs/templating/search-form) for your project. All you need to do is to use the `craft.request` tag to be able to [use the GET/POST parameters](http://buildwithcraft.com/docs/templating/craft.request) passed by your form in the context of your results template.
+It is also easy to build [dynamic search forms](https://docs.craftcms.com/v3/dev/examples/search-form.html) for your project. All you need to do is to use `craft.app.request.getParam('parameter')` to be able to use the GET/POST parameters passed by your form in the context of your results template.
 
-## Twig as templating language
+## 3. Twig as templating language
 
 Craft uses [Twig](http://twig.sensiolabs.org/), created by Fabien Potencier, as its templating language. Twig compiles all your templates down to raw PHP, which means it is blazing fast. Twig has a small learning curve if you have never done any programming but remains very [accessible to front-end developers](http://twig.sensiolabs.org/doc/templates.html).
 
@@ -401,7 +401,7 @@ Coupled with Craft specific tags, functions and filters, Twig enables you to acc
 
 ### Main tags in Twig
 
-On top of the [tags available in Twig](http://twig.sensiolabs.org/doc/tags/index.html), Craft also has [a few tags of its own](http://buildwithcraft.com/docs/templating/tags). We will cover some of them in the rest of this course.
+On top of the [tags available in Twig](http://twig.sensiolabs.org/doc/tags/index.html), Craft also has a few tags of its own. We will cover some of them in the rest of this course.
 
 Twig has three main types of tags:
 
@@ -429,13 +429,13 @@ Examples:
 
 Examples:
 
-Create an `allEntries` variable and assign it an [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) Craft object containing all entries in the `blog` section, ordered by creation date in descending order.
+Create an `allEntries` variable and assign it the results of an [ElementQuery](https://docs.craftcms.com/v3/dev/element-queries/) containing the last 10 entries in the `blog` section, ordered by creation date in descending order.
 
 ```twig
-{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
+{% set allEntries = craft.entries().section('blog').limit(10).order('postDate desc').all() %}
 ```
 
-Loop on the `allEntries` object to create `entry` objects and display their titles.
+Loop on `allEntries` array of `entry` objects and display their titles.
 
 ```twig
 {% for entry in allEntries %}
@@ -443,7 +443,7 @@ Loop on the `allEntries` object to create `entry` objects and display their titl
 {% endfor %}
 ```
 
-Create a [control structure](http://twig.sensiolabs.org/doc/templates.html#control-structure) to check if the `allEntries` variables contains at least one entry.
+Create a [control structure](http://twig.sensiolabs.org/doc/templates.html#control-structure) to check if `allEntries` contains at least one entry.
 
 ```twig
 {% if allEntries|length %}
@@ -481,12 +481,12 @@ As shown earlier, you can easily assign a value to a variable using the `{% set 
 
 ```twig
 {% set firstName = "Jérôme" %}`
-{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
+{% set allEntries = craft.entries().section('blog').order('postDate desc').all() %}
 ```
 
 ### Filters
 
-[Twig](http://twig.sensiolabs.org/doc/filters/index.html) and [Craft](http://buildwithcraft.com/docs/templating/filters) have filters that can be applied to your variables and modify or manipulate them. It means that Craft doesn't need any plugin to perform simple tasks in your templates. Here are some examples of what can be done using filters:
+[Twig](http://twig.sensiolabs.org/doc/filters/index.html) and [Craft](https://docs.craftcms.com/v3/dev/filters.html) have filters that can be applied to your variables and modify or manipulate them. It means that Craft doesn't need any plugin to perform simple tasks in your templates. Here are some examples of what can be done using filters:
 
 Convert a string to title case.
 
@@ -503,7 +503,7 @@ Dates operations and formatting.
 Determine the length of a string, array or object.
 
 ```twig
-{% set allEntries = craft.entries.section('blog').limit(null).order('postDate desc').find() %}
+{% set allEntries = craft.entries().section('blog').order('postDate desc').all() %}
 {{ allEntries|length }}
 ```
 
@@ -523,7 +523,7 @@ Filters can also be combined.
 
 ### Functions
 
-[Twig](http://twig.sensiolabs.org/doc/functions/index.html) and [Craft](http://buildwithcraft.com/docs/templating/functions) both have functions allowing you to execute functions on your data.
+[Twig](http://twig.sensiolabs.org/doc/functions/index.html) and [Craft](https://docs.craftcms.com/v3/dev/functions.html) both have functions allowing you to execute functions on your data.
 
 ```twig
 {% for entry in allEntries %}
@@ -538,7 +538,7 @@ Filters can also be combined.
 {{ range[1..10] }}
 ```
 
-`dump()` is only accessible in Craft when [Dev Mode is enabled](http://buildwithcraft.com/help/dev-mode) in your `config/general.php` file. Essential for debugging.
+`dump()` is only accessible in Craft when [Dev Mode is enabled](https://craftcms.com/guides/what-dev-mode-does) in your `config/general.php` file. Essential for debugging.
 
 ```twig
 {{ dump(entry) }}
@@ -639,7 +639,7 @@ Let's see how it works practically with a very simple example:
 
 ```twig
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -650,9 +650,6 @@ Let's see how it works practically with a very simple example:
 
   <link rel="shortcut icon" href="{{ siteUrl }}/favicon.ico">
   <link rel="stylesheet" media="screen" href="{{ siteUrl }}/assets/css/screen.css">
-  <link rel="stylesheet" media="print" href="{{ siteUrl }}/assets/css/print.css">
-
-  <script src="{{ siteUrl }}/assets/js/libs/modernizr.js"></script>
 
 </head>
 
@@ -676,7 +673,7 @@ Let's see how it works practically with a very simple example:
 
   <h1>News</h1>
 
-  {% for entry in craft.entries.section('news').find() %}
+  {% for entry in craft.entries().section('news').all() %}
     <article>
       <h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
       <p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
@@ -688,9 +685,9 @@ Let's see how it works practically with a very simple example:
 {% endblock %}
 ```
 
-The `news/index.html` template extends the base layout template. The content defined in the "content" block of the child template replaces / supersedes the content of the "content" block in the parent template.
+The `news/index.html` template extends the base layout template. The content defined in the `content` block of the child template replaces / supersedes the content of the `content` block in the parent template.
 
-As a side note, the name of the "parent" template begins with an underscore to tell Craft that template is hidden and cannot be accessed directly via a web browser. If any segment of a URL begins with an underscore (template or template group), Craft will display a 404.
+As a side note, the name of the "parent" template begins with an underscore to tell Craft that template is hidden and cannot be accessed directly via a web browser.
 
 Typically, your layouts, includes and entry templates should all be hidden.
 
@@ -707,18 +704,6 @@ If you have code that is repeated in many templates, it is generally a good idea
 Twig [Macros](http://twig.sensiolabs.org/doc/tags/macro.html) are comparable to mixins in Sass. They are small reusable chunks of code.
 
 A Macro is defined using the `{% macro %}` and `{% endmacro %}` tags. Macro can be loaded from an external file, or reside in the file they are used in.
-
-```twig
-{% macro errors(list) %}
-  {% if list|length %}
-    <ul class="errors">
-      {% for error in list %}
-        <li>{{ error }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endmacro %}
-```
 
 ```twig
 {% macro dateText(date) %}
@@ -746,35 +731,37 @@ If the macro is defined in an external file, we simply reference the path to the
 {{ dateHelpers.dateText(entry.postDate) }}
 ```
 
-## Retrieve, manipulate and display your data
+## 4. Retrieve, manipulate and display your data
 
-In Craft, you interact with the database using [ElementCriteriaModel](http://buildwithcraft.com/docs/templating/elementcriteriamodel) objects. It sounds complicated but it is in fact quite simple:
+In Craft, you interact with the database using [Element Queries](https://docs.craftcms.com/v3/dev/element-queries/). It sounds complicated but it is in fact quite simple:
 
-1. you create an ElementCriteriaModel for the type of data you want to get from the database (entries, users, assets, etc.)
+1. you create an ElementQuery for the type of data you want to get from the database (entries, users, assets, etc.)
 2. you specify the parameters (limit, order, filters, etc.) you want to use.
-3. Craft then fetches what you need from the database
-4. Craft returns an ElementModel or an array of ElementModel objects ([EntryModel](http://buildwithcraft.com/docs/templating/entrymodel) for entries, [UserModel](http://buildwithcraft.com/docs/templating/usermodel) for users, [AssetFileModel](http://buildwithcraft.com/docs/templating/assetfilemodel) for assets, [CategoryModel](http://buildwithcraft.com/docs/templating/categorymodel) for categories and [TagModel](http://buildwithcraft.com/docs/templating/tagmodel) for tags).
+3. Your execute the ElementQuery by using the following function: `.all()`, `one()`, `exists()`, `.count()` or `.ids()`
+4. Craft returns an element or an array of elements objects ([entry element](https://docs.craftcms.com/api/v3/craft-elements-entry.html), [user element](https://docs.craftcms.com/api/v3/craft-elements-user.html), [asset element](https://docs.craftcms.com/api/v3/craft-elements-asset.html), [category element](https://docs.craftcms.com/api/v3/craft-elements-category.html) ou [tag element](https://docs.craftcms.com/api/v3/craft-elements-tag.html)).
 5. You can then display those objects or arrays of objects in your template.
 
-`craft.entries`, `craft.users`, `craft.assets`, `craft.categories` and `craft.tags` will be your main tools to retrieve and display your data.
+`craft.entries()`, `craft.users()`, `craft.assets()`, `craft.categories()` and `craft.tags()` will be your main tools to retrieve and display your data.
 
-We will mainly work with the `craft.entries` tag in this introduction. Since all tags use the same principles, it will be easy for you to apply what you know to `craft.users`, `craft.assets`, `craft.categories` and `craft.tags`.
+We will mainly work with `craft.entries()` in this introduction. Since all tags use the same principles, it will be easy for you to apply what you know to `craft.users()`, `craft.assets()`, `craft.categories()` and `craft.tags()`.
 
 ### Entries
 
-[`craft.entries`](http://buildwithcraft.com/docs/templating/craft.entries) is going to be your main tool to retrieve and display your entries.
+[`craft.entries()`](https://docs.craftcms.com/v3/dev/element-queries/entry-queries.html) is going to be your main tool to retrieve and display your entries.
 
-- `craft.entries.find()` allow you to retrieve all entries corresponding to the specified criteria.
-- `craft.entries.total()` allow you to retrieve the total number of entries corresponding to the specified criteria.
-- `craft.entries.first()`, `craft.entries.last()` and `craft.entries.nth(n)` allow you to retrieve the first, the last or the nth entry corresponding to the specified criteria.
-- `craft.entries.ids()` allow you to retrieve the ids of all entries corresponding to the specified criteria.
+- `craft.entries().all()` allows you to retrieve all entries corresponding to the specified criteria.
+- `craft.entries().one()` allows you to retrieve the first entry corresponding to the specified criteria (retunrs `null` if no entry corresponds). [In most cases](https://docs.craftcms.com/v3/changes-in-craft-3.html#last), if you want the last entry, you can use `craft.entries().inReverse().one()`
+- `craft.entries().nth(number)` allows you to retrieve the nth entry corresponding to the specified criteria (retunrs `null` if no entry corresponds).
+- `craft.entries().exists()` allows you to see if there is at least one entry corresponding to the specified criteria (returns `true` or `false`).
+- `craft.entries().count()` allows you to retrieve the total number of entries corresponding to the specified criteria.
+- `craft.entries().ids()` allows you to retrieve the ids of all entries corresponding to the specified criteria.
 
-#### Two different syntaxes
+#### A very simple element query
 
-You can use two different syntaxes with Craft: a dot notation (chained parameters) or an object notation (parameters as object).
+Here is a simple example of an entry element query.
 
 ```twig
-{% set allEntries = craft.entries.section('news').limit(4).find() %}
+{% set allEntries = craft.entries().section('news').limit(4).all() %}
 
 {% for entry in allEntries %}
 
@@ -784,48 +771,14 @@ You can use two different syntaxes with Craft: a dot notation (chained parameter
 {% endfor %}
 ```
 
-or
-
-
-```twig
-{% set allEntries = craft.entries.find({
-  section:'news',
-  limit:4
-}) %}
-
-{% for entry in allEntries %}
-
-  <h2>{{ entry.title }}</h2>
-  {{ entry.summary }}
-
-{% endfor %}
-```
-
-Both syntaxes are valid and each of them has its place. The object notation is particularly useful if you need to reuse the parameters multiple times in your template. Here is an example fetching the entries themselves and the number of entries using the same parameters passed as an object.
-
-```twig
-{% set params = {
-  section:'news',
-  orderby:'postDate desc'
-} %}
-
-{% set totalEntries = craft.entries.total(params) %}
-Total entries: {{ totalEntries }}
-
-{% for entry in craft.entries.find(params) %}
-
-  <h2>{{ entry.title }}</h2>
-  {{ entry.summary }}
-
-{% endfor %}
-```
+You can also build much more complex Element Queries using [Advanced Element Queries](https://docs.craftcms.com/v3/dev/element-queries/#advanced-element-queries).
 
 #### No results
 
 You can easily display alternate content if no entries are found, just by using [an `{% else %}` clause in your `{% for %}` loop](http://twig.sensiolabs.org/doc/tags/for.html#the-else-clause).
 
 ```twig
-{% set allEntries = craft.entries.section('news').limit(4).find() %}
+{% set allEntries = craft.entries().section('news').limit(4).all() %}
 
 {% for entry in allEntries %}
 
@@ -846,7 +799,7 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 **Example**: using the `loop` variable
 
 ```twig
-{% set allEntries = craft.entries.section('news').limit(4).find() %}
+{% set allEntries = craft.entries().section('news').limit(4).all() %}
 
 
 {% for entry in allEntries %}
@@ -866,7 +819,7 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 **Example**: using `cycle` to add `odd` and `even` classes in your html. `loop.index0` is used to have a zero indexed iteration rather than the 1 based iteration that `loop.index` gives you.
 
 ```twig
-{% set allEntries = craft.entries.section('news').limit(4).find() %}
+{% set allEntries = craft.entries().section('news').limit(4).all() %}
 
 
 {% for entry in allEntries %}
@@ -886,7 +839,7 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 **Example**: using the `is divisible by` test to insert an element every 2 iterations.
 
 ```twig
-{% set allEntries = craft.entries.section('news').limit(4).find() %}
+{% set allEntries = craft.entries().section('news').limit(4).all() %}
 
 {% for entry in allEntries %}
 
@@ -918,10 +871,10 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 
 #### Pagination
 
-Craft allows you to [paginate your results](http://buildwithcraft.com/docs/templating/tags#paginate) using the `{% paginate %}` tag and to build simple or more complex pagination interfaces using the related variables. One small caveat: the `{% paginate %}` tag needs an ElementCriteriaModel as parameter. Just don't call `find()` on the object.
+Craft allows you to [paginate your results](https://docs.craftcms.com/v3/dev/tags/paginate.html) using the `{% paginate %}` tag and to build simple or more complex pagination interfaces using the related variables. One small caveat: the `{% paginate %}` tag needs an ElementQuery as parameter. Just don't call `all()` on it in this case.
 
 ```twig
-{% paginate craft.entries.section('news').limit(5) as paginate, entries %}
+{% paginate craft.entries().section('news').limit(5) as paginate, entries %}
 
 {# get paginated entries #}
 {% for entry in entries %}
@@ -1002,20 +955,33 @@ The same logic applies with categories. When Craft is loading an URL correspondi
 {% block content %}
 
  {#
+  # - this page is also an entry (single)
+  # - when a category route is called, an 'enrty' variable is not created
+  # - we create the entry variable by hand if not defined
+  #}
+
+  {% if entry is not defined %}
+    {% set entry = craft.entries().id(7).one() %}
+  {% endif %}
+
+ {#
   #  - craft automatically creates a 'category' variable if it detects you are on a category template
   #  - we are just checking whether that category variable exists or not
   #  - depending on its existence, we set our list of entries
   #}
 
-  {% set allCategories = craft.categories.group('newsTopics').find() %}
+  {% set allCategories = craft.categories().group('newsTopics').all() %}
 
   {% if category is defined %}
     {% set currentCategory = category.slug %}
-    {% set allNews = craft.entries.section('news').relatedTo(category).limit(10) %}
+    {% set allNews = craft.entries().section('news').relatedTo(category).limit(10) %}
   {% else %}
     {% set currentCategory = 'all' %}
-    {% set allNews = craft.entries.section('news').limit(10) %}
+    {% set allNews = craft.entries().section('news').limit(10) %}
   {% endif %}
+
+  {# display page title using entry variable #}
+  {{ entry.pageTitle }}
 
   {# display entries list #}
   {% paginate allNews as paginate, entries %}
@@ -1080,24 +1046,24 @@ Globals can be accessed easily via their global set handle followed by their glo
 
 ### Tags
 
-You can access and display tags using `craft.tags` and its [related parameters](http://buildwithcraft.com/docs/templating/craft.tags). It works just like `craft.entries` but returns a [`TagModel`](http://buildwithcraft.com/docs/templating/tagmodel) object or an array of those.
+You can access and display tags using `craft.tags()` and its [related parameters](https://docs.craftcms.com/v3/dev/element-queries/tag-queries.html#parameters). It works just like `craft.entries()` but returns a [`Tag`](https://docs.craftcms.com/api/v3/craft-elements-tag.html) element or an array of those.
 
-Articles in the help section are showing you how to list [all the tags used by the entries in a given section](http://buildwithcraft.com/help/active-tags) or how use a dynamic route to create an [archive page listing all the entries related to a tag](http://buildwithcraft.com/help/tag-urls).
+Articles in the help section are showing you how to list [all the tags used by the entries in a given section](https://craftcms.com/guides/displaying-tags-that-are-in-use) or how use a dynamic route to create an [archive page listing all the entries related to a tag](https://craftcms.com/guides/assigning-urls-to-tags).
 
 ### Users
 
-`craft.users` allows you to access and display the users of your website. The tag functions like `craft.entries` but returns a single [`UserModel`](http://buildwithcraft.com/docs/templating/usermodel) or an array of those. The `craft.users` tag also has [a series parameters](http://buildwithcraft.com/docs/templating/craft.users), some of which are tied to users-specific functionalities or behaviours.
+`craft.users()` allows you to access and display the users of your website. The tag functions like `craft.entries()` but returns a single [`User`](https://docs.craftcms.com/api/v3/craft-elements-user.html) element or an array of those. The `craft.users` tag also has [a series of parameters](https://docs.craftcms.com/v3/dev/element-queries/user-queries.html#parameters), some of which are tied to users-specific functionalities or behaviours.
 
 ### Assets and transforms
 
-The `craft.assets` tag will allow you to access your assets. This tag also has a series of parameters, some of which are tied to assets-specific functionalities or behaviour. `craft.assets` works like `craft.entries` except that it returns a single [`AssetFileModel`](http://buildwithcraft.com/docs/templating/assetfilemodel) or an array of those.
+`craft.assets()` allows you to access your assets. This tag also has a series of [parameters](https://docs.craftcms.com/v3/dev/element-queries/asset-queries.html#parameters), some of which are tied to assets-specific functionalities or behaviour. `craft.assets` works like `craft.entries()` except that it returns a single [`Asset`](https://docs.craftcms.com/api/v3/craft-elements-asset.html) element or an array of those.
 
 If your assets are images, Craft allows you to create transforms tied to all your asset groups. Transforms will generate thumbnails for all your assets. Transforms can be specified in the control panel and generated when assets are uploaded (Settings > Assets > Image Transforms) or they can be specified in your template and generated dynamically when assets are requested for the first time.
 
 When you define a transform in the Control Panel and you name it `thumbnail`, you can access them in your templates in the following way:
 
 ```twig
-{% set heroImage = entry.myAssetField.first() %}
+{% set heroImage = entry.myAssetField.one() %}
 {% if heroImage %}
   <img src="{{ heroImage.getUrl('thumbnail') }} width="{{ asset.getWidth('thumbnail') }}" height="{{ asset.getHeight('thumbnail') }}" alt="{{ heroImage.title }}">
 {% endif %}
@@ -1113,7 +1079,7 @@ You can also specify your transforms directly in your templates
   position: 'top-center'
 } %}
 
-{% set heroImage = entry.myAssetField.first() %}
+{% set heroImage = entry.myAssetField.one() %}
 {% if heroImage %}
   <img src="{{ heroImage.getUrl(transform) }} width="{{ asset.getWidth(transform) }}" height="{{ asset.getHeight(transform) }}" alt="{{ heroImage.title }}">
 {% endif %}
@@ -1121,7 +1087,7 @@ You can also specify your transforms directly in your templates
 
 ### Matrix
 
-Matrix certainly is one of the most interesting field type available with Craft. Essentially, it allows you to define a data structure for several types of content blocks (using Craft's other field types) and then to combine and arrange these blocks of content.
+[Matrix](https://craftcms.com/features/all#matrix) certainly is one of the most interesting field type available with Craft. Essentially, it allows you to define a data structure for several types of content blocks (using Craft's other field types) and then to combine and arrange these blocks of content.
 
 For example, you could create a `modularBody` Matrix field with the following configuration:
 
@@ -1138,7 +1104,7 @@ For example, you could create a `modularBody` Matrix field with the following co
 
 Such a Matrix field would allow your users to combine and arrange those text, image and quote blocks when creating their entries in the control panel, giving them a lot of flexibility.
 
-At the template level, you stay fully in control of the generated HTML code. We are using a special `{% switch %}` tag available for Craft.
+At the template level, you stay fully in control of the generated HTML code. We are using a special [`{% switch %}` tag](https://docs.craftcms.com/v3/dev/tags/switch.html) available for Craft.
 
 ```twig
 {# Modular Body #}
@@ -1159,7 +1125,7 @@ At the template level, you stay fully in control of the generated HTML code. We 
 
     {% case "imageModule" %}
 
-      {% set image = module.imageFile.first() %}
+      {% set image = module.imageFile.one() %}
       <figure class="figure{% if module.imageFullwidth %} figure--full{% endif %}">
         <img src="{{ image.getUrl(smallThumb) }}" alt="{{ image.title }}" />
         <figcaption class="figure__info">
@@ -1201,9 +1167,9 @@ Here are some techniques and concepts you might want to look at to explore Craft
 
 ### Manipulating `ElementCriteriaModels` with Twig: complex queries
 
-As we have seen earlier, Craft tags like `craft.entries` can be passed objects as parameters. Twig, on the other hand, allows you to easily create and manipulate objects using the `merge` and `slice` filters as well as Craft's own `without` and `intersect` filters.
+As we have seen earlier, Craft tags like `craft.entries()` can be passed objects as parameters. Twig, on the other hand, allows you to easily create and manipulate objects using the `merge` and `slice` filters as well as Craft's own `without` and `intersect` filters.
 
-Combining those abilities allows you to [create advanced queries](https://webstoemp.com/blog/manipulating-craft-elementcriteriamodel-with-twig/) and [relatively complex functionalities](https://webstoemp.com/blog/combined-searches-and-filters-craft-cms/) with ease.
+Combining those abilities allows you to [create advanced queries](https://webstoemp.com/blog/manipulating-craft-elementcriteriamodel-with-twig/) and relatively complex functionalities with ease.
 
 Here is a small example. Let's say you allowed your users to choose what 3 blogposts to feature on the homepage. You have provided an entry field and you have set the limit to three because your design only has three slots for blogposts on the homepage. What you want is to always fill those three spots with blogposts. You want to start with however many posts the user specified using the entry field and you want to fill the remaining slots with the most recent blogposts. No duplicates allowed. Here is how you would accomplish that.
 
@@ -1217,11 +1183,11 @@ Here is a small example. Let's say you allowed your users to choose what 3 blogp
 {% set blogpostsIds = entry.homeProjects.ids() %}
 
 {% if blogpostsIds | length < 3 %}
-    {% set recentBlogpostsIds = craft.entries.section('blogposts').limit(3).ids() | without(blogpostsIds) %}
+    {% set recentBlogpostsIds = craft.entries().section('blogposts').limit(3).ids() | without(blogpostsIds) %}
     {% set blogpostsIds = blogpostsIds | merge(recentBlogpostsIds) | slice(0,3) %}
 {% endif %}
 
-{% set blogposts = craft.entries.section('blogposts').id(blogpostsIds).fixedOrder(true).find() %}
+{% set blogposts = craft.entries().section('blogposts').id(blogpostsIds).fixedOrder(true).all() %}
 
 {# display blogposts #}
 {% for item in blogposts %}
@@ -1241,11 +1207,11 @@ Here is a small example. Let's say you allowed your users to choose what 3 blogp
 If you try to have a (single) entry for each page on your site, Craft makes it very easy to have an updatable, user maintainable primary navigation. I generally use a `structure` section for that. Here is a quick example with a simple one level navigation. We just create a structure called `mainnav` and give it two fields: `mainnavLabel` (textfield) and `mainnavLink` (entries, restricted to one and to singles only). We can then use a simple `for` loop to create our navigation.
 
 ```twig
-{% set nav = craft.entries.section('mainnav').find() %}
+{% set nav = craft.entries().section('mainnav').all() %}
 {% for item in nav %}
   {% if loop.first %}<ul clas="c-mainnav">{% endif %}
 
-    {% set navSection = item.mainnavLink.first() %}
+    {% set navSection = item.mainnavLink.one() %}
     {% set navCurrentClass = (entry is defined and navSection.uri == entry.uri) ? "c-mainnav__link--current" : "" %}
 
     {% if single %}
@@ -1262,22 +1228,49 @@ That's obviously a very simple use case, but this methodology can be used for a 
 
 ### Multilingual websites
 
-Multilingual websites are complex beasts, but Craft makes it relatively easy to tackle them since localisation is built into the core. The basics are simple enough and are detailed in the "[Setting Up a Localized Site](https://craftcms.com/docs/localization-guide)" help article on the Craft website.
+Multilingual websites are complex beasts, but Craft makes it relatively easy to tackle them since localisation is built into the core. The basics are simple enough and are detailed in the "[Localization section](https://docs.craftcms.com/v3/localization.html) of the Craft documentation.
 
 I live and work in Belgium, a country with 3 official languages so Craft's out of the box localisation features have been a real breadth of fresh air. It also means I have worked on my fair share of multilingual websites and written a [small blogpost detailing the various helpers and macros I have developed](https://webstoemp.com/blog/craft-multilingual-websites-tips/) over time to make those projects easier to tackle.
+
+Here is how to create a simple but effective langauge switcher.
+
+```twig
+{# get all sites in the currentSite group #}
+{% set allSites = currentSite.group.sites %}
+
+{# loop through all sites #}
+{% for site in allSites %}
+  {% if loop.first %}<ul class="c-lggnav">{% endif %}
+    {# get short language code using macro#}
+    {% set lgg = helpers.languageShort(site.language)|upper %}
+
+    {# if site.language == currentSite.language set active class #}
+    {% set activeClass = (site.language == currentSite.language) ? 'is-active' : '' %}
+
+    {# check if there is a localised entry #}
+    {% set localisedEntry = craft.entries.id(entry.id).site(site).one() %}
+
+    {# set URL value to localisedEntry.url if there is one, otherwise, use homepage #}
+    {% set url = (localisedEntry is defined) ? localisedEntry.url : site.siteUrl %}
+
+    <li class="c-lggnav__item"><a href="{{ url }}" class="c-lggnav__link  {{ activeClass }}">{{ lgg }}</a></li>
+
+  {% if loop.last %}</ul>{% endif %}
+{% endfor %}
+```
 
 ### Query optimisation with with eager-loading
 
 A common problem with databases is known as "the n+1 problem". In a nutshell, this happens when you need to traverse a collection of related objects: for each object in the collection, `1 + n` queries are generated since each object in the collection can have `n` related objects. A simple example in Craft is loading a series of entries, and each entry has a related asset. When it fetches those entries, Craft creates `n` additional queries (one per entry) to check if a related asset exists or not. That's the default behaviour, which is called "lazy loading".
 
-"[Eager-loading](https://craftcms.com/docs/templating/eager-loading-elements)" is just a way to tell Craft, when you are making that main query for the entries, that each entry has a related asset that it should load too. Craft is then performing a more complex MySQL query under the hood loading all entries and related assets using as few queries as possible. You do that by using the `with` parameter in your `craft.entries` tag.
+"[Eager-loading](https://docs.craftcms.com/v3/dev/eager-loading-elements.html)" is just a way to tell Craft, when you are making that main query for the entries, that each entry has a related asset that it should load too. Craft is then performing a more complex MySQL query under the hood loading all entries and related assets using as few queries as possible. You do that by using the `with` parameter in your `craft.entries()` tag.
 
 **Without asset eager loading:**
 
 ```twig
-{% set items = craft.entries({
-    section: 'blogposts',
-}) %}
+{% set items = craft.entries()
+  .section('blogposts')
+  .all() %}
 
 {% for item in items %}
   {# display item #}
@@ -1287,12 +1280,10 @@ A common problem with databases is known as "the n+1 problem". In a nutshell, th
 **With asset eager loading:**
 
 ```twig
-{% set items = craft.entries({
-    section: 'blogposts',
-    with: [
-      'blogpostImage'
-    ]
-}) %}
+{% set items = craft.entries()
+  .section('blogposts')
+  .with(['blogpostImage'])
+  .all() %}
 
 {% for item in items %}
   {# display item #}
@@ -1310,16 +1301,16 @@ Here is a more complex example to use if each entry has a matrix field containin
   width: 800,
   height: 450,
   quality: 75
-}%}
+} %}
 
-{% set items = craft.entries({
-  section: 'blogposts',
-  with: [
+{% set items = craft.entries()
+  .section('blogposts')
+  .with([
     ['matrixFieldHandle.blockTypeHandle:assetFieldHandle', {
-      withTransforms: [thumbnail]
+      withTransforms: ['thumbnail']
     }]
-  ]
-}) %}
+  ])
+  .all() %}
 
 {% for item in items %}
   {# display item #}
@@ -1328,9 +1319,9 @@ Here is a more complex example to use if each entry has a matrix field containin
 
 ### The `{% cache %}` tag
 
-[Craft's `{% cache %}` tag](https://craftcms.com/docs/templating/cache) can be used to speed up the performance of certain parts of your templates. Cached parts of a template will run needed database queries the first time a user hits the template and store the resulting html in the database. The next time a user hits that template, Craft is only going to fetch the stored HTML instead of running all those queries again.
+[Craft's `{% cache %}` tag](https://docs.craftcms.com/v3/dev/tags/cache.html) can be used to speed up the performance of certain parts of your templates. Cached parts of a template will run needed database queries the first time a user hits the template and store the resulting html in the database. The next time a user hits that template, Craft is only going to fetch the stored HTML instead of running all those queries again.
 
-Craft automatically clears caches when elements within `{% cache %}` and `{% endcache %}` tags are deleted or updated. You can also specify a cache duration in your templates. The default duration if you do not define one using the tag parameters is the one specified by the `[cacheDuration](https://craftcms.com/docs/config-settings#cacheDuration)` config setting. The default is 24 hours. You can set all caches to never expire unless elements they contain are created, updated or deleted by setting your `cacheDuration` to `false`. That behaviour will be overridden for any cache tag with a `for` parameter set to any duration.
+Craft automatically clears caches when elements within `{% cache %}` and `{% endcache %}` tags are deleted or updated. You can also specify a cache duration in your templates. The default duration if you do not define one using the tag parameters is the one specified by the `[cacheDuration](https://docs.craftcms.com/v3/config/config-settings.html#cacheduration)` config setting. The default is 24 hours. You can set all caches to never expire unless elements they contain are created, updated or deleted by setting your `cacheDuration` to `false`. That behaviour will be overridden for any cache tag with a `for` parameter set to any duration.
 
 ```twig
 {% cache %}
@@ -1365,7 +1356,7 @@ The first time you refresh your page, all queries are going to run and the resul
 
 ### Front end entry forms and Guest Entries
 
-Out of the box, Craft does allow you to create [entry forms](https://craftcms.com/docs/templating/entry-form) on the front-end of your website. These forms can only be used by registered users. You can also allow anonymous users to post entries from your front-end by using a the [Guest Entries](https://github.com/pixelandtonic/GuestEntries) first party plugin. That plugin allows you to select which sections you want to authorise guest entries for and what the default author will be for those entries.
+Out of the box, Craft does allow you to create [entry forms](https://docs.craftcms.com/v3/dev/examples/entry-form.html) on the front-end of your website. These forms can only be used by registered users. You can also allow anonymous users to post entries from your front-end by using a the [Guest Entries](https://github.com/pixelandtonic/GuestEntries) first party plugin. That plugin allows you to select which sections you want to authorise guest entries for and what the default author will be for those entries.
 
 Coupled with either an off-the-shelf notification plugin like [Sprout Email](http://sprout.barrelstrengthdesign.com/craft-plugins/email) or a custom one you wrote yourself using [events](https://craftcms.com/docs/plugins/hooks-and-events#events) and [Craft email service](https://craftcms.com/classreference/services/EmailService#sendEmail-detail), Craft makes it relatively easy to create a booking system for a free event or other similar small applications.
 
@@ -1376,50 +1367,11 @@ Two important things to note:
 - If there is a validation error on the entry, the URL is reloaded and an `entry` variable is made available. The `entryModel` describes the submitted entry.
 - You can fetch the posted values from that `entry` variable, as well as any validation errors via `entry.getError()`, `getErrors()`, or `getAllErrors()`.
 
-**Entry form**
-
-```twig
-<form method="post" action="" accept-charset="UTF-8">
-    {{ getCsrfInput() }}
-    <input type="hidden" name="action" value="entries/saveEntry">
-    <input type="hidden" name="redirect" value="viewentry/{slug}">
-    <input type="hidden" name="sectionId" value="2">
-    <input type="hidden" name="enabled" value="1">
-
-    <label for="title">Title</label>
-    <input id="title" type="text" name="title" {%- if entry is defined %}value="{{ entry.title }}"{% endif -%}>
-
-    <label for="body">Body</label>
-    <textarea id="body" name="fields[body]">{%- if entry is defined %}{{ entry.body }}{% endif -%}</textarea>
-
-    <input type="submit" value="Publish">
-</form>
-```
-
-**Guest entries**
-
-```twig
-<form method="post" action="" accept-charset="UTF-8">
-    {{ getCsrfInput() }}
-    <input type="hidden" name="action" value="guestEntries/saveEntry">
-    <input type="hidden" name="redirect" value="guest/success">
-    <input type="hidden" name="sectionId" value="3">
-
-    <label for="title">Title</label>
-    <input id="title" type="text" name="title" {%- if entry is defined %}value="{{ entry.title }}"{% endif -%}>
-
-    <label for="body">Body</label>
-    <textarea id="body" name="fields[body]">{%- if entry is defined %}{{ entry.body }}{% endif -%}</textarea>
-
-    <input type="submit" value="Publish">
-</form>
-```
-
 ### Using Craft as a headless CMS: Element API plugin
 
 You can also easily use Craft as a headless CMS, which is simply a CMS delivering content via an API (often a JSON API). In that scenario, your CMS does not care how the content is displayed and does not deal with the views or templates, but only with creating, updating, deleting, modifying and organising the content.
 
-Pixel&Tonic provide an easy to use first party plugin called [Element API](https://github.com/pixelandtonic/ElementAPI) that will create API endpoints for you, ready to be consumed by your front-end layer and views (Vue.js, Ember, Angular, etc.). Also note that [a full REST API](http://feedback.craftcms.com/forums/285221-feature-requests/suggestions/8622559-rest-api) should be available "at some point after Craft 3.0 is released". Just so you know.
+Pixel&Tonic provide an easy to use first party plugin called [Element API](https://github.com/pixelandtonic/ElementAPI) that will create API endpoints for you, ready to be consumed by your front-end layer and views (Vue.js, Ember, Angular, etc.). The [CraftQL plugin by Mark Huot]([le plugin CraftQL de Mark Huot](https://github.com/markhuot/craftql) can transform any Craft installtion in a fully functional GraphQL server.
 
 ### Importing data (import plugins)
 
@@ -1427,8 +1379,8 @@ Craft is a relatively young CMS and most projects these days are relaunches of e
 
 Luckily for us, Craft has a number of great import plugins you can count on. Two of my favourite plugins are:
 
-- [Feed Me by Engram Design](https://github.com/engram-design/FeedMe), which lets you import XML, RSS or ATOM feeds.
-- the aptly named [Import plugin by Bob Olde Hampsink](https://github.com/boboldehampsink/import) that lets you import CSV files.
+- [Feed Me by Verbb](https://github.com/verbb/feed-me), which lets you import XML, RSS or ATOM feeds.
+- [Sprout import by Barrel Strength Design](https://github.com/barrelstrength/craft-sprout-import) lets you import JSON files.
 
 I generally go about it by creating RSS feeds in the old install, which most CMS will let you do, and use Feed Me to import nodes as entries in Craft. Some manual work is usually needed to tidy things up but the bulk of the work can often be automated.
 
@@ -1457,22 +1409,8 @@ We are going to build a simple blog sporting the following pages:
 
 ## Resources
 
-- [Official documentation](http://buildwithcraft.com/docs/introduction) for Craft.
+- [Official documentation](https://docs.craftcms.com/v3/) for Craft.
 - [Official Help & Support articles](http://buildwithcraft.com/help) on the Craft website.
 - [Craft stackexchange site](http://craftcms.stackexchange.com/): ask questions, get answers. The whole Pixel&Tonic team is on it.
-- [Craft on Google Plus](https://plus.google.com/communities/106505340287442511226): Craft community, monitored by the fine folks at Pixel&Tonic.
 - [Twig documentation](http://twig.sensiolabs.org/doc/templates.html) for template designers.
-- [Screencast by Mijingo](https://mijingo.com/products/screencasts/craft-cms-tutorial/): a very good intro for visual learners.
-- [Straight up Craft](http://straightupcraft.com/): A goldmine of Craft resources, a directory of existing plugins and a list of active developers.
-- [Essential videos](http://straightupcraft.com/learn-craft-cms) on Straight up Craft.
-- [On the Rocks](https://github.com/pixelandtonic/ontherocks): a demo website available on Github. Good learning resource for templating.
-- [CTRL+CLICK CAST](http://ctrlclickcast.com/episodes/crafty-sites-with-brandon-kelly): Craft episode with Brandon Kelly
-- [Interview with Brandon Kelly](http://www.thenerdary.net/post/48123188844/interview-with-brandon-kelly-creator-of-craft) on the Nerdary.
-- [Craft CMS: The (very) basics of templating](http://withchief.com/blog/basics-of-templating-in-craft) by [Jamie Pittock](https://twitter.com/jamiepittock).
-- [Craft Your Content With Markdown And Matrix](http://experiencehq.net/blog/craft-with-markdown-and-matrix) by [Stephen Lewis](https://twitter.com/monooso "The undisputed king of title attributes"): very instructive templating examples.
-- [Craft Cookbook](http://www.craftcookbook.net): another good problem solving resource for Craft by [Stephen Lewis](https://twitter.com/monooso "Yes, him again") and the community.
-- [Making Sense of Twig](http://www.slideshare.net/brandonkelly212/twig-for-designers): by [Brandon Kelly](https://twitter.com/brandonkelly) a well rounded introduction to Twig as a templating language.
-- [Real World Craft Tips & Tricks](https://speakerdeck.com/trevor_davis/real-world-craft-tips-and-tricks): a slidedeck by [Trevor Davis](https://twitter.com/trevor_davis). A nice collection of tips and tricks for Twig and Craft.
-- [Manipulating Craft's ElementCriteriaModel objects with Twig](http://www.webstoemp.com/blog/manipulating-craft-elementcriteriamodel-with-twig/): a simple but powerful technique to build complex functionalities with only a few lines of Twig.
-- [Using Macros to improve consistency in your Craft CMS templates](http://withchief.com/blog/using-macros-to-improve-consistency-in-your-craft-cms-templates): a blogpost by [Jamie Pittock](https://twitter.com/jamiepittock) on the Chief blog.
-- [Combined search and filters using Craft CMS](http://webstoemp.com/blog/combined-searches-and-filters-craft-cms/): by yours truly on Webstoemp.
+- [Awesome Craft](https://github.com/craftcms/awesome): a lengthy but awesome resources list.
