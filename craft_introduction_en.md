@@ -6,7 +6,7 @@
 
 [Craft](http://buildwithcraft.com/) is a young and very capable CMS created by [Pixel & Tonic](http://pixelandtonic.com/). Craft is developed using open source technologies like PHP and MySQL and is based on a PHP framework with a great track record: [Yii](http://www.yiiframework.com/).
 
-Craft focuses on the essentials: defining and managing your content in the most modular and flexible way possible. For example, localisation is built in from the get go but if you need comments, a forum or e-commerce, you will have to turn to add-ons.
+Craft focuses on the essentials: defining and managing your content in the most modular and flexible way possible. For example, localisation is built in from the get go but if you need comments, a forum or e-commerce, you will have to turn to plugins.
 
 ### A modular pricing model
 
@@ -385,14 +385,6 @@ When you create a dynamic route with the structure of `blog/archive/{year}` call
 
 If you need more possibilities than those the Control Panel gives you, you can [manage your routes in a more advanced way](https://docs.craftcms.com/v3/routing.html#advanced-routing-with-url-rules) using the `config/routes.php` file. That will give you access to all the power of regular expressions in your URL matching patterns.
 
-### Search
-
-Craft also has a [very powerful built-in search system](https://docs.craftcms.com/v3/searching.html) based on a `search` parameter that can be used with `craft.entries()`, `craft.users()`, `craft.assets()` and `craft.tags()`.
-
-For performance reasons, Craft uses indexes for its search functionalities and those indexes can be updated or rebuilt directly from the control panel.
-
-It is also easy to build [dynamic search forms](https://docs.craftcms.com/v3/dev/examples/search-form.html) for your project. All you need to do is to use `craft.app.request.getParam('parameter')` to be able to use the GET/POST parameters passed by your form in the context of your results template.
-
 ## 3. Twig as templating language
 
 Craft uses [Twig](http://twig.sensiolabs.org/), created by Fabien Potencier, as its templating language. Twig compiles all your templates down to raw PHP, which means it is blazing fast. Twig has a small learning curve if you have never done any programming but remains very [accessible to front-end developers](http://twig.sensiolabs.org/doc/templates.html).
@@ -699,7 +691,7 @@ If you have code that is repeated in many templates, it is generally a good idea
 {% include '_sidebars/default.html' %}
 ```
 
-### Macros
+#### Macros
 
 Twig [Macros](http://twig.sensiolabs.org/doc/tags/macro.html) are comparable to mixins in Sass. They are small reusable chunks of code.
 
@@ -1165,7 +1157,15 @@ I personally like to simplify my templates a little bit and put all my Matrix Bl
 
 Here are some techniques and concepts you might want to look at to explore Craft a bit further and get more out of it.
 
-### Manipulating `ElementCriteriaModels` with Twig: complex queries
+### Search
+
+Craft has a [very powerful built-in search system](https://docs.craftcms.com/v3/searching.html) based on a `search` parameter that can be used with `craft.entries()`, `craft.users()`, `craft.assets()` and `craft.tags()`.
+
+For performance reasons, Craft uses indexes for its search functionalities and those indexes can be updated or rebuilt directly from the control panel.
+
+It is also easy to build [dynamic search forms](https://docs.craftcms.com/v3/dev/examples/search-form.html) for your project. All you need to do is to use `craft.app.request.getParam('parameter')` to be able to use the GET/POST parameters passed by your form in the context of your results template.
+
+### Creating complex queries
 
 As we have seen earlier, Craft tags like `craft.entries()` can be passed objects as parameters. Twig, on the other hand, allows you to easily create and manipulate objects using the `merge` and `slice` filters as well as Craft's own `without` and `intersect` filters.
 
