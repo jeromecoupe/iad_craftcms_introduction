@@ -393,14 +393,6 @@ En créant une route dynamique `blog/archive/{year}` renseignant le template `bl
 
 Si vous avez besoin de plus de possibilités que celles offertes par le control panel, sachez que [les routes peuvent également être gérées via un fichier](https://docs.craftcms.com/v3/routing.html#advanced-routing-with-url-rules) `config/routes.php`, ce qui vous donne accès à du matching d'URL en utilisant des expressions régulières.
 
-### Recherche
-
-Craft possède également un [système de recherche très puissant](https://docs.craftcms.com/v3/searching.html) basé sur un paramètre `search` utilisable avec les tags `craft.entries()`, `craft.users()`, `craft.assets()` et `craft.tags()`.
-
-Pour des questions de performance, Craft fonctionne avec des Index pour ses fonctions de recherche. Il est possible d'actualiser ces Index directement depuis le Control Panel.
-
-La construction de [formulaires de recherche dynamiques pour le front-end](https://docs.craftcms.com/v3/dev/examples/search-form.html) de votre projet est également très simple. Il suffit pour cela de faire appel à `craft.app.request.getParam('parameter')` pour récupérer un paramètre passé en GET/POST par votre formulaire.
-
 ## 3. Twig comme language de templating
 
 Craft utilise [Twig](http://twig.sensiolabs.org/), créé par Fabien Potencier pour Symfony, comme language de templating. Twig a l'avantage de compiler les templates en PHP, ce qui lui permet d'être très performant. C'est un language qui reste également assez simple d'approche, même si une période d'apprentissage existe.
@@ -1164,7 +1156,15 @@ Personellement, je préfère simplifier mes templates et placer l'ensemble des v
 
 Voici quelques techniques et concepts à explorer pour utiliser Craft de façon un peu plus avancée.
 
-### Créer des queries complexes en utilisant Twig pour manipuler les `ElementCriteriaModels`
+### Recherche
+
+Craft possède un [système de recherche très puissant](https://docs.craftcms.com/v3/searching.html) basé sur un paramètre `search` utilisable avec les tags `craft.entries()`, `craft.users()`, `craft.assets()` et `craft.tags()`.
+
+Pour des questions de performance, Craft fonctionne avec des Index pour ses fonctions de recherche. Il est possible d'actualiser ces Index directement depuis le Control Panel.
+
+La construction de [formulaires de recherche dynamiques pour le front-end](https://docs.craftcms.com/v3/dev/examples/search-form.html) de votre projet est également très simple. Il suffit pour cela de faire appel à `craft.app.request.getParam('parameter')` pour récupérer un paramètre passé en GET/POST par votre formulaire.
+
+### Créer des queries complexes
 
 Comme nous l'avons vu plus haut, les prinicpaux tags de Craft comme par exemple `craft.entries()` acceptent des objets comme paramètres. Twig permet facilement de créer et de manipuler des objets à l'aide de filtres tels que `merge` et `slide`. Craft possède également des filtres propres tels que `without` et `intersect` qui s'avèrent bien utiles.
 
