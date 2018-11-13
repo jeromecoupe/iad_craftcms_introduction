@@ -79,62 +79,9 @@ node_modules/
 
 Craft fournit nativement une façon simple de gérer des environnements multiples (local, dev, online) via [l'utilisation d'Arrays imbriqués](https://docs.craftcms.com/v3/config/environments.html) dans les fichiers `config/general.php` et `config/db.php`.
 
-
-Il vous faudra tout d'abord définir un array générique `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnments. Ce tableau est obligatoire `*`, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements.
-
-Le reste des clefs de votre tableau vont référencer vos noms de domaine complets ou des parties de ceux-ci. Craft va comparer ces clefs à la variable PHP `$_SERVER['SERVER_NAME']` et établir des match partiels.
-
-**Exemple**: `config/general.php`
-
-```
-return array(
-    '*' => array(
-      'omitScriptNameInUrls' => true
-    ),
-
-    '.test' => array(
-      'devMode' => true
-    ),
-
-    '.com' => array(
-      'cooldownDuration' => 0
-    )
-);
-```
-
-Vous pouvez aisni redéfinir tous vos [paramètres de configuration](https://docs.craftcms.com/v3/config/config-settings.html).
-
-La même logique peut être appliquée à vos information de database.
-
-**Exemple**: `craft/config/db.php`
-
-```
-return array(
-    '*' => array(
-      'tablePrefix' => 'craft'
-    ),
-
-    '.test' => array(
-      'server'   => 'localhost',
-      'user'     => 'root',
-      'password' => 'password',
-      'database' => 'mylocaldatabase'
-    ),
-
-    '.com' => array(
-      'server'   => 'localhost',
-      'user'     => 'username',
-      'password' => 'strongpassword',
-      'database' => 'myproductiondatabase'
-    ),
-);
-```
-
 Dans la mesure ou vos développeurs utilisent chacun une architecture de dossiers et de fichiers locale différente et parce que des informations sensibles ne doivent idéalement pas aparaître dans un repository Git, Craft vous propose d'utiliser un fichier `.env` à la racine de votre projet. Ce fichier vous permet d'utiliser les valeurs spécifiées dans ce fichier `.env` dans `craft/config/general.php` and `craft/config/db.php`.
 
-Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://docs.craftcms.com/v3/config/environments.html#aliases) utilisables dans le control panel et dans vos templates.
-
-Voici un exemple simple:
+Voici un exemple simple.
 
 **Exemple**: `.env`
 
@@ -169,6 +116,10 @@ BASE_URL="http://myproject.craft.test"
 # Base PATH (no trailing slash)
 BASE_PATH="/data/weblocal/myproject/web"
 ```
+
+In `craft/config/general.php` and `craft/config/db.php`, commencez par définir un tableau global `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnments. Ce tableau `*` est obligatoire, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements. Les autres tableaux vont référencer les environnements définis dans votre fichier `.env`. Craft va comparer les clefs des autres tableaux et la constante PHP `CRAFT_ENVIRONMENT` ou utiliser "production" si rien n'est spécifié. You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
+
+Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://docs.craftcms.com/v3/config/environments.html#aliases) utilisables dans le control panel, par exdmple pour définir les chemins et URls de vos assets volumes pour les adapter à divers environements. Vous pouvez également les utiliser dans vos templates via la [fonction `alias` de Craft](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
 
 **Exemple**: `config/general.php`
 
@@ -225,7 +176,7 @@ return [
 ];
 ```
 
-**Exemple**: `config/db.php`
+**Exemple**: `config/db.php`. Tout est défini via .env or via des valeur d'environement sur votre serveur de production.
 ```
 return array(
   'driver' => getenv('DB_DRIVER'),
@@ -239,14 +190,14 @@ return array(
 );
 ```
 
-Vous pouvez ensuite utiliser des alias dans le Control Panel, par exemple pour définir les URL et les chemins d'accès de vos assets sources afin de les adapter automatiquement aux diver environnements.
+**Exemple**: utilisation des aliases dans la configuration de vos assets volumes (locaux).
 
 ```
 {@assetsBasePath}/partners_logos/
 {@assetsBasePath}/partners_logos/
 ```
 
-Vous pouvez également utiliser ces alias dans vos templates via la [fonction `alias` de Craft](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
+**Exemple**: utilisation des aliases dans vos templates.
 
 ```twig
 {% if alias('@environment') == 'production' %}
@@ -254,7 +205,7 @@ Vous pouvez également utiliser ces alias dans vos templates via la [fonction `a
 {% endif %}
 ```
 
-Les valeurs définie via `dotEnv` et utilisées dans une configuration de production doivent être disponible pour Craft sur votre serveur de production. En général, cela est fait via la configurationde votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` ne sont déconseillés en production et les fournisseurs de hosting vous offrirons souvent un moyen de les configurer au niveau du serveur.
+Les valeurs définie via `dotEnv` et utilisées dans une configuration de production doivent être disponible pour Craft sur votre serveur de production. En général, cela est fait via la configuration de votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` ne sont déconseillés en production et les fournisseurs de hosting vous offrirons souvent un moyen de les configurer au niveau du serveur.
 
 ### Editeurs HTML
 
