@@ -79,59 +79,7 @@ node_modules/
 
 Craft offers a native way to deal with multiple environments configurations through the use of nested arrays and [environment-specific variables ](https://docs.craftcms.com/v3/config/environments.html) in your `config/general.php` and `config/db.php` configuration files.
 
-First, define a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support.
-
-The rest of your array keys will reference domain names or parts thereof on your different servers. Craft will check those keys against the `$_SERVER['SERVER_NAME']` PHP variable an look for a (partial) match.
-
-**Example**: `config/general.php`
-
-```
-return array(
-    '*' => array(
-      'omitScriptNameInUrls' => true
-    ),
-
-    '.test' => array(
-      'devMode' => true
-    ),
-
-    '.com' => array(
-      'cooldownDuration' => 0
-    )
-);
-```
-
-You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
-
-The same logic applies to your database configuration settings.
-
-**Example**: `craft/config/db.php`
-
-```
-return array(
-    '*' => array(
-      'tablePrefix' => 'craft'
-    ),
-
-    '.test' => array(
-      'server'   => 'localhost',
-      'user'     => 'root',
-      'password' => 'password',
-      'database' => 'mylocaldatabase'
-    ),
-
-    '.com' => array(
-      'server'   => 'localhost',
-      'user'     => 'username',
-      'password' => 'strongpassword',
-      'database' => 'myproductiondatabase'
-    ),
-);
-```
-
-Because your developers likely use different files and folders architectures locally and because sensitives informations like database credentials should ideally not be committed to a repository, Craft allows you to use a `.env` file at the root of your project. You can then use values specified in that `.env` files in `craft/config/general.php` and `craft/config/db.php`.
-
-You can also use those values to create [Yii aliases](https://docs.craftcms.com/v3/config/environments.html#aliases) that can then be used in the control panel and in your templates.
+Because your developers likely use different files and folders architectures locally and because sensitives informations like database credentials should ideally not be committed to a repository, Craft allows you to use a `.env` file at the root of your project so every developer can use her/his own settings. You can then use values specified in that `.env` files in `craft/config/general.php` and `craft/config/db.php`.
 
 Here is an  exemple of what it looks like:
 
@@ -169,6 +117,10 @@ BASE_URL="http://myproject.craft.test"
 BASE_PATH="/data/weblocal/myproject/web"
 ```
 
+In `craft/config/general.php` and `craft/config/db.php`, start by defining a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support. Other array keys will reference environments defined in your `.env` file. Craft will check those keys against the CRAFT_ENVIRONMENT PHP constant and default to "production" if nothing is specified. You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
+
+You can also use `craft/config/general.php` to create Yii aliases. You can then use those aliases in the Control Panel, for example when defining file system paths and url for your asset volumes to make them environment specific. You can also reference those aliases in your templates using the [Craft `alias` function](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
+
 **Example**: `config/general.php`
 
 ```
@@ -201,8 +153,8 @@ return [
       'securityKey' => getenv('SECURITY_KEY'),
     ],
 
-    // Dev environment settings
-    '.test' => [
+    // Dev environment (defined in .env ENVIRONMENT)
+    'dev' => [
       'devMode' => true,
       'aliases' => [
         '@environment' => getenv('ENVIRONMENT'),
@@ -212,8 +164,8 @@ return [
       ]
     ],
 
-    // Production environment settings
-    '.com' => [
+    // Production environment settings (Craft default or server environment value)
+    'production' => [
       'aliases' => [
         '@environment' => 'production',
         '@baseUrl' => 'https://myproject.com',
@@ -224,7 +176,7 @@ return [
 ];
 ```
 
-**Example**: `config/db.php`
+**Example**: `config/db.php`. Everything is defined via .env or via server environment values in production.
 ```
 return array(
   'driver' => getenv('DB_DRIVER'),
@@ -238,14 +190,14 @@ return array(
 );
 ```
 
-You can then use those aliases in the Control Panel, for example when defining file system paths and url for your asset sources to make them environment specific.
+**Example**: usage in the control panel for assets (local) volumes definition.
 
 ```
 {@assetsBasePath}/partners_logos/
-{@assetsBasePath}/partners_logos/
+{@assetsBaseUrl}/partners_logos/
 ```
 
-You can also use those aliases in your templates using the [Craft `alias` function](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
+**Example**: usage in templates.
 
 ```twig
 {% if alias('@environment') == 'production' %}
@@ -948,7 +900,7 @@ The same logic applies with categories. When Craft is loading an URL correspondi
 
  {#
   # - this page is also an entry (single)
-  # - when a category route is called, an 'enrty' variable is not created
+  # - when a category route is called, an 'entry' variable is not created
   # - we create the entry variable by hand if not defined
   #}
 
@@ -1230,9 +1182,9 @@ That's obviously a very simple use case, but this methodology can be used for a 
 
 Multilingual websites are complex beasts, but Craft makes it relatively easy to tackle them since localisation is built into the core. The basics are simple enough and are detailed in the "[Localization section](https://docs.craftcms.com/v3/localization.html) of the Craft documentation.
 
-I live and work in Belgium, a country with 3 official languages so Craft's out of the box localisation features have been a real breadth of fresh air. It also means I have worked on my fair share of multilingual websites and written a [small blogpost detailing the various helpers and macros I have developed](https://webstoemp.com/blog/craft-multilingual-websites-tips/) over time to make those projects easier to tackle.
+I live and work in Belgium, a country with 3 official languages so Craft's out of the box localisation features have been a real breath of fresh air. It also means I have worked on my fair share of multilingual websites and written a [small blogpost detailing the various helpers and macros I have developed](https://webstoemp.com/blog/craft-multilingual-websites-tips/) over time to make those projects easier to tackle.
 
-Here is how to create a simple but effective langauge switcher.
+Here is how to create a simple but effective language switcher.
 
 ```twig
 {# get all sites in the currentSite group #}
