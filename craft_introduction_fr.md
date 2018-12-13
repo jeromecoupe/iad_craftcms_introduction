@@ -117,9 +117,9 @@ BASE_URL="http://myproject.craft.test"
 BASE_PATH="/data/weblocal/myproject/web"
 ```
 
-In `craft/config/general.php` and `craft/config/db.php`, commencez par définir un tableau global `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnments. Ce tableau `*` est obligatoire, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements. Les autres tableaux vont référencer les environnements définis dans votre fichier `.env`. Craft va comparer les clefs des autres tableaux et la constante PHP `CRAFT_ENVIRONMENT` ou utiliser "production" si rien n'est spécifié. You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
+Dans `craft/config/general.php` et `craft/config/db.php`, commencez par définir un tableau global `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnments. Ce tableau `*` est obligatoire, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements. Les autres tableaux vont référencer les environnements définis dans votre fichier `.env`. Craft va comparer les clefs des autres tableaux et la constante PHP `CRAFT_ENVIRONMENT` ou utiliser "production" si rien n'est spécifié. You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
 
-Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://docs.craftcms.com/v3/config/environments.html#aliases) utilisables dans le control panel, par exdmple pour définir les chemins et URls de vos assets volumes pour les adapter à divers environements. Vous pouvez également les utiliser dans vos templates via la [fonction `alias` de Craft](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
+Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://docs.craftcms.com/v3/config/environments.html#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URL de vos assets volumes et ainsi les adapter à divers environnements. Vous pouvez également les utiliser dans vos templates via la [fonction `alias` de Craft](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
 
 **Exemple**: `config/general.php`
 
@@ -176,7 +176,7 @@ return [
 ];
 ```
 
-**Exemple**: `config/db.php`. Tout est défini via .env or via des valeur d'environement sur votre serveur de production.
+**Exemple**: `config/db.php`. Tout est défini via .env or via des valeurs d'environnement sur votre serveur de production.
 ```
 return array(
   'driver' => getenv('DB_DRIVER'),
@@ -190,14 +190,14 @@ return array(
 );
 ```
 
-**Exemple**: utilisation des aliases dans la configuration de vos assets volumes (locaux).
+**Exemple**: utilisation des alias dans la configuration de vos assets volumes (locaux).
 
 ```
 {@assetsBasePath}/partners_logos/
 {@assetsBasePath}/partners_logos/
 ```
 
-**Exemple**: utilisation des aliases dans vos templates.
+**Exemple**: utilisation des alias dans vos templates.
 
 ```twig
 {% if alias('@environment') == 'production' %}
@@ -205,7 +205,11 @@ return array(
 {% endif %}
 ```
 
-Les valeurs définie via `dotEnv` et utilisées dans une configuration de production doivent être disponible pour Craft sur votre serveur de production. En général, cela est fait via la configuration de votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` ne sont déconseillés en production et les fournisseurs de hosting vous offrirons souvent un moyen de les configurer au niveau du serveur.
+```twig
+<link rel="stylesheet" href="{{ alias('@baseUrl') }}/dist/css/main.min.css">
+```
+
+Les valeurs définies via `dotEnv` et utilisées dans une configuration de production doivent être disponibles pour Craft sur votre serveur de production. Pour cela, on utilise en général la configuration de votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` ne sont déconseillés en production et les fournisseurs de hosting vous offriront souvent un moyen de les configurer au niveau du serveur.
 
 ### Editeurs HTML
 
