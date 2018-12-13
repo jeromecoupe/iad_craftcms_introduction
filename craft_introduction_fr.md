@@ -15,9 +15,9 @@ Cette flexibilité est présente jusque dans [le pricing](https://craftcms.com/p
 - La version "Solo" de Craft est gratuite et vous permet de profiter de toutes les fonctionnalités de Craft hormis la gestion utilisateurs. The seul compte utilisateur disponible est un compte admin.
 - Une version "Pro" à 299$ vous permet de disposer de toutes les fonctionnalités de Craft, y compris la gestion d'utilisateurs et la capacité de modifier le branding de l'outil.
 
-#### Licenses
+#### Licences
 
-Les licenses Craft cont perpétuelles, c'est à dire que vous pouvez utiliser la version achetée indéfiniment. Vous achetez également un an de mises à jour et de support avec votre license.
+Les licences Craft cont perpétuelles, c'est à dire que vous pouvez utiliser la version achetée indéfiniment. Vous achetez également un an de mises à jour et de support avec votre licence.
 
 Si vous en avez besoin, vous pouvez ensuite payer $59 à n'importe quel moment pour avoir droit à un an de mises à jour et de support.
 
@@ -27,11 +27,11 @@ Si vous en avez besoin, vous pouvez ensuite payer $59 à n'importe quel moment p
 
 ### Une plateforme de e-commerce intégrée
 
-Pixel & Tonic a également sorti [Craft Commerce](https://craftcms.com/commerce), une plateforme de e-commerce pour Craft CMS. Une licence coûte $999 et vous donne droit à [une liste impressionnante de fonctionalités](https://craftcms.com/features).
+Pixel & Tonic a également sorti [Craft Commerce](https://craftcms.com/commerce), une plateforme de e-commerce pour Craft CMS. Une licence coûte $999 et vous donne droit à [une liste impressionnante de fonctionalités](https://craftcommerce.com/features).
 
 Une version "Lite" de Craft Commerce est également disponible, avec des fonctionnalités plus simples et un prix de $199 par projet.
 
-Nous ne couvrirons pas Craft Commerce lors de cette introduction à Craft CMS. Sachez seulement que Craft Commerce fait largement appel aux mêmes concepts que Craft, que ce soit pour la création de votre data structure ou au niveau de vos templates. Vous vous sentirez en tarrain familier. Si vous cherchez un module de e-commerce étroitement intégré avec un CMS, Craft Commerce est certainement une option à considérer.
+Nous ne couvrirons pas Craft Commerce lors de cette introduction à Craft CMS. Sachez seulement que Craft Commerce fait largement appel aux mêmes concepts que Craft, que ce soit pour la création de votre data structure ou au niveau de vos templates. Vous vous sentirez en terrain familier. Si vous cherchez un module de e-commerce étroitement intégré avec un CMS, Craft Commerce est certainement une option à considérer.
 
 ### Atouts
 
@@ -39,8 +39,8 @@ Les principaux atouts de Craft sont à mon sens:
 
 - Une flexibilité dans la définition de votre data structure rarement égalée. Les 16 field types disponibles par défaut permettent une approche extrêmement modulaire.
 - A propos de champs et de modularité, Matrix est véritablement un atout de Craft en ce qui concerne la flexibilité de vore data structure tout en préservant votre contrôle sur le code front-end généré.
-- [L'utilisation de Twig comme language de templating](http://twig.sensiolabs.org/doc/templates.html): cela induit un temps d'apprentissage mais les gains en termes de puissance, de modularité et de flexibilités sont étonnants. Toute la puissance et la maturité de Twig sont au services de vos templates.
-- Une quantité impressionnantes de fonctionnalités qui rendront la vie de vos clients plus facile: live preview, control panel responsive, one click updates, etc.
+- [L'utilisation de Twig comme language de templating](http://twig.sensiolabs.org/doc/templates.html): cela induit un temps d'apprentissage mais les gains en termes de puissance, de modularité et de flexibilités sont étonnants. Toute la puissance et la maturité de Twig sont au service de vos templates.
+- Une quantité impressionnante de fonctionnalités qui rendront la vie de vos clients plus facile: live preview, control panel responsive, one click updates, etc.
 - Un découplage important entre votre structure de dossiers et de fichiers et la manière dont sont construites les URL. La structure de vos URL est donc extrêmement flexible.
 - Une solution intégrée et complète pour les sites multilingues.
 - Une équipe de développement et de support fantastique
@@ -117,9 +117,9 @@ BASE_URL="http://myproject.craft.test"
 BASE_PATH="/data/weblocal/myproject/web"
 ```
 
-In `craft/config/general.php` and `craft/config/db.php`, commencez par définir un tableau global `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnments. Ce tableau `*` est obligatoire, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements. Les autres tableaux vont référencer les environnements définis dans votre fichier `.env`. Craft va comparer les clefs des autres tableaux et la constante PHP `CRAFT_ENVIRONMENT` ou utiliser "production" si rien n'est spécifié. You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
+Dans `craft/config/general.php` et `craft/config/db.php`, commencez par définir un tableau global `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnments. Ce tableau `*` est obligatoire, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements. Les autres tableaux vont référencer les environnements définis dans votre fichier `.env`. Craft va comparer les clefs des autres tableaux et la constante PHP `CRAFT_ENVIRONMENT` ou utiliser "production" si rien n'est spécifié. Vous pouvez remplacer n'importe quel [paramètre de configuration](https://docs.craftcms.com/v3/config/config-settings.html) de cette façon.
 
-Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://docs.craftcms.com/v3/config/environments.html#aliases) utilisables dans le control panel, par exdmple pour définir les chemins et URls de vos assets volumes pour les adapter à divers environements. Vous pouvez également les utiliser dans vos templates via la [fonction `alias` de Craft](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
+Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://docs.craftcms.com/v3/config/environments.html#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URls de vos assets volumes pour les adapter à divers environements. Vous pouvez également les utiliser dans vos templates via la [fonction `alias` de Craft](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
 
 **Exemple**: `config/general.php`
 
@@ -176,7 +176,7 @@ return [
 ];
 ```
 
-**Exemple**: `config/db.php`. Tout est défini via .env or via des valeur d'environement sur votre serveur de production.
+**Exemple**: `config/db.php`. Tout est défini via .env ou via des valeur d'environement sur votre serveur de production.
 ```
 return array(
   'driver' => getenv('DB_DRIVER'),
@@ -205,11 +205,11 @@ return array(
 {% endif %}
 ```
 
-Les valeurs définie via `dotEnv` et utilisées dans une configuration de production doivent être disponible pour Craft sur votre serveur de production. En général, cela est fait via la configuration de votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` ne sont déconseillés en production et les fournisseurs de hosting vous offrirons souvent un moyen de les configurer au niveau du serveur.
+Les valeurs définies via `dotEnv` et utilisées dans une configuration de production doivent être disponibles pour Craft sur votre serveur de production. En général, cela est fait via la configuration de votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` sont déconseillés en production et les fournisseurs de hosting vous offrirons souvent un moyen de les configurer au niveau du serveur.
 
 ### Editeurs HTML
 
-Craft vous permet d'utiliser [CKEditor](https://ckeditor5.github.io/) ou [Redactor](http://imperavi.com/redactor/) comme solution WYSIWYG pour permettre à vos utilisateurs d'utiliser du texte formatté en HTML. Les deux sont disponibles comme Plugins gratuits dans le Plugins Store de Craft
+Craft vous permet d'utiliser [CKEditor](https://ckeditor5.github.io/) ou [Redactor](http://imperavi.com/redactor/) comme solution WYSIWYG pour permettre à vos utilisateurs d'utiliser du texte formatté en HTML. Les deux sont disponibles comme Plugins gratuits dans le Plugins Store de Craft.
 
 Pour ma part, j'ai toujours utilisé Redactor avec des configurations très simples.
 
@@ -251,7 +251,7 @@ Les sections de type channel peuvent contenir différents types d'entries ("entr
 
 Pour chaque entry type disponible vous pouvez spécifier un field layout: assigner à votre entry type des custom fields qui vont définir la data-structure de toutes les entries de ce type
 
-L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](https://craftcms.com/guides/entry-type-urls), comme [dans vos tags craft.entries() et vos tests conditionnels](https://docs.craftcms.com/v2/templating/entrymodel.html#properties)
+L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](https://craftcms.com/guides/entry-type-urls), comme [dans vos tags craft.entries() et vos tests conditionnels](https://docs.craftcms.com/v2/templating/entrymodel.html#properties).
 
 #### Sections de type structure
 
