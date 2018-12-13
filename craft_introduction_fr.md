@@ -190,19 +190,23 @@ return array(
 );
 ```
 
-**Exemple**: utilisation des aliases dans la configuration de vos assets volumes (locaux).
+**Exemple**: utilisation des alias dans la configuration de vos assets volumes (locaux).
 
 ```
 {@assetsBasePath}/partners_logos/
 {@assetsBasePath}/partners_logos/
 ```
 
-**Exemple**: utilisation des aliases dans vos templates.
+**Exemple**: utilisation des alias dans vos templates.
 
 ```twig
 {% if alias('@environment') == 'production' %}
   {# include Google Analytics code #}
 {% endif %}
+```
+
+```twig
+<link rel="stylesheet" href="{{ alias('@baseUrl') }}/dist/css/main.min.css">
 ```
 
 Les valeurs définies via `dotEnv` et utilisées dans une configuration de production doivent être disponibles pour Craft sur votre serveur de production. En général, cela est fait via la configuration de votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` sont déconseillés en production et les fournisseurs de hosting vous offrirons souvent un moyen de les configurer au niveau du serveur.
@@ -278,9 +282,9 @@ Les fields peuvent être groupés au sein de groupes. Ces groupes n'ont qu'une f
 
 ### Globals
 
-A côté des sections et des entries, les [globals](https://docs.craftcms.com/v3/globals.html) peuvent être utilisées pour stocker du contenu auquel il est possible d'accéder dans vos templates: tagline, coordonnées de contact, code Google Analytics, etc.
+A côté des sections et des entries, les [globals](https://docs.craftcms.com/v3/globals.html) peuvent être utilisées pour stocker du contenu. Les globals sont en utilisées pour des contenus brefs, qui n'ont pas leur place dans des enries mais qui doivent pouvoir être édités facilement via le control panel: tagline, coordonnées de contact, code Google Analytics, etc.
 
-Vous pouvez créer des groupes de contenus en utilisant les global sets. Chaque set de globals possède son field layout et donc sa propre data structure. Les différences notables avec les sections et les entries sont que les globals ne possèdent pas d'URL et ne peuvent donc pas être visualisées comme les entries à l'aide de la fonction "live preview".
+Vous pouvez créer des groupes de contenus en utilisant les global sets. Chaque set de globals possède son field layout et donc sa propre data structure.
 
 ### Users
 

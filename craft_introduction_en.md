@@ -276,7 +276,7 @@ Fields can be grouped into field groups. These groups are there purely for conve
 
 Next to sections and entries, [globals](https://docs.craftcms.com/v3/globals.html) can be used to store bits of content or options you want your client to be able to edit easily: tagline, contact data, Google Analytics code, number of entries to display in lists, etc.
 
-Those globals can be grouped together using global sets. Each global set has its own field layout and thus its own data structure. The big difference between global sets and single entries are that global sets do not have their own URLs and cannot make use of the "live preview" function.
+Those globals can be grouped together using global sets. Each global set has its own field layout and thus its own data structure.
 
 ### Users
 
@@ -982,7 +982,7 @@ The same logic applies with categories. When Craft is loading an URL correspondi
 
 ### Globals
 
-Globals are used to store content that will be made globally accessible to all your templates. They are typically used to create configuration options or variables that need to be editable by administrators but that do not belong in sections.
+Globals are used to store content that will be made globally accessible to all your templates. They are typically used to create configuration options or variables that need to be editable by administrators but that do not belong in sections and entries.
 
 Globals can be accessed easily via their global set handle followed by their global handle. For example, a global called `tagline` in a `companyInfo` global set would be accessed this way:
 
