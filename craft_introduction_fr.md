@@ -193,11 +193,11 @@ return array(
 **Exemple**: utilisation des alias dans la configuration de vos assets volumes (locaux).
 
 ```
-{@assetsBasePath}/partners_logos/
-{@assetsBasePath}/partners_logos/
+@assetsBasePath/partners_logos/
+@assetsBasePath/partners_logos/
 ```
 
-**Exemple**: utilisation des alias dans vos templates.
+**Exemple**: utilisation dans vos templates avec la fonction `alias()` qui parse vos aliases.
 
 ```twig
 {% if alias('@environment') == 'production' %}

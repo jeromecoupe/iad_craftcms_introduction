@@ -193,11 +193,11 @@ return array(
 **Example**: usage in the control panel for assets (local) volumes definition.
 
 ```
-{@assetsBasePath}/partners_logos/
-{@assetsBaseUrl}/partners_logos/
+@assetsBasePath/partners_logos/
+@assetsBaseUrl/partners_logos/
 ```
 
-**Example**: usage in templates.
+**Example**: usage in templates with the `alias()` function that parses aliases.
 
 ```twig
 {% if alias('@environment') == 'production' %}
@@ -205,7 +205,11 @@ return array(
 {% endif %}
 ```
 
-Of course, values defined via dotEnv and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your webserver configuration, be it Apache or Nginx. `.env` file are not used in production and hosting providers will offer you a way to configure environment variables at the server level.
+```twig
+<link rel="stylesheet" href="{{ alias('@baseUrl') }}/dist/css/main.min.css">
+```
+
+Of course, values defined via `dotEnv` and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your webserver configuration, be it Apache or Nginx. `.env` file are not used in production and hosting providers will offer you a way to configure environment variables at the server level.
 
 ### Rich text configurations
 
