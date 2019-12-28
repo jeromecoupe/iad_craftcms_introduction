@@ -4,7 +4,7 @@
 
 ### Technologies et ethos
 
-[Craft](http://buildwithcraft.com/) est un CMS récent créé par [Pixel & Tonic](http://pixelandtonic.com/). Craft est développé à l'aide de technologies open source comme PHP et MySQL et s'appuie sur un framework PHP qui a fait ses preuves: [Yii](http://www.yiiframework.com/).
+[Craft](http://buildwithcraft.com/) est un CMS créé par [Pixel & Tonic](http://pixelandtonic.com/). Craft est développé à l'aide de technologies open source comme PHP et MySQL et s'appuie sur un framework PHP qui a fait ses preuves: [Yii](http://www.yiiframework.com/).
 
 Comparé à d'autres produits, Craft est axé sur l'essentiel: définir et gérer vos contenus, et ce de la façon la plus modulaire et flexible possible. Si vous avez besoin d'un moteur de commentaires, d'un forum ou encore d'e-commerce, il faudra vous tourner vers des plugins.
 
@@ -31,15 +31,15 @@ Pixel & Tonic a également sorti [Craft Commerce](https://craftcms.com/commerce)
 
 Une version "Lite" de Craft Commerce est également disponible, avec des fonctionnalités plus simples et un prix de $199 par projet.
 
-Nous ne couvrirons pas Craft Commerce lors de cette introduction à Craft CMS. Sachez seulement que Craft Commerce fait largement appel aux mêmes concepts que Craft, que ce soit pour la création de votre data structure ou au niveau de vos templates. Vous vous sentirez en terrain familier. Si vous cherchez un module de e-commerce étroitement intégré avec un CMS, Craft Commerce est certainement une option à considérer.
+Nous ne couvrirons pas Craft Commerce lors de cette introduction à Craft CMS. Sachez que Craft Commerce fait largement appel aux mêmes concepts que Craft, que ce soit pour la création de votre data structure ou au niveau de vos templates. Vous vous sentirez en terrain familier. Si vous cherchez un module e-commerce étroitement intégré avec un CMS, Craft Commerce est certainement une option à considérer.
 
 ### Atouts
 
 Les principaux atouts de Craft sont à mon sens:
 
 - Une flexibilité dans la définition de votre data structure rarement égalée. Les 16 field types disponibles par défaut permettent une approche extrêmement modulaire.
-- A propos de champs et de modularité, Matrix est véritablement un atout de Craft en ce qui concerne la flexibilité de vore data structure tout en préservant votre contrôle sur le code front-end généré.
-- [L'utilisation de Twig comme language de templating](http://twig.sensiolabs.org/doc/templates.html): cela induit un temps d'apprentissage mais les gains en termes de puissance, de modularité et de flexibilités sont étonnants. Toute la puissance et la maturité de Twig sont au service de vos templates.
+- A propos de champs et de modularité, Matrix est un atout de Craft en ce qui concerne la flexibilité de votre data structure tout en préservant un contrôle total sur le code front-end généré.
+- [L'utilisation de Twig comme language de templating](http://twig.sensiolabs.org/doc/templates.html): cela induit un temps d'apprentissage mais les gains en termes de puissance, de modularité et de flexibilités sont importants.
 - Une quantité impressionnante de fonctionnalités qui rendront la vie de vos clients plus facile: live preview, control panel responsive, one click updates, etc.
 - Un découplage important entre votre structure de dossiers et de fichiers et la manière dont sont construites les URL. La structure de vos URL est donc extrêmement flexible.
 - Une solution intégrée et complète pour les sites multilingues.
@@ -53,7 +53,7 @@ Après avoir vérifié que votre serveur est capable de faire tourner Craft, il 
 
 ### Version control
 
-La plupart des développeurs utilisent Git pour maintenir leur code et en gérer les différentes versions. Craft possède [son propre fichier `.gitignore`](https://github.com/craftcms/craft/blob/master/storage/.gitignore). Il vous reste à gérer vos propres fichiers et dossiers. Voici le `.gitignore` que j'utilise comme base.
+La plupart des développeuses / développeurs utilisent Git pour maintenir leur code et en gérer les différentes versions. Craft possède [son propre fichier `.gitignore`](https://github.com/craftcms/craft/blob/master/storage/.gitignore). Il vous reste à gérer vos propres fichiers et dossiers. Voici le `.gitignore` que j'utilise comme base.
 
 ```
 # Standard Craft stuff
@@ -68,7 +68,7 @@ web/uploads/**/*
 
 # dist files
 # ----------------------
-web/dist/
+web/dist/**/*
 
 # node modules
 # ----------------------
@@ -153,8 +153,8 @@ return [
       'securityKey' => getenv('SECURITY_KEY'),
     ],
 
-    // Dev environment settings
-    '.test' => [
+    // Dev environment (defined in .env ENVIRONMENT)
+    'dev' => [
       'devMode' => true,
       'aliases' => [
         '@environment' => getenv('ENVIRONMENT'),
@@ -164,13 +164,13 @@ return [
       ]
     ],
 
-    // Production environment settings
-    '.com' => [
+    // Production environment settings (Craft default or server environment value)
+    'production' => [
       'aliases' => [
         '@environment' => 'production',
         '@baseUrl' => 'https://myproject.com',
         '@assetsBaseUrl' => 'https://myproject.com/uploads',
-        '@assetsBasePath' => '/myproject.com/web/uploads',
+        '@assetsBasePath' => 'var/www/myproject.com/web/uploads',
       ],
     ],
 ];
@@ -197,7 +197,7 @@ return array(
 @assetsBasePath/partners_logos/
 ```
 
-**Exemple**: utilisation dans vos templates avec la fonction `alias()` qui parse vos aliases.
+**Exemple**: utilisation des alias dans vos templates avec la fonction `alias()`.
 
 ```twig
 {% if alias('@environment') == 'production' %}
@@ -209,7 +209,7 @@ return array(
 <link rel="stylesheet" href="{{ alias('@baseUrl') }}/dist/css/main.min.css">
 ```
 
-Les valeurs définies via `dotEnv` et utilisées dans une configuration de production doivent être disponibles pour Craft sur votre serveur de production. En général, cela est fait via la configuration de votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` sont déconseillés en production et les fournisseurs de hosting vous offrirons souvent un moyen de les configurer au niveau du serveur.
+Les valeurs définies via `dotenv` et utilisées dans une configuration de production doivent être disponibles pour Craft sur votre serveur de production. En général, cela est fait via la configuration de votre serveur web, que ce soit Apache ou Nginx. Les fichiers `.env` sont déconseillés en production et les fournisseurs de hosting vous offrirons souvent un moyen de les configurer au niveau du serveur.
 
 ### Editeurs HTML
 
@@ -253,9 +253,9 @@ Via l'écran de configuration de la section vous pouvez préciser:
 
 Les sections de type channel peuvent contenir différents types d'entries ("entry types") avec des data structure différentes. Créer un blog permettant de poster divers types de contenus est donc très facile. Vous n'avez besoin que d'une seule section avec différents types d'entrées (video, post, son, galerie photo, etc.).
 
-Pour chaque entry type disponible vous pouvez spécifier un field layout: assigner à votre entry type des custom fields qui vont définir la data-structure de toutes les entries de ce type
+Pour chaque entry type disponible vous pouvez spécifier un field layout: assigner à votre entry type des custom fields qui vont définir la data-structure de toutes les entries de ce type.
 
-L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](https://craftcms.com/guides/entry-type-urls), comme [dans vos tags craft.entries() et vos tests conditionnels](https://docs.craftcms.com/v2/templating/entrymodel.html#properties).
+L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](https://craftcms.com/guides/entry-type-urls), comme [dans vos tags `craft.entries()` et vos tests conditionnels](https://docs.craftcms.com/v2/templating/entrymodel.html#properties).
 
 #### Sections de type structure
 
@@ -1325,7 +1325,7 @@ Deux choses importantes cependant:
 
 Vous pouvez également utiliser Craft comme un CMS headless, c'est à dire un CMS rendant les contenus accessibles via une API (souvent une API JSON). Dans ce scénario, votre CMS ne se charge pas d'afficher les contenus et n'est pas en charge des templates ou des vues mais est uniquement chargé de créer, supprimer, modifier et organiser vos contenus.
 
-Pixel&Tinic a développé [Element API](https://github.com/pixelandtonic/ElementAPI), un plugin qui vous permet de facilement créer des API endpoints, prêts à être utilisés par votre couche front-end et vos views (Vue.js, Ember, Angular, etc.). A noter également [le plugin CraftQL de Mark Huot](https://github.com/markhuot/craftql) qui permet de transformer n'importe quelle installation Craft en un serverr GraphQL.
+Craft généère une [API GraphQL pour vos contenus]((https://docs.craftcms.com/v3/graphql.html)) que vous pouvez utiliser avec de nombreux Static Site Generorts ou framework SPA.
 
 ### Import de données: plugins
 

@@ -4,16 +4,16 @@
 
 ### Technologies and ethos
 
-[Craft](http://buildwithcraft.com/) is a young and very capable CMS created by [Pixel & Tonic](http://pixelandtonic.com/). Craft is developed using open source technologies like PHP and MySQL and is based on a PHP framework with a great track record: [Yii](http://www.yiiframework.com/).
+[Craft](http://buildwithcraft.com/) is a very capable CMS created by [Pixel & Tonic](http://pixelandtonic.com/). Craft is developed using open source technologies like PHP and MySQL and is based on a PHP framework with a great track record: [Yii](http://www.yiiframework.com/).
 
-Craft focuses on the essentials: defining and managing your content in the most modular and flexible way possible. For example, localisation is built in from the get go but if you need comments, a forum or e-commerce, you will have to turn to plugins.
+Craft focuses on the essentials: defining and managing your content in the most modular and flexible way possible. For example, localisation is built in from the get go but, if you need comments, a forum or e-commerce, you will have to turn to plugins.
 
 ### A modular pricing model
 
 This flexibility is present into the [pricing model](https://craftcms.com/pricing) of the product itself.
 
 - The "Solo" version of Craft is free. You can enjoy all functionalities of Craft except for its user management and permissions. The only account available is an admin account.
-- The "Pro" version costs $299 and offers you full user management as well as the possibility brand the system.
+- The "Pro" version costs $299 and offers you full user management as well as the possibility to brand the system.
 
 #### Licenses
 
@@ -31,14 +31,14 @@ Pixel & Tonic released a first party e-commerce module for Craft dubbed [Craft C
 
 A "Lite" version of Commerce is also available with much simpler e-commerce capabilities for a price of $199 per project.
 
-Covering Craft Commerce is not in the scope of this introduction to Craft but just know Craft Commerce shares a lot of characteristics with Craft core as far as data structure creation and templating are concerned so you won't feel lost. If you need tight e-commerce integration with your CMS, Craft Commerce is definitely an option to consider.
+Covering Craft Commerce is not in the scope of this introduction to Craft. Craft Commerce shares a lot of characteristics with Craft core as far as data structure creation and templating are concerned so you won't feel lost. If you need tight e-commerce integration with your CMS, Craft Commerce is definitely an option to consider.
 
 ### Strengths
 
 In my opinion, the main strengths of Craft are:
 
 1. An unparalleled flexibility in the definition of your item types and of their data structure. The 16 field types available by default allow for an extremely modular approach of your content.
-2. Speaking of modular fields, Matrix certainly is Craft's main asset in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
+2. Speaking of modular fields, Matrix is one of Craft's assets in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
 3. Using [Twig as its templating language](http://twig.sensiolabs.org/doc/templates.html). Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularity and flexibility for your templates are amazing.
 4. An integrated and comprehensive solution for multilingual sites with great localisation features.
 5. An impressive amount of features available out of the box, designed to make your life and the life of your users easier: live preview, responsive control panel, one click updates, multiple environments configurations, etc.
@@ -53,7 +53,7 @@ After checking your server has everything it needs to run Craft, all you have to
 
 ### Version control
 
-Any developer worth its salt is version controlling its work using Git these days. Craft has its own .gitignore file (https://github.com/craftcms/craft/blob/master/storage/.gitignore). You only have to take care of your own files. This is the .gitignore file I generally use as a starting point:
+Any developer worth its salt is version controlling her/his work using Git these days. Craft has its own .gitignore file (https://github.com/craftcms/craft/blob/master/storage/.gitignore). You only have to take care of your own files. This is the .gitignore file I generally use as a starting point:
 
 ```
 # Standard Craft stuff
@@ -68,7 +68,7 @@ web/uploads/**/*
 
 # dist files
 # ----------------------
-web/dist/
+web/dist/**/*
 
 # node modules
 # ----------------------
@@ -170,15 +170,16 @@ return [
         '@environment' => 'production',
         '@baseUrl' => 'https://myproject.com',
         '@assetsBaseUrl' => 'https://myproject.com/uploads',
-        '@assetsBasePath' => '/myproject.com/web/uploads',
+        '@assetsBasePath' => 'var/www/myproject.com/web/uploads',
       ],
     ],
 ];
 ```
 
-**Example**: `config/db.php`. Everything is defined via .env or via server environment values in production.
+**Example**: `config/db.php`. Everything is defined via .env or via server environment values in production. We could use the same method we use in `config/general.php` here too, by defining global and environments settings using nested arrays.
+
 ```
-return array(
+return [
   'driver' => getenv('DB_DRIVER'),
   'server' => getenv('DB_SERVER'),
   'user' => getenv('DB_USER'),
@@ -187,17 +188,17 @@ return array(
   'schema' => getenv('DB_SCHEMA'),
   'tablePrefix' => getenv('DB_TABLE_PREFIX'),
   'port' => getenv('DB_PORT')
-);
+];
 ```
 
-**Example**: usage in the control panel for assets (local) volumes definition.
+**Example**: aliases usage in the control panel for assets (local) volumes definition.
 
 ```
 @assetsBasePath/partners_logos/
 @assetsBaseUrl/partners_logos/
 ```
 
-**Example**: usage in templates with the `alias()` function that parses aliases.
+**Example**: aliases usage in templates with the `alias()` function.
 
 ```twig
 {% if alias('@environment') == 'production' %}
@@ -209,7 +210,7 @@ return array(
 <link rel="stylesheet" href="{{ alias('@baseUrl') }}/dist/css/main.min.css">
 ```
 
-Of course, values defined via `dotEnv` and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your webserver configuration, be it Apache or Nginx. `.env` file are not used in production and hosting providers will offer you a way to configure environment variables at the server level.
+Of course, values defined via `dotenv` and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your webserver configuration, be it Apache or Nginx. `.env` file are (generally) not used in production and hosting providers will offer you a way to configure environment variables at the server level.
 
 ### Rich text configurations
 
@@ -1327,7 +1328,7 @@ Two important things to note:
 
 You can also easily use Craft as a headless CMS, which is simply a CMS delivering content via an API (often a JSON API). In that scenario, your CMS does not care how the content is displayed and does not deal with the views or templates, but only with creating, updating, deleting, modifying and organising the content.
 
-Pixel&Tonic provide an easy to use first party plugin called [Element API](https://github.com/pixelandtonic/ElementAPI) that will create API endpoints for you, ready to be consumed by your front-end layer and views (Vue.js, Ember, Angular, etc.). The [CraftQL plugin by Mark Huot]([le plugin CraftQL de Mark Huot](https://github.com/markhuot/craftql) can transform any Craft installtion in a fully functional GraphQL server.
+Craft also offers an autogenerated [GraphQL content API](https://docs.craftcms.com/v3/graphql.html) that you can easily query from any static site generator or SPA framework.
 
 ### Importing data (import plugins)
 
