@@ -916,14 +916,15 @@ Le même principe est d'application lorsqu'une page de catégorie est affichée.
    #  - depending on its existence, we set our list of entries
    #}
 
-  {% set allCategories = craft.categories.group('newsTopics').all() %}
+  {% set allCategories = craft.categories().group('newsTopics').all() %}
+
+  {% set allNews = craft.entries().section('news').limit(10) %}
 
   {% if category is defined %}
     {% set currentCategory = category.slug %}
-    {% set allNews = craft.entries.section('news').relatedTo(category).limit(10) %}
+    {% do allNews.relatedTo(category) %}
   {% else %}
     {% set currentCategory = 'all' %}
-    {% set allNews = craft.entries.section('news').limit(10) %}
   {% endif %}
 
   {# display page title using entry variable #}

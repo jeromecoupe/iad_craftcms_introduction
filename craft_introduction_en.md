@@ -921,12 +921,13 @@ The same logic applies with categories. When Craft is loading an URL correspondi
 
   {% set allCategories = craft.categories().group('newsTopics').all() %}
 
+  {% set allNews = craft.entries().section('news').limit(10) %}
+
   {% if category is defined %}
     {% set currentCategory = category.slug %}
-    {% set allNews = craft.entries().section('news').relatedTo(category).limit(10) %}
+    {% do allNews.relatedTo(category) %}
   {% else %}
     {% set currentCategory = 'all' %}
-    {% set allNews = craft.entries().section('news').limit(10) %}
   {% endif %}
 
   {# display page title using entry variable #}
