@@ -13,13 +13,13 @@ Comparé à d'autres produits, Craft est axé sur l'essentiel: définir et gére
 Cette flexibilité est présente jusque dans [le pricing](https://craftcms.com/pricing) du produit lui même.
 
 - La version "Solo" de Craft est gratuite et vous permet de profiter de toutes les fonctionnalités de Craft hormis la gestion utilisateurs. The seul compte utilisateur disponible est un compte admin.
-- Une version "Pro" à 299$ vous permet de disposer de toutes les fonctionnalités de Craft, y compris la gestion d'utilisateurs et la capacité de modifier le branding de l'outil.
+- Une version "Pro" à 299\$ vous permet de disposer de toutes les fonctionnalités de Craft, y compris la gestion d'utilisateurs et la capacité de modifier le branding de l'outil.
 
 #### Licences
 
 Les licences Craft cont perpétuelles, c'est à dire que vous pouvez utiliser la version achetée indéfiniment. Vous achetez également un an de mises à jour et de support avec votre licence.
 
-Si vous en avez besoin, vous pouvez ensuite payer $59 à n'importe quel moment pour avoir droit à un an de mises à jour et de support.
+Si vous en avez besoin, vous pouvez ensuite payer \$59 à n'importe quel moment pour avoir droit à un an de mises à jour et de support.
 
 #### Versions de test
 
@@ -27,9 +27,9 @@ Si vous en avez besoin, vous pouvez ensuite payer $59 à n'importe quel moment p
 
 ### Une plateforme de e-commerce intégrée
 
-Pixel & Tonic a également sorti [Craft Commerce](https://craftcms.com/commerce), une plateforme de e-commerce pour Craft CMS. Une licence coûte $999 et vous donne droit à [une liste impressionnante de fonctionalités](https://craftcommerce.com/features).
+Pixel & Tonic a également sorti [Craft Commerce](https://craftcms.com/commerce), une plateforme de e-commerce pour Craft CMS. Une licence coûte \$999 et vous donne droit à [une liste impressionnante de fonctionalités](https://craftcommerce.com/features).
 
-Une version "Lite" de Craft Commerce est également disponible, avec des fonctionnalités plus simples et un prix de $199 par projet.
+Une version "Lite" de Craft Commerce est également disponible, avec des fonctionnalités plus simples et un prix de \$199 par projet.
 
 Nous ne couvrirons pas Craft Commerce lors de cette introduction à Craft CMS. Sachez que Craft Commerce fait largement appel aux mêmes concepts que Craft, que ce soit pour la création de votre data structure ou au niveau de vos templates. Vous vous sentirez en terrain familier. Si vous cherchez un module e-commerce étroitement intégré avec un CMS, Craft Commerce est certainement une option à considérer.
 
@@ -92,23 +92,17 @@ ENVIRONMENT="dev"
 # The secure key Craft will use for hashing and encrypting data
 SECURITY_KEY="superlonghashkey"
 
-# The database driver that will be used ('mysql' or 'pgsql')
-DB_DRIVER="mysql"
+# The secure key Craft will use for hashing and encrypting data
+SECURITY_KEY="usxyMHfLy2p1sDMlxZr6uvM_ojw-rrN2"
 
-# The database server name or IP address (usually this is 'localhost' or '127.0.0.1')
-DB_SERVER="localhost"
+# The Data Source Name (“DSN”) that tells Craft how to connect to the database
+DB_DSN="mysql:host=127.0.0.1;port=3306;dbname=mydatabasename"
 
 # The database username to connect with
-DB_USER="root"
+DB_USER="databaseuser"
 
 # The database password to connect with
-DB_PASSWORD="mypassword"
-
-# The name of the database to select
-DB_DATABASE="mycraftdb"
-
-# The port to connect to the database with. Will default to 5432 for PostgreSQL and 3306 for MySQL.
-DB_PORT="3306"
+DB_PASSWORD="password123"
 
 # Base URL (no trailing slash)
 BASE_URL="http://myproject.craft.test"
@@ -131,52 +125,48 @@ Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://
  * All of your system's general configuration settings go in here. You can see a
  * list of the available settings in vendor/craftcms/cms/src/config/GeneralConfig.php.
  *
- * @see craft\config\GeneralConfig
+ * @see \craft\config\GeneralConfig
  */
 
 return [
     // Global settings
     '*' => [
-      // Default Week Start Day (0 = Sunday, 1 = Monday...)
       'defaultWeekStartDay' => 1,
-
-      // Enable CSRF Protection (recommended)
-      'enableCsrfProtection' => true,
-
-      // Whether generated URLs should omit 'index.php'
       'omitScriptNameInUrls' => true,
-
-      // Control Panel trigger word
-      'cpTrigger' => 'admin',
-
-      // The secure key Craft will use for hashing and encrypting data
+      'cpTrigger' => 'iadadmin',
       'securityKey' => getenv('SECURITY_KEY'),
+      'useProjectConfigFile' => true,
+
+      // aliases (used in the CP and in templates)
+      'aliases' => [
+        '@baseUrl' => getenv('BASE_URL'),
+        '@basePath' => getenv('BASE_PATH'),
+        '@assetBaseUrl' => getenv('BASE_URL').'/uploads',
+        '@assetBasePath' => getenv('BASE_PATH').'/uploads',
+      ],
     ],
 
-    // Dev environment (defined in .env ENVIRONMENT)
+    // Dev environment settings
     'dev' => [
       'devMode' => true,
-      'aliases' => [
-        '@environment' => getenv('ENVIRONMENT'),
-        '@baseUrl' => getenv('BASE_URL'),
-        '@assetsBaseUrl' => getenv('BASE_URL').'/uploads',
-        '@assetsBasePath' => getenv('BASE_PATH').'/uploads',
-      ]
     ],
 
-    // Production environment settings (Craft default or server environment value)
+    // Staging environment settings
+    'staging' => [
+      'allowAdminChanges' => false,
+      'devMode' => true,
+    ],
+
+    // Production environment settings
     'production' => [
-      'aliases' => [
-        '@environment' => 'production',
-        '@baseUrl' => 'https://myproject.com',
-        '@assetsBaseUrl' => 'https://myproject.com/uploads',
-        '@assetsBasePath' => 'var/www/myproject.com/web/uploads',
-      ],
+      'allowAdminChanges' => false,
+      'devMode' => false,
     ],
 ];
 ```
 
-**Exemple**: `config/db.php`. Tout est défini via .env ou via des valeur d'environement sur votre serveur de production.
+**Exemple**: `config/db.php`. Tout est défini via .env ou via des valeurs d'environement sur votre serveur de production.
+
 ```
 return array(
   'driver' => getenv('DB_DRIVER'),
@@ -255,7 +245,7 @@ Les sections de type channel peuvent contenir différents types d'entries ("entr
 
 Pour chaque entry type disponible vous pouvez spécifier un field layout: assigner à votre entry type des custom fields qui vont définir la data-structure de toutes les entries de ce type.
 
-L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](https://craftcms.com/guides/entry-type-urls), comme [dans vos tags `craft.entries()` et vos tests conditionnels](https://docs.craftcms.com/v2/templating/entrymodel.html#properties).
+L'entry type peut facilement être utilisé [dans le routing et les patterns d'URL](https://craftcms.com/knowledge-base/entry-type-urls), comme [dans vos tags `craft.entries()`](https://docs.craftcms.com/v3/dev/element-queries/entry-queries.html#example) et vos tests conditionnels.
 
 #### Sections de type structure
 
@@ -304,7 +294,7 @@ Un field layout est associé à chaque Asset Source et vous permet de créer une
 
 ### Tags
 
-Les [tags](https://docs.craftcms.com/v3/tags.html) vous permettent de créer des *folksonomies* et de les appliquer à vos Entries, Users ou Assets.
+Les [tags](https://docs.craftcms.com/v3/tags.html) vous permettent de créer des _folksonomies_ et de les appliquer à vos Entries, Users ou Assets.
 
 Chaque tag doit être assigné à un groupe et chaque groupe de tags possède un field layout. Vous pouvez donc créer des structures de données assez complexes pour chacun de vos groupes de tags.
 
@@ -583,7 +573,7 @@ Les variables définies dans le template "enfant" sont accessibles dans le templ
 
 Voyons voir comment cela fonctionne dans la pratique avec un exemple simple:
 
-**Template parent: layouts/_base.html**
+**Template parent: layouts/\_base.html**
 
 ```twig
 <!DOCTYPE html>
@@ -666,8 +656,8 @@ Les macros sont appelées / importées à l'aide du tag `{% import %}`
 Si la macro est définie dans le même fichier
 
 ```twig
-{% import _self as formErrors %}
-{{ formErrors.errors(entry.allErrors) }}
+{# macro defined here in the same file #}
+{{ _self_.dateText(entry.postDate) }}
 ```
 
 Si la macro est définie dans un fichier extérieur
@@ -817,7 +807,7 @@ Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/in
 
 #### Pagination
 
-Craft vous permet de [paginer vos résultats](https://docs.craftcms.com/v3/dev/tags/paginate.html) à l'aide du tag  `{% paginate %}` et de construire une interface de pagination à l'aide des variables qui l'accompagnent. Attention, le tag `{% paginate %}` nécessite un objet ElementQuery comme paramètre. N'utilisez simplement pas la fonction `all()` dans ce cas-ci.
+Craft vous permet de [paginer vos résultats](https://docs.craftcms.com/v3/dev/tags/paginate.html) à l'aide du tag `{% paginate %}` et de construire une interface de pagination à l'aide des variables qui l'accompagnent. Attention, le tag `{% paginate %}` nécessite un objet ElementQuery comme paramètre. N'utilisez simplement pas la fonction `all()` dans ce cas-ci.
 
 ```twig
 {% paginate craft.entries.section('news').limit(5) as paginate, entries %}
@@ -1159,7 +1149,7 @@ Voici un exemple simple. Vous avez laissé la possiblité à vos utilisateurs de
 
 ### Interfaces de navigation en utilisant un channel de type structure
 
-Si vous essayez d'avoir une entry (single) pour chaque page de votre site, Craft permet facilement de disposer d'une navigation principale flexible et pouvant même être mise à jour par les éditeurs du site. J'utilise généralement une section de type structure pour fournir ce genre de fonctionnalité. Voici un exemple  avec une navigation à un seul niveau. Il suffit de créer une section de type structure `mainnav` et deux champs: `mainnavLabel` (textfield) et `mainnavLink` (entries, limité à 1 entry et à des entries de type single). Une simple boucle `for` suffit à créer notre navigation.
+Si vous essayez d'avoir une entry (single) pour chaque page de votre site, Craft permet facilement de disposer d'une navigation principale flexible et pouvant même être mise à jour par les éditeurs du site. J'utilise généralement une section de type structure pour fournir ce genre de fonctionnalité. Voici un exemple avec une navigation à un seul niveau. Il suffit de créer une section de type structure `mainnav` et deux champs: `mainnavLabel` (textfield) et `mainnavLink` (entries, limité à 1 entry et à des entries de type single). Une simple boucle `for` suffit à créer notre navigation.
 
 ```twig
 {% set nav = craft.entries().section('mainnav').all() %}
@@ -1322,11 +1312,15 @@ Deux choses importantes cependant:
 - Lorsqu'une erreur de validation se produit, l'URL du formulaire est reloadée et une variable `entry` est disponible. L'`entryModel` qui y est lié décrit l'entry soumise par le formulaire.
 - Vous pouvez récupérer les valeurs postées depuis cette variable `entry`, ainsi que les erreurs de validations via `entry.getError()`, `getErrors()`, ou `getAllErrors()`.
 
-### Utiliser Craft comme un CMS headless: Element API plugin
+### Utiliser Craft comme un CMS headless
 
-Vous pouvez également utiliser Craft comme un CMS headless, c'est à dire un CMS rendant les contenus accessibles via une API (souvent une API JSON). Dans ce scénario, votre CMS ne se charge pas d'afficher les contenus et n'est pas en charge des templates ou des vues mais est uniquement chargé de créer, supprimer, modifier et organiser vos contenus.
+Vous pouvez également utiliser Craft comme un CMS headless, c'est à dire un CMS rendant les contenus accessibles via une API. Dans ce scénario, votre CMS ne se charge pas d'afficher les contenus et n'est pas en charge des templates ou des vues mais est uniquement chargé de créer, supprimer, modifier et organiser vos contenus.
 
-Craft généère une [API GraphQL pour vos contenus]((https://docs.craftcms.com/v3/graphql.html)) que vous pouvez utiliser avec de nombreux Static Site Generorts ou framework SPA.
+Craft possède nativement une [API de contenu en GraphQL](https://docs.craftcms.com/v3/graphql.html) que vous pouvez utiliser avec n'importe que Static Site Generator ou framework de SPA. Le [tutoriel officiel de Craft](https://docs.craftcms.com/tutorial/build/graphql.html) et la [documentation](https://docs.craftcms.com/v3/graphql.html) contiennent quelques principes et guides pour utiliser [Craft comme un CMS headless](https://docs.craftcms.com/v3/dev/headless.html#app) avec GraphQL.
+
+that you can easily query from any static site generator or SPA framework. The [official Craft tutorial](https://docs.craftcms.com/tutorial/build/graphql.html) and the [documentation](https://docs.craftcms.com/v3/graphql.html) both have pretty hands on guides about [using Craft as a headless CMS](https://docs.craftcms.com/v3/dev/headless.html#app) with GraphQL.
+
+Craft généère une [API GraphQL pour vos contenus](<(https://docs.craftcms.com/v3/graphql.html)>) que vous pouvez utiliser avec de nombreux Static Site Generators ou frameworks SPA.
 
 ### Import de données: plugins
 
@@ -1346,15 +1340,22 @@ Generalement, j'importe ces données en créant des feeds RSS dans l'ancien syst
 Construire un blog simple.
 
 1. Homepage
-  - single section
-  - affiche seulement les 3 derniers blogposts
+
+- single section
+- affiche seulement les 3 derniers blogposts
+
 2. Blog archive
-  - liste paginée avec 5 posts sur chaque page
-  - les blogposts peuvent être filtrés à l'aide de catégories thématiques
+
+- liste paginée avec 5 posts sur chaque page
+- les blogposts peuvent être filtrés à l'aide de catégories thématiques
+
 3. Blogpost détail
-  - les blogposts doivent avoir une image pour que nous puissions pratiquer les transformations d'images
+
+- les blogposts doivent avoir une image pour que nous puissions pratiquer les transformations d'images
+
 4. Page about
-  - single section
+
+- single section
 
 ### A faire seul
 
