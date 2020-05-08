@@ -13,13 +13,13 @@ Craft focuses on the essentials: defining and managing your content in the most 
 This flexibility is present into the [pricing model](https://craftcms.com/pricing) of the product itself.
 
 - The "Solo" version of Craft is free. You can enjoy all functionalities of Craft except for its user management and permissions. The only account available is an admin account.
-- The "Pro" version costs $299 and offers you full user management as well as the possibility to brand the system.
+- The "Pro" version costs \$299 and offers you full user management as well as the possibility to brand the system.
 
 #### Licenses
 
 Craft licenses are perpetual, meaning you can use the version you purchased indefinitely. You also get one year of Developer support and updates bundled with your purchase.
 
-If you want updates and support after that, you will have to pay $59 for one year of upgrades and support. You can pay that license fee whenever you need it.
+If you want updates and support after that, you will have to pay \$59 for one year of upgrades and support. You can pay that license fee whenever you need it.
 
 #### Trial versions
 
@@ -27,17 +27,17 @@ If you want updates and support after that, you will have to pay $59 for one yea
 
 ### A fully integrated e-commerce platform
 
-Pixel & Tonic released a first party e-commerce module for Craft dubbed [Craft Commerce](https://craftcms.com/commerce). A one-time license of Craft Commerce for one site is $999. For that price, you get [a ton of features](https://craftcms.com/features) and everything you need to create and manage an online store.
+Pixel & Tonic released a first party e-commerce module for Craft dubbed [Craft Commerce](https://craftcms.com/commerce). A one-time license of Craft Commerce for one site is \$999. For that price, you get [a ton of features](https://craftcms.com/features) and everything you need to create and manage an online store.
 
-A "Lite" version of Commerce is also available with much simpler e-commerce capabilities for a price of $199 per project.
+A "Lite" version of Commerce is also available with much simpler e-commerce capabilities for a price of \$199 per project.
 
-Covering Craft Commerce is not in the scope of this introduction to Craft. Craft Commerce shares a lot of characteristics with Craft core as far as data structure creation and templating are concerned so you won't feel lost. If you need tight e-commerce integration with your CMS, Craft Commerce is definitely an option to consider.
+Covering Craft Commerce is not within the scope of this introduction to Craft. Craft Commerce shares a lot of characteristics with Craft core as far as data structure creation and templating are concerned so you won't feel lost. If you need tight e-commerce integration with your CMS, Craft Commerce is definitely an option to consider.
 
 ### Strengths
 
 In my opinion, the main strengths of Craft are:
 
-1. An unparalleled flexibility in the definition of your item types and of their data structure. The 16 field types available by default allow for an extremely modular approach of your content.
+1. An unparalleled flexibility in the definition of your item types and of their data structure. The field types available by default allow for an extremely modular approach of your content.
 2. Speaking of modular fields, Matrix is one of Craft's assets in terms of creating a flexible data structure while maintaining total control over the generated front-end code.
 3. Using [Twig as its templating language](http://twig.sensiolabs.org/doc/templates.html). Learning Twig certainly has a learning curve but the benefits in terms of power, performance, modularity and flexibility for your templates are amazing.
 4. An integrated and comprehensive solution for multilingual sites with great localisation features.
@@ -53,7 +53,7 @@ After checking your server has everything it needs to run Craft, all you have to
 
 ### Version control
 
-Any developer worth its salt is version controlling her/his work using Git these days. Craft has its own .gitignore file (https://github.com/craftcms/craft/blob/master/storage/.gitignore). You only have to take care of your own files. This is the .gitignore file I generally use as a starting point:
+Any developer worth its salt is version controlling her/his work using Git these days. Craft has its own [`.gitignore`](https://github.com/craftcms/craft/blob/master/storage/.gitignore) file. You have to modify it to take care of your files. This is the .gitignore file I generally use as a starting point:
 
 ```
 # Standard Craft stuff
@@ -79,9 +79,9 @@ node_modules/
 
 Craft offers a native way to deal with multiple environments configurations through the use of nested arrays and [environment-specific variables ](https://docs.craftcms.com/v3/config/environments.html) in your `config/general.php` and `config/db.php` configuration files.
 
-Because your developers likely use different files and folders architectures locally and because sensitives informations like database credentials should ideally not be committed to a repository, Craft allows you to use a `.env` file at the root of your project so every developer can use her/his own settings. You can then use values specified in that `.env` files in `craft/config/general.php` and `craft/config/db.php`.
+Because each developer likely uses different files and folders architectures locally and because sensitives informations like database credentials should ideally not be committed to a repository, Craft allows you to use a `.env` file at the root of your project so every developer can use her/his own settings. You can then use values specified in that `.env` files in `craft/config/general.php` and `craft/config/db.php`.
 
-Here is an  exemple of what it looks like:
+Here is an exemple of what it looks like:
 
 **Example**: `.env`
 
@@ -92,23 +92,17 @@ ENVIRONMENT="dev"
 # The secure key Craft will use for hashing and encrypting data
 SECURITY_KEY="superlonghashkey"
 
-# The database driver that will be used ('mysql' or 'pgsql')
-DB_DRIVER="mysql"
+# The secure key Craft will use for hashing and encrypting data
+SECURITY_KEY="usxyMHfLy2p1sDMlxZr6uvM_ojw-rrN2"
 
-# The database server name or IP address (usually this is 'localhost' or '127.0.0.1')
-DB_SERVER="localhost"
+# The Data Source Name (“DSN”) that tells Craft how to connect to the database
+DB_DSN="mysql:host=127.0.0.1;port=3306;dbname=mydatabasename"
 
 # The database username to connect with
-DB_USER="root"
+DB_USER="databaseuser"
 
 # The database password to connect with
-DB_PASSWORD="mypassword"
-
-# The name of the database to select
-DB_DATABASE="mycraftdb"
-
-# The port to connect to the database with. Will default to 5432 for PostgreSQL and 3306 for MySQL.
-DB_PORT="3306"
+DB_PASSWORD="password123"
 
 # Base URL (no trailing slash)
 BASE_URL="http://myproject.craft.test"
@@ -117,7 +111,9 @@ BASE_URL="http://myproject.craft.test"
 BASE_PATH="/data/weblocal/myproject/web"
 ```
 
-In `craft/config/general.php` and `craft/config/db.php`, start by defining a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support. Other array keys will reference environments defined in your `.env` file. Craft will check those keys against the CRAFT_ENVIRONMENT PHP constant and default to "production" if nothing is specified. You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
+In `craft/config/general.php` and `craft/config/db.php`, start by defining a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support.
+
+Other keys will reference environments defined in your `.env` file. Craft will check those keys against the `CRAFT_ENVIRONMENT` PHP constant and default to "production" if nothing is specified. You can pretty much override any [configuration settings](https://docs.craftcms.com/v3/config/config-settings.html) that way.
 
 You can also use `craft/config/general.php` to create Yii aliases. You can then use those aliases in the Control Panel, for example when defining file system paths and url for your asset volumes to make them environment specific. You can also reference those aliases in your templates using the [Craft `alias` function](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
 
@@ -131,47 +127,41 @@ You can also use `craft/config/general.php` to create Yii aliases. You can then 
  * All of your system's general configuration settings go in here. You can see a
  * list of the available settings in vendor/craftcms/cms/src/config/GeneralConfig.php.
  *
- * @see craft\config\GeneralConfig
+ * @see \craft\config\GeneralConfig
  */
 
 return [
     // Global settings
     '*' => [
-      // Default Week Start Day (0 = Sunday, 1 = Monday...)
-      'defaultWeekStartDay' => 1,
-
-      // Enable CSRF Protection (recommended)
-      'enableCsrfProtection' => true,
-
-      // Whether generated URLs should omit 'index.php'
-      'omitScriptNameInUrls' => true,
-
-      // Control Panel trigger word
-      'cpTrigger' => 'admin',
-
-      // The secure key Craft will use for hashing and encrypting data
-      'securityKey' => getenv('SECURITY_KEY'),
+        'defaultWeekStartDay' => 1,
+        'omitScriptNameInUrls' => true,
+        'cpTrigger' => 'iadadmin',
+        'securityKey' => getenv('SECURITY_KEY'),
+        'useProjectConfigFile' => true,
+        // aliases (used in the CP and in templates)
+        'aliases' => [
+          '@baseUrl' => getenv('BASE_URL'),
+          '@basePath' => getenv('BASE_PATH'),
+          '@assetBaseUrl' => getenv('BASE_URL').'/uploads',
+          '@assetBasePath' => getenv('BASE_PATH').'/uploads',
+        ],
     ],
 
-    // Dev environment (defined in .env ENVIRONMENT)
+    // Dev environment settings
     'dev' => [
-      'devMode' => true,
-      'aliases' => [
-        '@environment' => getenv('ENVIRONMENT'),
-        '@baseUrl' => getenv('BASE_URL'),
-        '@assetsBaseUrl' => getenv('BASE_URL').'/uploads',
-        '@assetsBasePath' => getenv('BASE_PATH').'/uploads',
-      ]
+        'devMode' => true,
     ],
 
-    // Production environment settings (Craft default or server environment value)
+    // Staging environment settings
+    'staging' => [
+        'allowAdminChanges' => false,
+        'devMode' => true,
+    ],
+
+    // Production environment settings
     'production' => [
-      'aliases' => [
-        '@environment' => 'production',
-        '@baseUrl' => 'https://myproject.com',
-        '@assetsBaseUrl' => 'https://myproject.com/uploads',
-        '@assetsBasePath' => 'var/www/myproject.com/web/uploads',
-      ],
+        'allowAdminChanges' => false,
+        'devMode' => false,
     ],
 ];
 ```
@@ -210,7 +200,7 @@ return [
 <link rel="stylesheet" href="{{ alias('@baseUrl') }}/dist/css/main.min.css">
 ```
 
-Of course, values defined via `dotenv` and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your webserver configuration, be it Apache or Nginx. `.env` file are (generally) not used in production and hosting providers will offer you a way to configure environment variables at the server level.
+Values defined via `dotenv` and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your webserver configuration, be it Apache or Nginx. `.env` file are (generally) not used in production and hosting providers will offer you a way to configure environment variables at the server level.
 
 ### Rich text configurations
 
@@ -256,11 +246,11 @@ Channel sections can contain various entry types, each having their own data str
 
 For each entry type defined in your section, you can define the data structure of entries by assigning custom fields to a field layout.
 
-These entry types can easily be [used in routing and URL structures](https://craftcms.com/guides/entry-type-urls) as well as in your templates with [`craft.entries` tags and conditionals](https://docs.craftcms.com/v2/templating/entrymodel.html#properties).
+These entry types can easily be [used in routing and URL structures](https://craftcms.com/knowledge-base/entry-type-urls) as well as in your templates with [`craft.entries` tags](https://docs.craftcms.com/v3/dev/element-queries/entry-queries.html#example) and with conditionals.
 
 #### Structure sections
 
-Structure sections behave a lot like channel sections: they can contain various entry types and the URL structure of their entries can be specified. The main difference is that their entries can be manually ordered in a hierarchical tree. You can  specify the number of levels in that hierarchy.
+Structure sections behave a lot like channel sections: they can contain various entry types and the URL structure of their entries can be specified. The main difference is that their entries can be manually ordered in a hierarchical tree. You can specify the number of levels in that hierarchy.
 
 Using the section configuration screen you can define
 
@@ -301,13 +291,13 @@ A field layout is available for each Asset Source. Using it in combination with 
 
 ### Tags
 
-[Tags](https://docs.craftcms.com/v3/tags.html) allow you to create *folksonomies* and apply them to your Entries, Users or Assets.
+[Tags](https://docs.craftcms.com/v3/tags.html) allow you to create _folksonomies_ and apply them to your Entries, Users or Assets.
 
 Every tag must be assigned to a group and each tag group has a field layout. You can create complex data structures for each of your tag groups if needed.
 
 ### Categories
 
-[Categories](https://docs.craftcms.com/v3/categories.html) allow you to create *taxonomies* and apply them to your Entries, Users or Assets.
+[Categories](https://docs.craftcms.com/v3/categories.html) allow you to create _taxonomies_ and apply them to your Entries, Users or Assets.
 
 Each category must be assigned to a group and each of them has a dedicated field layout.
 
@@ -584,7 +574,7 @@ Variables defined in "children" templates can be accessed in the "parent" templa
 
 Let's see how it works practically with a very simple example:
 
-**Parent template: layouts/_base.html**
+**Parent template: layouts/\_base.html**
 
 ```twig
 <!DOCTYPE html>
@@ -650,7 +640,7 @@ If you have code that is repeated in many templates, it is generally a good idea
 
 #### Macros
 
-Twig [Macros](http://twig.sensiolabs.org/doc/tags/macro.html) are comparable to mixins in Sass. They are small reusable chunks of code.
+Twig [Macros](http://twig.sensiolabs.org/doc/tags/macro.html) are comparable to mixins in Sass. They essentially are small reusable chunks of code.
 
 A Macro is defined using the `{% macro %}` and `{% endmacro %}` tags. Macro can be loaded from an external file, or reside in the file they are used in.
 
@@ -669,8 +659,8 @@ Macros are imported using the `{% import %}` tag
 If the Macro is defined in the same file, the `_self` keyword is used
 
 ```twig
-{% import _self as formErrors %}
-{{ formErrors.errors(entry.allErrors) }}
+{# macro defined here in the same file #}
+{{ _self_.dateText(entry.postDate) }}
 ```
 
 If the macro is defined in an external file, we simply reference the path to the file
@@ -1325,22 +1315,19 @@ Two important things to note:
 - If there is a validation error on the entry, the URL is reloaded and an `entry` variable is made available. The `entryModel` describes the submitted entry.
 - You can fetch the posted values from that `entry` variable, as well as any validation errors via `entry.getError()`, `getErrors()`, or `getAllErrors()`.
 
-### Using Craft as a headless CMS: Element API plugin
+### Using Craft as a headless CMS
 
 You can also easily use Craft as a headless CMS, which is simply a CMS delivering content via an API (often a JSON API). In that scenario, your CMS does not care how the content is displayed and does not deal with the views or templates, but only with creating, updating, deleting, modifying and organising the content.
 
-Craft also offers an autogenerated [GraphQL content API](https://docs.craftcms.com/v3/graphql.html) that you can easily query from any static site generator or SPA framework.
+Craft also offers a [GraphQL content API](https://docs.craftcms.com/v3/graphql.html) that you can easily query from any static site generator or SPA framework. The [official Craft tutorial](https://docs.craftcms.com/tutorial/build/graphql.html) and the [documentation](https://docs.craftcms.com/v3/graphql.html) both have pretty hands on guides about [using Craft as a headless CMS](https://docs.craftcms.com/v3/dev/headless.html#app) with GraphQL.
 
 ### Importing data (import plugins)
 
 Craft is a relatively young CMS and most projects these days are relaunches of existing websites rather than creating a website from scratch. Knowing these two facts, the need to import existing data into a new Craft install needs to be addressed in most cases.
 
-Luckily for us, Craft has a number of great import plugins you can count on. Two of my favourite plugins are:
+Luckily for us, Craft has a great first party import plugin called [Feed Me](https://github.com/craftcms/feed-me), which lets you import XML, RSS, ATOM, CSV or JSON feeds.
 
-- [Feed Me by Verbb](https://github.com/verbb/feed-me), which lets you import XML, RSS or ATOM feeds.
-- [Sprout import by Barrel Strength Design](https://github.com/barrelstrength/craft-sprout-import) lets you import JSON files.
-
-I generally go about it by creating RSS feeds in the old install, which most CMS will let you do, and use Feed Me to import nodes as entries in Craft. Some manual work is usually needed to tidy things up but the bulk of the work can often be automated.
+I generally go about it by creating RSS or JSON feeds in the old install, which most CMS will let you do, and use Feed Me to import nodes as entries in Craft. Some manual work is usually needed to tidy things up but the bulk of the work can often be automated.
 
 ## Exercises
 
@@ -1349,15 +1336,22 @@ I generally go about it by creating RSS feeds in the old install, which most CMS
 We are going to build a simple blog sporting the following pages:
 
 1. Homepage
-  - single section
-  - displays only the last 3 blogposts
+
+- single section
+- displays only the last 3 blogposts
+
 2. Blog archive page
-  - paginated list with 5 posts on each page
-  - blogposts can be filtered using categories
+
+- paginated list with 5 posts on each page
+- blogposts can be filtered using categories
+
 3. Blog detail page
-  - blogposts must have images so we can learn to use image transforms
+
+- blogposts must have images so we can learn to use image transforms
+
 4. About page
-  - single section
+
+- single section
 
 ### On your own
 
