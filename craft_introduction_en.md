@@ -23,7 +23,7 @@ If you want updates and support after that, you will have to pay \$59 for one ye
 
 #### Trial versions
 
-[You can test Craft Pro and all its functionalities](https://craftcms.com/guides/try-craft-pro-plugins-before-buying) for an indefinite amount of time provided that you are on a local or stanging domain that can be identified as such. Personally, I use `myprojectname.craft.test` for all my local projects.
+[You can test Craft Pro and all its functionalities](https://craftcms.com/guides/try-craft-pro-plugins-before-buying) for an indefinite amount of time provided that you are on a local or staging domain that can be identified as such. Personally, I use `myprojectname.craft.test` for all my local projects.
 
 ### A fully integrated e-commerce platform
 
@@ -86,29 +86,31 @@ Here is an exemple of what it looks like:
 **Example**: `.env`
 
 ```
-# The environment Craft is currently running in ('dev', 'staging', 'production', etc.)
-ENVIRONMENT="dev"
+# The environment Craft is currently running in (dev, staging, production, etc.)
+ENVIRONMENT=dev
+
+# The application ID used to to uniquely store session and cache data, mutex locks, and more
+APP_ID=CraftCMS--0c9c04d7-22dc-497f-8775-7c6ba6af0ed3
 
 # The secure key Craft will use for hashing and encrypting data
-SECURITY_KEY="superlonghashkey"
+SECURITY_KEY=7nq4Z9hajQCBc0fCAky5Lw2YkjUIVpIA
 
-# The secure key Craft will use for hashing and encrypting data
-SECURITY_KEY="usxyMHfLy2p1sDMlxZr6uvM_ojw-rrN2"
+# Database Configuration
+DB_DRIVER=mysql
+DB_SERVER=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dbname
+DB_USER=dbuser
+DB_PASSWORD=dbpassword
+DB_SCHEMA=public
+DB_TABLE_PREFIX=
 
-# The Data Source Name (“DSN”) that tells Craft how to connect to the database
-DB_DSN="mysql:host=127.0.0.1;port=3306;dbname=mydatabasename"
+# The URI segment that tells Craft to load the control panel
+CP_TRIGGER=admin
 
-# The database username to connect with
-DB_USER="databaseuser"
-
-# The database password to connect with
-DB_PASSWORD="password123"
-
-# Base URL (no trailing slash)
-BASE_URL="http://myproject.craft.test"
-
-# Base PATH (no trailing slash)
-BASE_PATH="/data/weblocal/myproject/web"
+# Base URL and path (no trailing slashes)
+BASE_URL = https://myproject.craft.test
+BASE_PATH = /Users/username/data/weblocal/myproject
 ```
 
 In `craft/config/general.php` and `craft/config/db.php`, start by defining a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support.
@@ -136,14 +138,15 @@ return [
         'defaultWeekStartDay' => 1,
         'omitScriptNameInUrls' => true,
         'cpTrigger' => 'iadadmin',
-        'securityKey' => getenv('SECURITY_KEY'),
+        'securityKey' => App::env('SECURITY_KEY'),
         'useProjectConfigFile' => true,
         // aliases (used in the CP and in templates)
         'aliases' => [
-          '@baseUrl' => getenv('BASE_URL'),
-          '@basePath' => getenv('BASE_PATH'),
-          '@assetBaseUrl' => getenv('BASE_URL').'/uploads',
-          '@assetBasePath' => getenv('BASE_PATH').'/uploads',
+          '@environment' => App::env('ENVIRONMENT'),
+          '@baseUrl' => App::env('BASE_URL'),
+          '@basePath' => App::env('BASE_PATH'),
+          '@assetBaseUrl' => App::env('BASE_URL').'/uploads',
+          '@assetBasePath' => App::env('BASE_PATH').'/uploads',
         ],
     ],
 
@@ -170,14 +173,14 @@ return [
 
 ```
 return [
-  'driver' => getenv('DB_DRIVER'),
-  'server' => getenv('DB_SERVER'),
-  'user' => getenv('DB_USER'),
-  'password' => getenv('DB_PASSWORD'),
-  'database' => getenv('DB_DATABASE'),
-  'schema' => getenv('DB_SCHEMA'),
-  'tablePrefix' => getenv('DB_TABLE_PREFIX'),
-  'port' => getenv('DB_PORT')
+  'driver' => App::env('DB_DRIVER'),
+  'server' => App::env('DB_SERVER'),
+  'user' => App::env('DB_USER'),
+  'password' => App::env('DB_PASSWORD'),
+  'database' => App::env('DB_DATABASE'),
+  'schema' => App::env('DB_SCHEMA'),
+  'tablePrefix' => App::env('DB_TABLE_PREFIX'),
+  'port' => App::env('DB_PORT')
 ];
 ```
 
@@ -200,7 +203,7 @@ return [
 <link rel="stylesheet" href="{{ alias('@baseUrl') }}/dist/css/main.min.css">
 ```
 
-Values defined via `dotenv` and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your webserver configuration, be it Apache or Nginx. `.env` file are (generally) not used in production and hosting providers will offer you a way to configure environment variables at the server level.
+Values defined via `dotenv` and used in your production configuration must be available to Craft in your production environment. That is usually done directly in your web server configuration, be it Apache or Nginx. `.env` file are (generally) not used in production and hosting providers will offer you a way to configure environment variables at the server level.
 
 ### Rich text configurations
 
@@ -689,8 +692,8 @@ We will mainly work with `craft.entries()` in this introduction. Since all tags 
 [`craft.entries()`](https://docs.craftcms.com/v3/dev/element-queries/entry-queries.html) is going to be your main tool to retrieve and display your entries.
 
 - `craft.entries().all()` allows you to retrieve all entries corresponding to the specified criteria.
-- `craft.entries().one()` allows you to retrieve the first entry corresponding to the specified criteria (retunrs `null` if no entry corresponds). [In most cases](https://docs.craftcms.com/v3/changes-in-craft-3.html#last), if you want the last entry, you can use `craft.entries().inReverse().one()`
-- `craft.entries().nth(number)` allows you to retrieve the nth entry corresponding to the specified criteria (retunrs `null` if no entry corresponds).
+- `craft.entries().one()` allows you to retrieve the first entry corresponding to the specified criteria (returns `null` if no entry corresponds). [In most cases](https://docs.craftcms.com/v3/changes-in-craft-3.html#last), if you want the last entry, you can use `craft.entries().inReverse().one()`
+- `craft.entries().nth(number)` allows you to retrieve the nth entry corresponding to the specified criteria (returns `null` if no entry corresponds).
 - `craft.entries().exists()` allows you to see if there is at least one entry corresponding to the specified criteria (returns `true` or `false`).
 - `craft.entries().count()` allows you to retrieve the total number of entries corresponding to the specified criteria.
 - `craft.entries().ids()` allows you to retrieve the ids of all entries corresponding to the specified criteria.
@@ -992,11 +995,11 @@ Articles in the help section are showing you how to list [all the tags used by t
 
 ### Users
 
-`craft.users()` allows you to access and display the users of your website. The tag functions like `craft.entries()` but returns a single [`User`](https://docs.craftcms.com/api/v3/craft-elements-user.html) element or an array of those. The `craft.users` tag also has [a series of parameters](https://docs.craftcms.com/v3/dev/element-queries/user-queries.html#parameters), some of which are tied to users-specific functionalities or behaviours.
+`craft.users()` allows you to access and display the users of your website. The tag functions like `craft.entries()` but returns a single [`User`](https://docs.craftcms.com/api/v3/craft-elements-user.html) element or an array of those. The `craft.users` tag also has [a series of parameters](https://docs.craftcms.com/v3/dev/element-queries/user-queries.html#parameters), some of which are tied to users-specific functionalities or behaviors.
 
 ### Assets and transforms
 
-`craft.assets()` allows you to access your assets. This tag also has a series of [parameters](https://docs.craftcms.com/v3/dev/element-queries/asset-queries.html#parameters), some of which are tied to assets-specific functionalities or behaviour. `craft.assets` works like `craft.entries()` except that it returns a single [`Asset`](https://docs.craftcms.com/api/v3/craft-elements-asset.html) element or an array of those.
+`craft.assets()` allows you to access your assets. This tag also has a series of [parameters](https://docs.craftcms.com/v3/dev/element-queries/asset-queries.html#parameters), some of which are tied to assets-specific functionalities or behavior. `craft.assets` works like `craft.entries()` except that it returns a single [`Asset`](https://docs.craftcms.com/api/v3/craft-elements-asset.html) element or an array of those.
 
 If your assets are images, Craft allows you to create transforms tied to all your asset groups. Transforms will generate thumbnails for all your assets. Transforms can be specified in the control panel and generated when assets are uploaded (Settings > Assets > Image Transforms) or they can be specified in your template and generated dynamically when assets are requested for the first time.
 
@@ -1079,7 +1082,7 @@ At the template level, you stay fully in control of the generated HTML code. We 
 {% endfor %}
 ```
 
-I personally like to simplify my templates a little bit and put all my Matrix Blocks views in dedicated self-contained files. By self-contained, I mean that if image transforms or oher variables are needed, they will all go inside those files. That way I can also easily reuse them elsewhere if needs be.
+I personally like to simplify my templates a little bit and put all my Matrix Blocks views in dedicated self-contained files. By self-contained, I mean that if image transforms or other variables are needed, they will all go inside those files. That way I can also easily reuse them elsewhere if needs be.
 
 ```twig
 {# Modular Body #}
@@ -1209,7 +1212,7 @@ Here is how to create a simple but effective language switcher.
 
 ### Query optimisation with with eager-loading
 
-A common problem with databases is known as "the n+1 problem". In a nutshell, this happens when you need to traverse a collection of related objects: for each object in the collection, `1 + n` queries are generated since each object in the collection can have `n` related objects. A simple example in Craft is loading a series of entries, and each entry has a related asset. When it fetches those entries, Craft creates `n` additional queries (one per entry) to check if a related asset exists or not. That's the default behaviour, which is called "lazy loading".
+A common problem with databases is known as "the n+1 problem". In a nutshell, this happens when you need to traverse a collection of related objects: for each object in the collection, `1 + n` queries are generated since each object in the collection can have `n` related objects. A simple example in Craft is loading a series of entries, and each entry has a related asset. When it fetches those entries, Craft creates `n` additional queries (one per entry) to check if a related asset exists or not. That's the default behavior, which is called "lazy loading".
 
 "[Eager-loading](https://docs.craftcms.com/v3/dev/eager-loading-elements.html)" is just a way to tell Craft, when you are making that main query for the entries, that each entry has a related asset that it should load too. Craft is then performing a more complex MySQL query under the hood loading all entries and related assets using as few queries as possible. You do that by using the `with` parameter in your `craft.entries()` tag.
 
@@ -1269,7 +1272,7 @@ Here is a more complex example to use if each entry has a matrix field containin
 
 [Craft's `{% cache %}` tag](https://docs.craftcms.com/v3/dev/tags/cache.html) can be used to speed up the performance of certain parts of your templates. Cached parts of a template will run needed database queries the first time a user hits the template and store the resulting html in the database. The next time a user hits that template, Craft is only going to fetch the stored HTML instead of running all those queries again.
 
-Craft automatically clears caches when elements within `{% cache %}` and `{% endcache %}` tags are deleted or updated. You can also specify a cache duration in your templates. The default duration if you do not define one using the tag parameters is the one specified by the `[cacheDuration](https://docs.craftcms.com/v3/config/config-settings.html#cacheduration)` config setting. The default is 24 hours. You can set all caches to never expire unless elements they contain are created, updated or deleted by setting your `cacheDuration` to `false`. That behaviour will be overridden for any cache tag with a `for` parameter set to any duration.
+Craft automatically clears caches when elements within `{% cache %}` and `{% endcache %}` tags are deleted or updated. You can also specify a cache duration in your templates. The default duration if you do not define one using the tag parameters is the one specified by the `[cacheDuration](https://docs.craftcms.com/v3/config/config-settings.html#cacheduration)` config setting. The default is 24 hours. You can set all caches to never expire unless elements they contain are created, updated or deleted by setting your `cacheDuration` to `false`. That behavior will be overridden for any cache tag with a `for` parameter set to any duration.
 
 ```twig
 {% cache %}
@@ -1290,7 +1293,7 @@ Craft automatically clears caches when elements within `{% cache %}` and `{% end
 {% endcache %}
 ```
 
-Caching should be used on templates that already have been optimised, for example by using eager-loading. Caching templates or arts of templates that are performing poorly is not a viable long term solution.
+Caching should be used on templates that already have been optimized, for example by using eager-loading. Caching templates or arts of templates that are performing poorly is not a viable long term solution.
 
 That can result in big performance gains. Prime targets for the `{% cache %}` tag are:
 
@@ -1304,7 +1307,7 @@ The first time you refresh your page, all queries are going to run and the resul
 
 ### Front end entry forms and Guest Entries
 
-Out of the box, Craft does allow you to create [entry forms](https://docs.craftcms.com/v3/dev/examples/entry-form.html) on the front-end of your website. These forms can only be used by registered users. You can also allow anonymous users to post entries from your front-end by using a the [Guest Entries](https://github.com/pixelandtonic/GuestEntries) first party plugin. That plugin allows you to select which sections you want to authorise guest entries for and what the default author will be for those entries.
+Out of the box, Craft does allow you to create [entry forms](https://docs.craftcms.com/v3/dev/examples/entry-form.html) on the front-end of your website. These forms can only be used by registered users. You can also allow anonymous users to post entries from your front-end by using a the [Guest Entries](https://github.com/pixelandtonic/GuestEntries) first party plugin. That plugin allows you to select which sections you want to authorize guest entries for and what the default author will be for those entries.
 
 Coupled with either an off-the-shelf notification plugin like [Sprout Email](http://sprout.barrelstrengthdesign.com/craft-plugins/email) or a custom one you wrote yourself using [events](https://craftcms.com/docs/plugins/hooks-and-events#events) and [Craft email service](https://craftcms.com/classreference/services/EmailService#sendEmail-detail), Craft makes it relatively easy to create a booking system for a free event or other similar small applications.
 
@@ -1317,7 +1320,7 @@ Two important things to note:
 
 ### Using Craft as a headless CMS
 
-You can also easily use Craft as a headless CMS, which is simply a CMS delivering content via an API (often a JSON API). In that scenario, your CMS does not care how the content is displayed and does not deal with the views or templates, but only with creating, updating, deleting, modifying and organising the content.
+You can also easily use Craft as a headless CMS, which is simply a CMS delivering content via an API (often a JSON API). In that scenario, your CMS does not care how the content is displayed and does not deal with the views or templates, but only with creating, updating, deleting, modifying and organizing the content.
 
 Craft also offers a [GraphQL content API](https://docs.craftcms.com/v3/graphql.html) that you can easily query from any static site generator or SPA framework. The [official Craft tutorial](https://docs.craftcms.com/tutorial/build/graphql.html) and the [documentation](https://docs.craftcms.com/v3/graphql.html) both have pretty hands on guides about [using Craft as a headless CMS](https://docs.craftcms.com/v3/dev/headless.html#app) with GraphQL.
 
@@ -1325,7 +1328,7 @@ Craft also offers a [GraphQL content API](https://docs.craftcms.com/v3/graphql.h
 
 Craft is a relatively young CMS and most projects these days are relaunches of existing websites rather than creating a website from scratch. Knowing these two facts, the need to import existing data into a new Craft install needs to be addressed in most cases.
 
-Luckily for us, Craft has a great first party import plugin called [Feed Me](https://github.com/craftcms/feed-me), which lets you import XML, RSS, ATOM, CSV or JSON feeds.
+Luckily for us, Craft has a great first party import plugin called [Feed Me](https://plugins.craftcms.com/feed-me), which lets you import XML, RSS, ATOM, CSV or JSON feeds.
 
 I generally go about it by creating RSS or JSON feeds in the old install, which most CMS will let you do, and use Feed Me to import nodes as entries in Craft. Some manual work is usually needed to tidy things up but the bulk of the work can often be automated.
 

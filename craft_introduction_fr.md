@@ -23,11 +23,11 @@ Si vous en avez besoin, vous pouvez ensuite payer \$59 à n'importe quel moment 
 
 #### Versions de test
 
-[Vous pouvez tester Craft Pro](https://craftcms.com/guides/try-craft-pro-plugins-before-buying) et toutes ses fonctionnalités gratuitement pourvu que vous soyez sur un domaine local et identifiable comme tel. Personellment, j'utilise des noms de domaines `myprojectname.craft.test` pour tous mes projets.
+[Vous pouvez tester Craft Pro](https://craftcms.com/guides/try-craft-pro-plugins-before-buying) et toutes ses fonctionnalités gratuitement pourvu que vous soyez sur un domaine local et identifiable comme tel. Personnellement, j'utilise des noms de domaines `myprojectname.craft.test` pour tous mes projets.
 
 ### Une plateforme de e-commerce intégrée
 
-Pixel & Tonic a également sorti [Craft Commerce](https://craftcms.com/commerce), une plateforme de e-commerce pour Craft CMS. Une licence coûte \$999 et vous donne droit à [une liste impressionnante de fonctionalités](https://craftcommerce.com/features).
+Pixel & Tonic a également sorti [Craft Commerce](https://craftcms.com/commerce), une plateforme de e-commerce pour Craft CMS. Une licence coûte \$999 et vous donne droit à [une liste impressionnante de fonctionnalités](https://craftcommerce.com/features).
 
 Une version "Lite" de Craft Commerce est également disponible, avec des fonctionnalités plus simples et un prix de \$199 par projet.
 
@@ -79,41 +79,43 @@ node_modules/
 
 Craft fournit nativement une façon simple de gérer des environnements multiples (local, dev, online) via [l'utilisation d'Arrays imbriqués](https://docs.craftcms.com/v3/config/environments.html) dans les fichiers `config/general.php` et `config/db.php`.
 
-Dans la mesure ou vos développeurs utilisent chacun une architecture de dossiers et de fichiers locale différente et parce que des informations sensibles ne doivent idéalement pas aparaître dans un repository Git, Craft vous propose d'utiliser un fichier `.env` à la racine de votre projet. Ce fichier vous permet d'utiliser les valeurs spécifiées dans ce fichier `.env` dans `craft/config/general.php` and `craft/config/db.php`.
+Dans la mesure ou vos développeurs utilisent chacun une architecture de dossiers et de fichiers locale différente et parce que des informations sensibles ne doivent idéalement pas apparaître dans un repository Git, Craft vous propose d'utiliser un fichier `.env` à la racine de votre projet. Ce fichier vous permet d'utiliser les valeurs spécifiées dans ce fichier `.env` dans `craft/config/general.php` and `craft/config/db.php`.
 
 Voici un exemple simple.
 
 **Exemple**: `.env`
 
 ```
-# The environment Craft is currently running in ('dev', 'staging', 'production', etc.)
-ENVIRONMENT="dev"
+# The environment Craft is currently running in (dev, staging, production, etc.)
+ENVIRONMENT=dev
+
+# The application ID used to to uniquely store session and cache data, mutex locks, and more
+APP_ID=CraftCMS--0c9c04d7-22dc-497f-8775-7c6ba6af0ed3
 
 # The secure key Craft will use for hashing and encrypting data
-SECURITY_KEY="superlonghashkey"
+SECURITY_KEY=7nq4Z9hajQCBc0fCAky5Lw2YkjUIVpIA
 
-# The secure key Craft will use for hashing and encrypting data
-SECURITY_KEY="usxyMHfLy2p1sDMlxZr6uvM_ojw-rrN2"
+# Database Configuration
+DB_DRIVER=mysql
+DB_SERVER=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dbname
+DB_USER=dbuser
+DB_PASSWORD=dbpassword
+DB_SCHEMA=public
+DB_TABLE_PREFIX=
 
-# The Data Source Name (“DSN”) that tells Craft how to connect to the database
-DB_DSN="mysql:host=127.0.0.1;port=3306;dbname=mydatabasename"
+# The URI segment that tells Craft to load the control panel
+CP_TRIGGER=admin
 
-# The database username to connect with
-DB_USER="databaseuser"
-
-# The database password to connect with
-DB_PASSWORD="password123"
-
-# Base URL (no trailing slash)
-BASE_URL="http://myproject.craft.test"
-
-# Base PATH (no trailing slash)
-BASE_PATH="/data/weblocal/myproject/web"
+# Base URL and path (no trailing slashes)
+BASE_URL = https://myproject.craft.test
+BASE_PATH = /Users/username/data/weblocal/myproject
 ```
 
-Dans `craft/config/general.php` et `craft/config/db.php`, commencez par définir un tableau global `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnments. Ce tableau `*` est obligatoire, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements. Les autres tableaux vont référencer les environnements définis dans votre fichier `.env`. Craft va comparer les clefs des autres tableaux et la constante PHP `CRAFT_ENVIRONMENT` ou utiliser "production" si rien n'est spécifié. Vous pouvez remplacer n'importe quel [paramètre de configuration](https://docs.craftcms.com/v3/config/config-settings.html) de cette façon.
+Dans `craft/config/general.php` et `craft/config/db.php`, commencez par définir un tableau global `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnements. Ce tableau `*` est obligatoire, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements. Les autres tableaux vont référencer les environnements définis dans votre fichier `.env`. Craft va comparer les clefs des autres tableaux et la constante PHP `CRAFT_ENVIRONMENT` ou utiliser "production" si rien n'est spécifié. Vous pouvez remplacer n'importe quel [paramètre de configuration](https://docs.craftcms.com/v3/config/config-settings.html) de cette façon.
 
-Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://docs.craftcms.com/v3/config/environments.html#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URls de vos assets volumes pour les adapter à divers environements. Vous pouvez également les utiliser dans vos templates via la [fonction `alias` de Craft](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
+Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://docs.craftcms.com/v3/config/environments.html#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URls de vos assets volumes pour les adapter à divers environnements. Vous pouvez également les utiliser dans vos templates via la [fonction `alias` de Craft](https://docs.craftcms.com/v3/dev/functions.html#alias-string).
 
 **Exemple**: `config/general.php`
 
@@ -134,15 +136,16 @@ return [
       'defaultWeekStartDay' => 1,
       'omitScriptNameInUrls' => true,
       'cpTrigger' => 'iadadmin',
-      'securityKey' => getenv('SECURITY_KEY'),
+      'securityKey' => App::env('SECURITY_KEY'),
       'useProjectConfigFile' => true,
 
       // aliases (used in the CP and in templates)
       'aliases' => [
-        '@baseUrl' => getenv('BASE_URL'),
-        '@basePath' => getenv('BASE_PATH'),
-        '@assetBaseUrl' => getenv('BASE_URL').'/uploads',
-        '@assetBasePath' => getenv('BASE_PATH').'/uploads',
+        '@environment' => App::env('ENVIRONMENT'),
+        '@baseUrl' => App::env('BASE_URL'),
+        '@basePath' => App::env('BASE_PATH'),
+        '@assetBaseUrl' => App::env('BASE_URL').'/uploads',
+        '@assetBasePath' => App::env('BASE_PATH').'/uploads',
       ],
     ],
 
@@ -165,18 +168,18 @@ return [
 ];
 ```
 
-**Exemple**: `config/db.php`. Tout est défini via .env ou via des valeurs d'environement sur votre serveur de production.
+**Exemple**: `config/db.php`. Tout est défini via .env ou via des valeurs d'environnement sur votre serveur de production.
 
 ```
 return array(
-  'driver' => getenv('DB_DRIVER'),
-  'server' => getenv('DB_SERVER'),
-  'user' => getenv('DB_USER'),
-  'password' => getenv('DB_PASSWORD'),
-  'database' => getenv('DB_DATABASE'),
-  'schema' => getenv('DB_SCHEMA'),
-  'tablePrefix' => getenv('DB_TABLE_PREFIX'),
-  'port' => getenv('DB_PORT')
+  'driver' => App::env('DB_DRIVER'),
+  'server' => App::env('DB_SERVER'),
+  'user' => App::env('DB_USER'),
+  'password' => App::env('DB_PASSWORD'),
+  'database' => App::env('DB_DATABASE'),
+  'schema' => App::env('DB_SCHEMA'),
+  'tablePrefix' => App::env('DB_TABLE_PREFIX'),
+  'port' => App::env('DB_PORT')
 );
 ```
 
@@ -203,7 +206,7 @@ Les valeurs définies via `dotenv` et utilisées dans une configuration de produ
 
 ### Editeurs HTML
 
-Craft vous permet d'utiliser [CKEditor](https://ckeditor5.github.io/) ou [Redactor](http://imperavi.com/redactor/) comme solution WYSIWYG pour permettre à vos utilisateurs d'utiliser du texte formatté en HTML. Les deux sont disponibles comme Plugins gratuits dans le Plugins Store de Craft.
+Craft vous permet d'utiliser [CKEditor](https://ckeditor5.github.io/) ou [Redactor](http://imperavi.com/redactor/) comme solution WYSIWYG pour permettre à vos utilisateurs d'utiliser du texte formaté en HTML. Les deux sont disponibles comme Plugins gratuits dans le Plugins Store de Craft.
 
 Pour ma part, j'ai toujours utilisé Redactor avec des configurations très simples.
 
@@ -251,7 +254,7 @@ L'entry type peut facilement être utilisé [dans le routing et les patterns d'U
 
 Les sections de type structure ressemblent beaucoup aux sections de type channel: elles peuvent contenir plusieurs entry types et les patterns d'URL des entries qu'elles contiennent peuvent être précisés.
 
-La grande différence est que ces sections de type structure sont destinées à créer des agencements hiérarchiques d'entries dont l'ordre peut être modifié manuellement. Vous pouvez également préciser le nombre de niveaux possibles dans cette hiérarchie d'entries, les patterns d'URL à utiliser suivant les niveaux des entries dans la hierarchie, ainsi que le template à utiliser pour les entries de la section.
+La grande différence est que ces sections de type structure sont destinées à créer des agencements hiérarchiques d'entries dont l'ordre peut être modifié manuellement. Vous pouvez également préciser le nombre de niveaux possibles dans cette hiérarchie d'entries, les patterns d'URL à utiliser suivant les niveaux des entries dans la hiérarchie, ainsi que le template à utiliser pour les entries de la section.
 
 Via l'écran de configuration de la section vous pouvez préciser:
 
@@ -272,7 +275,7 @@ Les fields peuvent être groupés au sein de groupes. Ces groupes n'ont qu'une f
 
 ### Globals
 
-A côté des sections et des entries, les [globals](https://docs.craftcms.com/v3/globals.html) peuvent être utilisées pour stocker du contenu. Les globals sont en utilisées pour des contenus brefs, qui n'ont pas leur place dans des enries mais qui doivent pouvoir être édités facilement via le control panel: tagline, coordonnées de contact, code Google Analytics, etc.
+A côté des sections et des entries, les [globals](https://docs.craftcms.com/v3/globals.html) peuvent être utilisées pour stocker du contenu. Les globals sont en utilisées pour des contenus brefs, qui n'ont pas leur place dans des entries mais qui doivent pouvoir être édités facilement via le control panel: tagline, coordonnées de contact, code Google Analytics, etc.
 
 Vous pouvez créer des groupes de contenus en utilisant les global sets. Chaque set de globals possède son field layout et donc sa propre data structure.
 
@@ -330,7 +333,7 @@ L'un des autres éléments intéressant de Craft c'est le [routing](https://docs
 
 Comme nous l'avons déjà vu, Craft cous permet de spécifier une structure d'URL propre pour chaque Entry, User, Asset, Tags and Categories.
 
-Si cela ne suffit pas à couvrir tous vos besoins, vous pouvez égalment créer des routes dynamiques. Pour chaque route créée, vous pouvez spécifier quel template doit être chargé par Craft.
+Si cela ne suffit pas à couvrir tous vos besoins, vous pouvez également créer des routes dynamiques. Pour chaque route créée, vous pouvez spécifier quel template doit être chargé par Craft.
 
 Il est possible créer des routes et de spécifier quel template doit être chargé par Craft. Un exemple facile à comprendre est [un template donnant accès à une archive des entries classées par année](https://craftcms.com/guides/creating-an-archive-page-for-entries#yearly-archive-pages).
 
@@ -669,7 +672,7 @@ Si la macro est définie dans un fichier extérieur
 
 ## 4. Récupérer et manipuler vos données avec Craft et Twig
 
-Avec Craft, vous intéragissez avec la base de données en utilisant des [Element Queries](https://docs.craftcms.com/v3/dev/element-queries/). Cela à l'air très compliqué mais c'est en fait un concept assez simple:
+Avec Craft, vous interagissez avec la base de données en utilisant des [Element Queries](https://docs.craftcms.com/v3/dev/element-queries/). Cela à l'air très compliqué mais c'est en fait un concept assez simple:
 
 1. vous créez une ElementQuery pour le type de données que vous souhaitez récupérer dans la base de données (entries, users, assets, etc.)
 2. vous spécifiez les paramètres à utiliser (limit, order, filters, etc.)
@@ -876,7 +879,7 @@ Lorsque Craft charge un template de détail et que l'URL correspond à l'URI d'u
 
 #### Page de categories et variable "category"
 
-Le même principe est d'application lorsqu'une page de catégorie est affichée. Lorsqu'une URL défine comme une URL de catégorie est affichée par le système, Craft défini automatiquement une variable `category` que vous pouvez utiliser directement au sein de vos templates.
+Le même principe est d'application lorsqu'une page de catégorie est affichée. Lorsqu'une URL définie comme une URL de catégorie est affichée par le système, Craft défini automatiquement une variable `category` que vous pouvez utiliser directement au sein de vos templates.
 
 ```twig
 {#
@@ -1076,7 +1079,7 @@ Au niveau du templating, vous pouvez également contrôler très précisément l
 {% endfor %}
 ```
 
-Personellement, je préfère simplifier mes templates et placer l'ensemble des vues pour mes Matrix Blocks dans des fichiers dédiés indépendants et auto-suffisants. Ces fichiers sont auto-suffisants dans la mesure où ils contiennent l'ensemble des variables et autres objets utilisés pour les transformations d'images. Cela permet également de réutiliser ces fichiers ailleurs si besoin est en ayant une source unique.
+Personnellement, je préfère simplifier mes templates et placer l'ensemble des vues pour mes Matrix Blocks dans des fichiers dédiés indépendants et auto-suffisants. Ces fichiers sont auto-suffisants dans la mesure où ils contiennent l'ensemble des variables et autres objets utilisés pour les transformations d'images. Cela permet également de réutiliser ces fichiers ailleurs si besoin est en ayant une source unique.
 
 ```twig
 {# Modular Body #}
@@ -1112,11 +1115,11 @@ La construction de [formulaires de recherche dynamiques pour le front-end](https
 
 ### Créer des queries complexes
 
-Comme nous l'avons vu plus haut, les prinicpaux tags de Craft comme par exemple `craft.entries()` acceptent des objets comme paramètres. Twig permet facilement de créer et de manipuler des objets à l'aide de filtres tels que `merge` et `slide`. Craft possède également des filtres propres tels que `without` et `intersect` qui s'avèrent bien utiles.
+Comme nous l'avons vu plus haut, les principaux tags de Craft comme par exemple `craft.entries()` acceptent des objets comme paramètres. Twig permet facilement de créer et de manipuler des objets à l'aide de filtres tels que `merge` et `slide`. Craft possède également des filtres propres tels que `without` et `intersect` qui s'avèrent bien utiles.
 
 En combinant ces deux éléments, il devient possible de créer des [queries complexes](https://webstoemp.com/blog/manipulating-craft-elementcriteriamodel-with-twig/) et de construire des fonctionnalités relativement avancées assez facilement.
 
-Voici un exemple simple. Vous avez laissé la possiblité à vos utilisateurs de choisir 3 blogposts à afficher sur la homepage. Vous avez donc créé un champs entries dont vous avez spécifié la limite à 3, puisque votre design de la homepage possède seulement 3 emplacements. Vous souhaitez que ces trois emplacements soient toujours remplis. Si l'utilisateur a choisi 1, 2 ou 3 blogposts à l'aide du champs entries, vous voulez afficher ces blogposts d'abord et complèter éventuellement les emplacements restants avec les blogposts les plus récents. Aucun blogost ne peut êre affiché deux fois. Voici comment faire:
+Voici un exemple simple. Vous avez laissé la possibilité à vos utilisateurs de choisir 3 blogposts à afficher sur la homepage. Vous avez donc créé un champs entries dont vous avez spécifié la limite à 3, puisque votre design de la homepage possède seulement 3 emplacements. Vous souhaitez que ces trois emplacements soient toujours remplis. Si l'utilisateur a choisi 1, 2 ou 3 blogposts à l'aide du champs entries, vous voulez afficher ces blogposts d'abord et compléter éventuellement les emplacements restants avec les blogposts les plus récents. Aucun blogpost ne peut être affiché deux fois. Voici comment faire:
 
 ```twig
 {#
@@ -1177,7 +1180,7 @@ Les sites multilingues sont en général assez complexes. Craft rend les choses 
 
 Je vis et je travaille en Belgique, un pays qui compte trois langues officielles. les capacités de Craft à gérer les sites multilingues sont une bouffée d'air frais. Par la force des choses, j'ai travaillé sur un certain nombre de sites multilingues. Voici [un blogpost détaillant les différentes techniques et macros](https://webstoemp.com/blog/craft-multilingual-websites-tips/) que j'utilise le plus souvent pour ce genre de projets.
 
-Voici également comment contruite un language switcher simple.
+Voici également comment construite un language switcher simple.
 
 ```twig
 {# get all sites in the currentSite group #}
@@ -1206,7 +1209,7 @@ Voici également comment contruite un language switcher simple.
 
 ### Optimisation de queries et eager-loading
 
-Un problème courant avec les bases de données est connu sous le nom de "problème n+1". Ce problème se pose lorsque vous devez traverser ue collection d'objets ayant des relations avec d'autres: pour chaque objet dans la collection, `1 + n` queries sont générées puisque chaque objet de la collection peut être lié à `n` objets. Un exemple simple avec Craft consiste à demander une série d'entries, chaque entry ayant un asset lié. Lorsque Craft charge ces entries, il va créer `n` queries additionnelles pour vérifier si un asset lié existe ou pas. C'est le comportement par défaut de Craft, qui porte le nom de "lazy loading".
+Un problème courant avec les bases de données est connu sous le nom de "problème n+1". Ce problème se pose lorsque vous devez traverser une collection d'objets ayant des relations avec d'autres: pour chaque objet dans la collection, `1 + n` queries sont générées puisque chaque objet de la collection peut être lié à `n` objets. Un exemple simple avec Craft consiste à demander une série d'entries, chaque entry ayant un asset lié. Lorsque Craft charge ces entries, il va créer `n` queries additionnelles pour vérifier si un asset lié existe ou pas. C'est le comportement par défaut de Craft, qui porte le nom de "lazy loading".
 
 "[Eager-loading](https://docs.craftcms.com/v3/dev/eager-loading-elements.html)" est une façon d'indiquer à Craft que lorsqu'il va chercher ces entries, chacune d'entre elles possède également un asset qu'il faudra aller chercher lui aussi. Une fois prévenu, Craft va aller chercher les entries et les assets liés en utilisant le moins de queries MySQL possible. Pour faire de l'eager loading, il suffit d'utiliser le paramètre `with` dans vos tags `craft.entries()` par exemple.
 
@@ -1237,7 +1240,7 @@ Un problème courant avec les bases de données est connu sous le nom de "probl�
 
 Utiliser de l'eager loading peut devenir plus complexe. Vous pouvez utiliser l'eager loading avec entries, assets, catégories, tags ou users. Vous pouvez également l'utiliser avec des assets transforms et des Matrix Blocks. Vous pouvez également utiliser l'eager loading pour charger des éléments liés imbriqués, ce qui m'a déjà coûté quelques cheveux blancs. [Un excellent guide concernant l'eager loading](https://straightupcraft.com/articles/examples-of-eager-loading-elements-in-twig-and-php) est disponible sur Straight Up Craft si vous voulez vous pencher d'avantage sur la question.
 
-Voici néanmoins un exemple plus complexe à utiliser si chaque entry possède un champs Matrix qui contient un champs asset pour lequel un tranform nommé `thumbnail` est défini dans le template et appliqué:
+Voici néanmoins un exemple plus complexe à utiliser si chaque entry possède un champs Matrix qui contient un champs asset pour lequel un transform nommé `thumbnail` est défini dans le template et appliqué:
 
 ```twig
 {% set thumbnail = {
@@ -1264,9 +1267,9 @@ Voici néanmoins un exemple plus complexe à utiliser si chaque entry possède u
 
 ### Le tag `{% cache %}`
 
-[Le tag `{% cache %}`](https://docs.craftcms.com/v3/dev/tags/cache.html) peut être utilisé pour améliorer la performance de certaines parties de templates. Lorsque le template est chargé pour la première fois, les parties de templates cachées vont exécutées les queries nécessaires pour récupérer les élements souhaités et vont ensuite stocker l'HTML produit dans la base de données. Lorsque ce template est chargé après cette requète initiale, Craft va seulement chargé le HTML stocké dans la base de données au lieu d'exécuter à nouveau l'ensemble des queries.
+[Le tag `{% cache %}`](https://docs.craftcms.com/v3/dev/tags/cache.html) peut être utilisé pour améliorer la performance de certaines parties de templates. Lorsque le template est chargé pour la première fois, les parties de templates cachées vont exécutées les queries nécessaires pour récupérer les éléments souhaités et vont ensuite stocker l'HTML produit dans la base de données. Lorsque ce template est chargé après cette requête initiale, Craft va seulement chargé le HTML stocké dans la base de données au lieu d'exécuter à nouveau l'ensemble des queries.
 
-Craft va automatiquement effacer les caches lorsque des élements compris entre les tags `{% cache %}` et `{% endcache %}` sont supprimés ou mis à jour. Vous pouvez également spécifier la durée de vie de vos caches. La durée par défault si vous ne spécfiez pas une valeur pour le paramètre `for` est celle spécifiée par le paramètre de configuration [`cacheDuration`](https://docs.craftcms.com/v3/config/config-settings.html#cacheduration). Sa valeur par défaut est d'un jour. Vous pouvez également faire en sorte que vos caches n'expirent jamais à moins qu'un élément qu'ils conteinnent soit créé, supprimé ou modifié en mettant la valeur de `cacheDuration` à `false`. Spécifier une valeur pour le paramètre `for` prendra toujours le pas sur cette configuration.
+Craft va automatiquement effacer les caches lorsque des éléments compris entre les tags `{% cache %}` et `{% endcache %}` sont supprimés ou mis à jour. Vous pouvez également spécifier la durée de vie de vos caches. La durée par défaut si vous ne spécifiez pas une valeur pour le paramètre `for` est celle spécifiée par le paramètre de configuration [`cacheDuration`](https://docs.craftcms.com/v3/config/config-settings.html#cacheduration). Sa valeur par défaut est d'un jour. Vous pouvez également faire en sorte que vos caches n'expirent jamais à moins qu'un élément qu'ils contiennent soit créé, supprimé ou modifié en mettant la valeur de `cacheDuration` à `false`. Spécifier une valeur pour le paramètre `for` prendra toujours le pas sur cette configuration.
 
 ```twig
 {% cache %}
@@ -1287,7 +1290,7 @@ Craft va automatiquement effacer les caches lorsque des élements compris entre 
 {% endcache %}
 ```
 
-Le caching doit idéalement se faire sur des templates déjà optimisés. Une couche de caching appliquée sur un template qui n'est pas optimisé est un emplatre sur une jambe de bois.
+Le caching doit idéalement se faire sur des templates déjà optimisés. Une couche de caching appliquée sur un template qui n'est pas optimisé est un emplâtre sur une jambe de bois.
 
 Bien utilisé, le caching vous fera gagner pas mal de performance. Le tag `{% cache %}` est principalement utilisé lors des cas de figures suivants:
 
@@ -1295,13 +1298,13 @@ Bien utilisé, le caching vous fera gagner pas mal de performance. Le tag `{% ca
 - Des champs Matrix comportant des champs relationnels (entries, assets, users, categories, tags)
 - Affichage de données provenant d'un site tiers (Twitter, etc.)
 
-Vous pouvez tester l'efficacité de vos tratégies de caching en activant le `devMode`, en supprimant les caches dans le control panel (paramètres, Outils) et en rafraîchissant votre page en consultant la Console dans les outils de dévelopement de votre navigateur. Regardez le "profiling summary report", qui vous donnera le nombre total de queries exécutées par Craft et le temps de rendu de la page.
+Vous pouvez tester l'efficacité de vos stratégies de caching en activant le `devMode`, en supprimant les caches dans le control panel (paramètres, Outils) et en rafraîchissant votre page en consultant la Console dans les outils de développement de votre navigateur. Regardez le "profiling summary report", qui vous donnera le nombre total de queries exécutées par Craft et le temps de rendu de la page.
 
-Lors du premier refresh de la page après avoir vidé les caches, toutes les queries seront exécutées et le HTML généré sera enregistré dans la base de données. Lorsque vous rafraichirez la page pour la seconde fois, Craft ne fera que récuérer le HTML et vous devriez constater une baisse importante du nombre de queries et du temps de rendu de la page.
+Lors du premier refresh de la page après avoir vidé les caches, toutes les queries seront exécutées et le HTML généré sera enregistré dans la base de données. Lorsque vous rafraichirez la page pour la seconde fois, Craft ne fera que récupérer le HTML et vous devriez constater une baisse importante du nombre de queries et du temps de rendu de la page.
 
 ### Formulaires front-end: entry form et guest entries
 
-Par défaut, Craft permet la création d'[entry forms](https://craftcms.com/docs/templating/entry-form) pour le front-end de votre site. Ces formulaires peuvent uniquement être utilisés par des utilisateurs enregistrés. Vous pouvez également autoriser des utilisateurs anonymes à poster des entries en utilisant le plugin [Guest Entries](https://github.com/pixelandtonic/GuestEntries) développé par Pixel&Tonic. Ce plugin vous permt de choisir pour quelles sections vous souhaitez autoriser des entries anonymes et quel auteur par défaut doit être spécifié pour ces entries.
+Par défaut, Craft permet la création d'[entry forms](https://craftcms.com/docs/templating/entry-form) pour le front-end de votre site. Ces formulaires peuvent uniquement être utilisés par des utilisateurs enregistrés. Vous pouvez également autoriser des utilisateurs anonymes à poster des entries en utilisant le plugin [Guest Entries](https://github.com/pixelandtonic/GuestEntries) développé par Pixel&Tonic. Ce plugin vous permet de choisir pour quelles sections vous souhaitez autoriser des entries anonymes et quel auteur par défaut doit être spécifié pour ces entries.
 
 En couplant cela avec un plugin de notification tel que Sprout Email ou un plugin que vous aurez écrit en utilisant les événements et le service email de Craft, vous pouvez facilement créer des applications simples comme un système de booking pour un événement gratuit.
 
@@ -1309,7 +1312,7 @@ La syntaxe à utiliser pour créer ces formulaires front-end est assez simple. L
 
 Deux choses importantes cependant:
 
-- Lorsqu'une erreur de validation se produit, l'URL du formulaire est reloadée et une variable `entry` est disponible. L'`entryModel` qui y est lié décrit l'entry soumise par le formulaire.
+- Lorsqu'une erreur de validation se produit, l'URL du formulaire est rechargée et une variable `entry` est disponible. L'`entryModel` qui y est lié décrit l'entry soumise par le formulaire.
 - Vous pouvez récupérer les valeurs postées depuis cette variable `entry`, ainsi que les erreurs de validations via `entry.getError()`, `getErrors()`, ou `getAllErrors()`.
 
 ### Utiliser Craft comme un CMS headless
@@ -1320,18 +1323,15 @@ Craft possède nativement une [API de contenu en GraphQL](https://docs.craftcms.
 
 that you can easily query from any static site generator or SPA framework. The [official Craft tutorial](https://docs.craftcms.com/tutorial/build/graphql.html) and the [documentation](https://docs.craftcms.com/v3/graphql.html) both have pretty hands on guides about [using Craft as a headless CMS](https://docs.craftcms.com/v3/dev/headless.html#app) with GraphQL.
 
-Craft généère une [API GraphQL pour vos contenus](<(https://docs.craftcms.com/v3/graphql.html)>) que vous pouvez utiliser avec de nombreux Static Site Generators ou frameworks SPA.
+Craft génère une [API GraphQL pour vos contenus](<(https://docs.craftcms.com/v3/graphql.html)>) que vous pouvez utiliser avec de nombreux Static Site Generators ou frameworks SPA.
 
 ### Import de données: plugins
 
 Craft est un CMS relativement jeune et la plupart des projets consistent à redesigner et à relancer des sites existants plutôt qu'à créer un site à partir de rien. Il vous faudra donc souvent importer des données existantes dans une installation Craft.
 
-Heureusement pour nous, il existe quelques bons plugins d'import sur lesquels vous pouvez compter. Mes deux favoris sont:
+Heureusement pour nous, il un excellent plugins d'import sur lequel vous pouvez compter: [Feed Me par Pixel and Tonic](https://plugins.craftcms.com/feed-me), qui vous permet d'importer des données structurées en divers formats (XML, RSS, ATOM, CSV, JSON).
 
-- [Feed Me par Verbb](https://github.com/verbb/feed-me), qui vous permet d'importer des feeds XML, RSS ou ATOM
-- [Sprout import by Barrel Strength Design](https://github.com/barrelstrength/craft-sprout-import), qui vous permet d'importer des fichiers JSON
-
-Generalement, j'importe ces données en créant des feeds RSS dans l'ancien système (ce que la plumart des CMS permettent de faire facilement) et j'utilise Feed Me pour importer les nodes comme entries dans Craft. Il reste en général un peu de travail à effectuer manuellement mais la plupart des données peuvent être importées automatiquement.
+Généralement, j'importe ces données en créant des feeds RSS dans l'ancien système (ce que la plupart des CMS permettent de faire facilement) et j'utilise Feed Me pour importer les nodes comme entries dans Craft. Il reste en général un peu de travail à effectuer manuellement mais la plupart des données peuvent être importées automatiquement.
 
 ## Exercices
 
