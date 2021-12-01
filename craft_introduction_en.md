@@ -90,10 +90,10 @@ Here is an exemple of what it looks like:
 ENVIRONMENT=dev
 
 # The application ID used to to uniquely store session and cache data, mutex locks, and more
-APP_ID=CraftCMS--0c9c04d7-22dc-497f-8775-7c6ba6af0ed3
+APP_ID=CraftCMS--randomComplexString
 
 # The secure key Craft will use for hashing and encrypting data
-SECURITY_KEY=7nq4Z9hajQCBc0fCAky5Lw2YkjUIVpIA
+SECURITY_KEY=randomComplexString
 
 # Database Configuration
 DB_DRIVER=mysql
