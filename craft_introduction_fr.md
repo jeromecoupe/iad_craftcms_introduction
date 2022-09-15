@@ -1283,7 +1283,7 @@ Comme dit plus haut, utiliser `collect()` au lieu de `.all()` ou `.one()` renvoi
 ```twig
 {% set items = craft.entries()
   .section('blogposts')
-  .all() %}
+  .collect() %}
 
 {% for item in items %}
   <article>

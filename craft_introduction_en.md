@@ -1283,7 +1283,7 @@ As we said earlier, using `.collect()` instead of `.all()` or `.one()` returns a
 ```twig
 {% set items = craft.entries()
   .section('blogposts')
-  .all() %}
+  .collect() %}
 
 {% for item in items %}
   <article>
@@ -1302,7 +1302,7 @@ As we said earlier, using `.collect()` instead of `.all()` or `.one()` returns a
 {% set items = craft.entries()
   .section('blogposts')
   .with(['blogpostImage'])
-  .all() %}
+  .collect() %}
 
 {% for item in items %}
   <article>
