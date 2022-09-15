@@ -77,9 +77,9 @@ node_modules/
 
 ### Configurations pour environnements multiples
 
-Craft fournit nativement une façon simple de gérer des environnements multiples (dev, staging, production) via [l'utilisation d'Arrays imbriqués](https://craftcms.com/docs/4.x/config/config-settings.html) dans les fichiers `config/general.php` et `config/db.php`.
+Craft fournit nativement une façon simple de gérer des environnements multiples (dev, staging, production).
 
-Dans la mesure ou vos développeurs utilisent chacun une architecture de dossiers et de fichiers locale différente et parce que des informations sensibles ne doivent idéalement pas apparaître dans un repository Git, Craft vous propose d'utiliser un fichier `.env` à la racine de votre projet. Ce fichier vous permet d'utiliser les valeurs spécifiées dans ce fichier `.env` dans `craft/config/general.php` and `craft/config/db.php`, ce qui permet de les simplifier.
+Dans la mesure ou vos développeurs utilisent chacun une architecture de dossiers et de fichiers locale différente et parce que des informations sensibles ne doivent pas apparaître dans un repository Git, Craft vous propose d'utiliser un fichier `.env` à la racine de votre projet. Ce fichier vous permet d'utiliser les valeurs spécifiées dans ce fichier `.env` dans `craft/config/general.php` and `craft/config/db.php`.
 
 Voici un exemple simple.
 
@@ -113,13 +113,17 @@ BASE_URL = https://myproject.craft.test
 BASE_PATH = /Users/username/data/weblocal/myproject
 ```
 
-Dans `craft/config/general.php` et `craft/config/db.php`, commencez par définir un tableau global `*`. Les valeurs spécifiées dans ce tableau seront appliquées à tous vos environnements. Ce tableau `*` est obligatoire, même s'il ne contient rien, dans la mesure ou Craft se repose sur ce tableau pour activer la configuration multi-environnements. Les autres tableaux vont référencer les environnements définis dans votre fichier `.env`. Craft va comparer les clefs des autres tableaux et la constante PHP `CRAFT_ENVIRONMENT` ou utiliser "production" si rien n'est spécifié. Vous pouvez remplacer n'importe quel [paramètre de configuration](https://craftcms.com/docs/4.x/config/config-settings.html) de cette façon.
+Vous pouvez utiliser les valeurs définies dans ce fichier `.env` dans vos fichiers de configuration `craft/config/general.php` et `craft/config/db.php` (vous devrez créer ce fichier si il n'existe pas). Cela vous permet de définir n'importe quel [paramètre de configuration](https://craftcms.com/docs/4.x/config/config-settings.html).
 
 Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://craftcms.com/docs/4.x/config/#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URls de vos assets volumes pour les adapter à divers environnements. Vous pouvez également les utiliser dans vos templates via la fonction `alias()` de Craft.
 
-**Exemple**: `config/general.php`
+#### Map ou Fluent
 
-```
+Vos fichiers de settings peuvent utiliser deux syntaxe: map ou fluent. Les principaux avantages de la syntaxe "Fluent" sont qu'elle vous permet d'avoir de l'auto-complétion et de la documentation inline.
+
+**Exemple (map)**: `config/general.php`
+
+```php
 <?php
 /**
  * General Configuration
@@ -130,48 +134,95 @@ Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://
  * @see \craft\config\GeneralConfig
  */
 
+use craft\helpers\App;
+
+$isDev = App::env('ENVIRONMENT') === 'dev';
+$isProd = App::env('ENVIRONMENT') === 'production';
+
 return [
-    // Global settings
-    '*' => [
-      'defaultWeekStartDay' => 1,
-      'omitScriptNameInUrls' => true,
-      'cpTrigger' => 'iadadmin',
-      'securityKey' => App::env('SECURITY_KEY'),
-      'useProjectConfigFile' => true,
-
-      // aliases (used in the CP and in templates)
-      'aliases' => [
-        '@environment' => App::env('ENVIRONMENT'),
-        '@baseUrl' => App::env('BASE_URL'),
-        '@basePath' => App::env('BASE_PATH'),
-        '@assetBaseUrl' => App::env('BASE_URL').'/uploads',
-        '@assetBasePath' => App::env('BASE_PATH').'/uploads',
-      ],
-    ],
-
-    // Dev environment settings
-    'dev' => [
-      'devMode' => true,
-    ],
-
-    // Staging environment settings
-    'staging' => [
-      'allowAdminChanges' => false,
-      'devMode' => true,
-    ],
-
-    // Production environment settings
-    'production' => [
-      'allowAdminChanges' => false,
-      'devMode' => false,
-    ],
+  'defaultWeekStartDay' => 1,
+  'omitScriptNameInUrls' => true,
+  'limitAutoSlugsToAscii' => true,
+  'defaultSearchTermOptions' => [
+    'subLeft' => true,
+    'subRight' => true,
+  ],
+  'devMode' => $isDev,
+  'allowAdminChanges' => $isDev,
+  'disallowRobots' => !$isProd,
+  'securityKey' => App::env('SECURITY_KEY'),
+  'cpTrigger' => App::env('CP_TRIGGER') ?: 'admin',
+  'aliases' => [
+    '@web' => App::env('BASE_URL'),
+    '@baseUrl' => App::env('BASE_URL'),
+    '@basePath' => App::env('BASE_PATH'),
+    '@assetsBasePath' => App::env('BASE_PATH').'/uploads',
+    '@assetsBaseUrl' => App::env('BASE_URL').'/uploads',
+    '@webroot' => App::env('BASE_PATH')
+  ]
 ];
 ```
 
-**Exemple**: `config/db.php`. Tout est défini via .env ou via des valeurs d'environnement sur votre serveur de production.
+**Exemple (fluent)**: `config/general.php`
 
+```php
+<?php
+/**
+ * General Configuration
+ *
+ * All of your system's general configuration settings go in here. You can see a
+ * list of the available settings in vendor/craftcms/cms/src/config/GeneralConfig.php.
+ *
+ * @see \craft\config\GeneralConfig
+ */
+
+use craft\config\GeneralConfig;
+use craft\helpers\App;
+
+$isDev = App::env('ENVIRONMENT') === 'dev';
+$isProd = App::env('ENVIRONMENT') === 'production';
+
+return GeneralConfig::create()
+  ->defaultWeekStartDay(1)
+  ->omitScriptNameInUrls()
+  ->limitAutoSlugsToAscii(true)
+  ->defaultSearchTermOptions([
+    'subLeft' => true,
+    'subRight' => true,
+  ])
+  ->devMode($isDev)
+  ->allowAdminChanges($isDev)
+  ->disallowRobots(!$isProd)
+  ->securityKey(App::env('SECURITY_KEY'))
+  ->cpTrigger(App::env('CP_TRIGGER') ?: 'admin')
+  ->aliases([
+    '@web' => App::env('BASE_URL'),
+    '@baseUrl' => App::env('BASE_URL'),
+    '@basePath' => App::env('BASE_PATH'),
+    '@assetsBasePath' => App::env('BASE_PATH').'/uploads',
+    '@assetsBaseUrl' => App::env('BASE_URL').'/uploads',
+    '@webroot' => App::env('BASE_PATH')
+  ])
+;
 ```
-return array(
+
+**Exemple (map)**: `config/db.php`.
+
+```php
+<?php
+/**
+ * Database Configuration
+ *
+ * All of your system's database configuration settings go in here. You can see a
+ * list of the available settings in vendor/craftcms/cms/src/config/DbConfig.php.
+ *
+ * @see \craft\config\DbConfig
+ */
+
+use craft\helpers\App;
+
+return [
+  'dns' => App::env('DB_DRIVER') :? null,
   'driver' => App::env('DB_DRIVER'),
   'server' => App::env('DB_SERVER'),
   'user' => App::env('DB_USER'),
@@ -180,7 +231,36 @@ return array(
   'schema' => App::env('DB_SCHEMA'),
   'tablePrefix' => App::env('DB_TABLE_PREFIX'),
   'port' => App::env('DB_PORT')
-);
+]
+```
+
+**Exemple (fluent)**: `config/db.php`.
+
+```php
+<?php
+/**
+ * Database Configuration
+ *
+ * All of your system's database configuration settings go in here. You can see a
+ * list of the available settings in vendor/craftcms/cms/src/config/DbConfig.php.
+ *
+ * @see \craft\config\DbConfig
+ */
+
+use craft\config\DbConfig;
+use craft\helpers\App;
+
+return DbConfig::create()
+  ->dsn(App::env('DB_DSN') ?: null)
+  ->driver(App::env('DB_DRIVER'))
+  ->server(App::env('DB_SERVER'))
+  ->port(App::env('DB_PORT'))
+  ->database(App::env('DB_DATABASE'))
+  ->user(App::env('DB_USER'))
+  ->password(App::env('DB_PASSWORD'))
+  ->schema(App::env('DB_SCHEMA'))
+  ->tablePrefix(App::env('DB_TABLE_PREFIX'))
+;
 ```
 
 **Exemple**: utilisation des alias dans la configuration de vos assets volumes (locaux).

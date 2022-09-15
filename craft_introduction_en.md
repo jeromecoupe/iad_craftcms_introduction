@@ -77,9 +77,7 @@ node_modules/
 
 ### Multiple environments configurations
 
-Craft offers a native way to deal with multiple environments configurations through the use of nested arrays and [environment-specific variables ](https://craftcms.com/docs/4.x/config/config-settings.html) in your `config/general.php` and `config/db.php` configuration files.
-
-Because each developer likely uses different files and folders architectures locally and because sensitives informations like database credentials should ideally not be committed to a repository, Craft allows you to use a `.env` file at the root of your project so every developer can use her/his own settings. You can then use values specified in that `.env` files in `craft/config/general.php` and `craft/config/db.php`, which would allow you to simplify those files even more.
+Because each developer likely uses different files and folders architectures locally and because sensitives informations like database credentials should ideally not be committed to a repository, Craft allows you to use a `.env` file at the root of your project so every developer can use her/his own settings. You can then use values specified in that `.env` files in `craft/config/general.php` and `craft/config/db.php`.
 
 Here is an exemple of what it looks like:
 
@@ -90,10 +88,10 @@ Here is an exemple of what it looks like:
 ENVIRONMENT=dev
 
 # The application ID used to to uniquely store session and cache data, mutex locks, and more
-APP_ID=CraftCMS--randomComplexString
+APP_ID=randomid
 
 # The secure key Craft will use for hashing and encrypting data
-SECURITY_KEY=randomComplexString
+SECURITY_KEY=randomkey
 
 # Database Configuration
 DB_DRIVER=mysql
@@ -113,15 +111,17 @@ BASE_URL = https://myproject.craft.test
 BASE_PATH = /Users/username/data/weblocal/myproject
 ```
 
-In `craft/config/general.php` and `craft/config/db.php`, start by defining a `*` array. Values specified in there will be applied to all your environments. The `*` array is mandatory, even if it contains nothing, as Craft looks for it to enable multi-environment config support.
+You will then be able to use all values defined in that `.env` files in your configuration files `craft/config/general.php` et `craft/config/db.php` (you will have to create that one if it does not exists). Those files allow you to define all of Craft's [configuration settings](https://craftcms.com/docs/4.x/config/config-settings.html).
 
-Other keys will reference environments defined in your `.env` file. Craft will check those keys against the `CRAFT_ENVIRONMENT` PHP constant and default to "production" if nothing is specified. You can pretty much override any [configuration settings](https://craftcms.com/docs/4.x/config/config-settings.html) that way.
+You can also use these values to create [Yii aliases](https://craftcms.com/docs/4.x/config/#aliases) that you can use in the contyrol panel, for example to define the paths and URLs of your assets FileSystems. You can also use those in your templates with the `alias()` function.
 
-You can also use `craft/config/general.php` to create [Yii aliases](https://craftcms.com/docs/4.x/config/#aliases). You can then use those aliases in the Control Panel, for example when defining file system paths and url for your asset volumes to make them environment specific. You can also reference those aliases in your templates using the Craft `alias()` function.
+#### Map or Fluent
 
-**Example**: `config/general.php`
+Your settings files can use two syntaxes; map of fluent. The main advantages of the "Fluent" syntax are autocompletion and inline documentation.
 
-```
+**Example (map)**: `config/general.php`
+
+```php
 <?php
 /**
  * General Configuration
@@ -132,47 +132,95 @@ You can also use `craft/config/general.php` to create [Yii aliases](https://craf
  * @see \craft\config\GeneralConfig
  */
 
+use craft\helpers\App;
+
+$isDev = App::env('ENVIRONMENT') === 'dev';
+$isProd = App::env('ENVIRONMENT') === 'production';
+
 return [
-    // Global settings
-    '*' => [
-        'defaultWeekStartDay' => 1,
-        'omitScriptNameInUrls' => true,
-        'cpTrigger' => 'iadadmin',
-        'securityKey' => App::env('SECURITY_KEY'),
-        'useProjectConfigFile' => true,
-        // aliases (used in the CP and in templates)
-        'aliases' => [
-          '@environment' => App::env('ENVIRONMENT'),
-          '@baseUrl' => App::env('BASE_URL'),
-          '@basePath' => App::env('BASE_PATH'),
-          '@assetBaseUrl' => App::env('BASE_URL').'/uploads',
-          '@assetBasePath' => App::env('BASE_PATH').'/uploads',
-        ],
-    ],
-
-    // Dev environment settings
-    'dev' => [
-        'devMode' => true,
-    ],
-
-    // Staging environment settings
-    'staging' => [
-        'allowAdminChanges' => false,
-        'devMode' => true,
-    ],
-
-    // Production environment settings
-    'production' => [
-        'allowAdminChanges' => false,
-        'devMode' => false,
-    ],
+  'defaultWeekStartDay' => 1,
+  'omitScriptNameInUrls' => true,
+  'limitAutoSlugsToAscii' => true,
+  'defaultSearchTermOptions' => [
+    'subLeft' => true,
+    'subRight' => true,
+  ],
+  'devMode' => $isDev,
+  'allowAdminChanges' => $isDev,
+  'disallowRobots' => !$isProd,
+  'securityKey' => App::env('SECURITY_KEY'),
+  'cpTrigger' => App::env('CP_TRIGGER') ?: 'admin',
+  'aliases' => [
+    '@web' => App::env('BASE_URL'),
+    '@baseUrl' => App::env('BASE_URL'),
+    '@basePath' => App::env('BASE_PATH'),
+    '@assetsBasePath' => App::env('BASE_PATH').'/uploads',
+    '@assetsBaseUrl' => App::env('BASE_URL').'/uploads',
+    '@webroot' => App::env('BASE_PATH')
+  ]
 ];
 ```
 
-**Example**: `config/db.php`. Everything is defined via .env or via server environment values in production. We could use the same method we use in `config/general.php` here too, by defining global and environments settings using nested arrays.
+**Example (fluent)**: `config/general.php`
 
+```php
+<?php
+/**
+ * General Configuration
+ *
+ * All of your system's general configuration settings go in here. You can see a
+ * list of the available settings in vendor/craftcms/cms/src/config/GeneralConfig.php.
+ *
+ * @see \craft\config\GeneralConfig
+ */
+
+use craft\config\GeneralConfig;
+use craft\helpers\App;
+
+$isDev = App::env('ENVIRONMENT') === 'dev';
+$isProd = App::env('ENVIRONMENT') === 'production';
+
+return GeneralConfig::create()
+  ->defaultWeekStartDay(1)
+  ->omitScriptNameInUrls()
+  ->limitAutoSlugsToAscii(true)
+  ->defaultSearchTermOptions([
+    'subLeft' => true,
+    'subRight' => true,
+  ])
+  ->devMode($isDev)
+  ->allowAdminChanges($isDev)
+  ->disallowRobots(!$isProd)
+  ->securityKey(App::env('SECURITY_KEY'))
+  ->cpTrigger(App::env('CP_TRIGGER') ?: 'admin')
+  ->aliases([
+    '@web' => App::env('BASE_URL'),
+    '@baseUrl' => App::env('BASE_URL'),
+    '@basePath' => App::env('BASE_PATH'),
+    '@assetsBasePath' => App::env('BASE_PATH').'/uploads',
+    '@assetsBaseUrl' => App::env('BASE_URL').'/uploads',
+    '@webroot' => App::env('BASE_PATH')
+  ])
+;
 ```
+
+**Example (map)**: `config/db.php`.
+
+```php
+<?php
+/**
+ * Database Configuration
+ *
+ * All of your system's database configuration settings go in here. You can see a
+ * list of the available settings in vendor/craftcms/cms/src/config/DbConfig.php.
+ *
+ * @see \craft\config\DbConfig
+ */
+
+use craft\helpers\App;
+
 return [
+  'dns' => App::env('DB_DRIVER') :? null,
   'driver' => App::env('DB_DRIVER'),
   'server' => App::env('DB_SERVER'),
   'user' => App::env('DB_USER'),
@@ -181,7 +229,36 @@ return [
   'schema' => App::env('DB_SCHEMA'),
   'tablePrefix' => App::env('DB_TABLE_PREFIX'),
   'port' => App::env('DB_PORT')
-];
+]
+```
+
+**Example (fluent)**: `config/db.php`.
+
+```php
+<?php
+/**
+ * Database Configuration
+ *
+ * All of your system's database configuration settings go in here. You can see a
+ * list of the available settings in vendor/craftcms/cms/src/config/DbConfig.php.
+ *
+ * @see \craft\config\DbConfig
+ */
+
+use craft\config\DbConfig;
+use craft\helpers\App;
+
+return DbConfig::create()
+  ->dsn(App::env('DB_DSN') ?: null)
+  ->driver(App::env('DB_DRIVER'))
+  ->server(App::env('DB_SERVER'))
+  ->port(App::env('DB_PORT'))
+  ->database(App::env('DB_DATABASE'))
+  ->user(App::env('DB_USER'))
+  ->password(App::env('DB_PASSWORD'))
+  ->schema(App::env('DB_SCHEMA'))
+  ->tablePrefix(App::env('DB_TABLE_PREFIX'))
+;
 ```
 
 **Example**: aliases usage in the control panel for assets (local) volumes definition.
