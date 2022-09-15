@@ -115,7 +115,7 @@ BASE_PATH = /Users/username/data/weblocal/myproject
 
 Vous pouvez utiliser les valeurs définies dans ce fichier `.env` dans vos fichiers de configuration `craft/config/general.php` et `craft/config/db.php` (vous devrez créer ce fichier si il n'existe pas). Cela vous permet de définir n'importe quel [paramètre de configuration](https://craftcms.com/docs/4.x/config/config-settings.html).
 
-Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://craftcms.com/docs/4.x/config/#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URls de vos assets volumes pour les adapter à divers environnements. Vous pouvez également les utiliser dans vos templates via la fonction `alias()` de Craft.
+Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://craftcms.com/docs/4.x/config/#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URls de vos assets FileSystems pour les adapter à divers environnements. Vous pouvez également les utiliser dans vos templates via la fonction `alias()` de Craft.
 
 #### Map ou Fluent
 
