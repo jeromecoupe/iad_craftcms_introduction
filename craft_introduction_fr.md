@@ -29,7 +29,9 @@ Si vous en avez besoin, vous pouvez ensuite payer 59 USD à n'importe quel momen
 
 Pixel & Tonic a également sorti [Craft Commerce](https://craftcms.com/commerce), une plateforme de e-commerce pour Craft CMS. Une licence coûte 999 USD et vous donne droit à [une liste impressionnante de fonctionnalités](https://craftcommerce.com/features).
 
-Une version "Lite" de Craft Commerce est également disponible, avec des fonctionnalités plus simples et un prix de \$199 par projet.
+Une version "Lite" de Craft Commerce est également disponible, avec des fonctionnalités plus simples et un prix de 199 USD par projet.
+
+Il existe aussi un plugin [Shopify first-party](https://plugins.craftcms.com/shopify) permettant d'intégrer vos produits Shopify à Craft.
 
 Nous ne couvrirons pas Craft Commerce lors de cette introduction à Craft CMS. Sachez que Craft Commerce fait largement appel aux mêmes concepts que Craft, que ce soit pour la création de votre data structure ou au niveau de vos templates. Vous vous sentirez en terrain familier. Si vous cherchez un module e-commerce étroitement intégré avec un CMS, Craft Commerce est certainement une option à considérer.
 
