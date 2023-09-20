@@ -31,6 +31,8 @@ Pixel & Tonic released a first party e-commerce module for Craft dubbed [Craft C
 
 A "Lite" version of Commerce is also available with much simpler e-commerce capabilities for a price of \$199 per project.
 
+There is also a first party free Shopify plugin to integrate Craft with your shopify store and products.
+
 Covering Craft Commerce is not within the scope of this introduction to Craft. Craft Commerce shares a lot of characteristics with Craft core as far as data structure creation and templating are concerned so you won't feel lost. If you need tight e-commerce integration with your CMS, Craft Commerce is definitely an option to consider.
 
 ### Strengths
@@ -49,7 +51,7 @@ In my opinion, the main strengths of Craft are:
 
 ### Setting things up
 
-After checking your server has everything it needs to run Craft, all you have to do is [follow a simple procedure](https://craftcms.com/docs/4.x/installation.html) to install Craft and check your permissions. This should go smoothly.
+After checking your server has everything it needs to run Craft, all you have to do is [follow the installation procedure](https://craftcms.com/docs/4.x/installation.html) to install Craft and check your permissions. This should hopefully go smoothly.
 
 ### Version control
 
@@ -283,7 +285,7 @@ return DbConfig::create()
 
 ```twig
 {% if alias('@environment') == 'production' %}
-  {# include Google Analytics code #}
+  {# include analytics code #}
 {% endif %}
 ```
 
@@ -299,7 +301,7 @@ Craft offers various plugins that can be used as WYSIWYG solutions if you want y
 
 I personally use [CKEditor](https://plugins.craftcms.com/ckeditor) with pretty simple configurations. It is available from the plgin store as a free first-party plugin developped by Pixel&Tonic
 
-CKEditor configurations can easily be created using the ontrol panel once the plugin is installed.
+CKEditor configurations can be created using the ontrol panel once the plugin is installed.
 
 ## 2. Create your data structure
 
@@ -307,9 +309,9 @@ Craft allows you to create very flexible and modular data structures for your pr
 
 ### Sections, Entries and entry types
 
-With Craft, your content will mainly live in entries. Those entries are grouped under entry types to form sections.
-
 Since Craft 4.4 the plan is to replace tags, categories and globals with sections and entries.
+
+With Craft, your content will mainly live in entries. Those entries are grouped under entry types to form sections.
 
 The data structure of those entries is created by assigning custom fields to the entry types you defined for each sections. For each of those entry types, you can create a field layout defining which fields will be used by all entries of that type in a given section.
 
@@ -319,11 +321,13 @@ There are [three types of sections](https://craftcms.com/docs/4.x/entries.html):
 
 These sections contain only one entry type and only one entry. They are used to create one off pages in your site, like an "about page" or a "homepage".
 
-Using the section configuration screen you can define
+They can also be used to hold content of a more global nature, for example URLs of your social media accounts, global site configuration options, etc.
+
+Using the section configuration screen you can define:
 
 - The URL format for the entry.
 - The template Craft should load to display that entry.
-- For content of more global nature, you might not need to specify URLs or templates.
+- For global content, you might not need to specify URLs or templates.
 
 The field layout screen allows you to assign custom fields to your entry type in order to define the data structure of your entry.
 
@@ -335,12 +339,13 @@ Using the section configuration screen you can define
 
 - The URL format for all entries in that section.
 - The template Craft should load to display entries belonging to that section.
+- For some channels, typically those where entries are only displayed within other templates and that do not need a detail page, you might not need to specify a URL formats or a template.
 
 Channel sections can contain various entry types, each having their own data structure. For example creating a blog allowing you to post various types of content is very easy. All you need is a channel section with various entry types (blogposts, links, videos, pictures, etc.)
 
 For each entry type defined in your section, you can define the data structure of entries by assigning custom fields to a field layout.
 
-These entry types can easily be [used in routing and URL structures](https://craftcms.com/knowledge-base/entry-type-urls) as well as in your templates with [`craft.entries` tags](https://craftcms.com/docs/4.x/entries.html#example) and with conditionals.
+These entry types can easily be [used in routing and URL structures](https://craftcms.com/knowledge-base/entry-type-urls) as well as in your templates with [`craft.entries` tags](https://craftcms.com/docs/4.x/entries.html#example).
 
 #### Structure sections
 
@@ -350,6 +355,7 @@ Using the section configuration screen you can define
 
 - The URL format for entries in that section. Different URL pattern can be specified for top-level entries and for nested entries.
 - The template Craft should load to display entries belonging to that section.
+- In some cases, you might not need to specify a URL format or a template.
 
 For each entry type defined in your section, you can define the data structure of entries by assigning custom fields to a field layout.
 
@@ -357,15 +363,9 @@ For each entry type defined in your section, you can define the data structure o
 
 Craft comes natively with [numerous field types](https://craft-docs.netlify.app/docs/4.x/fields.html) through which you can define the data structure of your entries.
 
-A field can be applied to several entries, users, assets, tags, categories or globals via a "field layout" allowing you to perform operations on the fields (ordering, make mandatory or not, etc) via a drag and drop interface.
+A field can be applied to several entries, users or assets via a "field layout" allowing you to perform operations on the fields (ordering, make mandatory or not, make conditional fields, etc.) via a drag and drop interface.
 
-Fields can be grouped into field groups. These groups are there purely for convenience sake to help you manage big projects more easily.
-
-### Globals
-
-Next to sections and entries, [globals](https://craft-docs.netlify.app/docs/4.x/globals.html) can be used to store bits of content or options you want your client to be able to edit easily: tagline, contact data, Google Analytics code, number of entries to display in lists, etc.
-
-Those globals can be grouped together using global sets. Each global set has its own field layout and thus its own data structure.
+Fields can be grouped into field groups. These groups are there purely for convenience's sake to help you manage big projects more easily.
 
 ### Users
 
@@ -962,8 +962,9 @@ The simplest way to go about it is to take the matter into our own hands and to 
 ```twig
 {#
  # This template gets loaded by two routes / URL,
- # which means we cannot rely on craft automatically creating an `entry` varible,
+ # which means we cannot rely on craft automatically creating an `entry` variable,
  # because the content of this variable will change depending on the route / URL
+ #
  # - when the route is `news/` the `entry` variable references the entry from the single section
  # - when the route is `news/{slug}`, the `entry` variable references one of the entries from the structure section
  #}
@@ -1098,6 +1099,18 @@ When you define a transform in the Control Panel and you name it `thumbnail`, yo
 ```
 
 You can also specify your transforms directly in your templates, which is a more centralised way of doing it.
+
+```twig
+{% if myAssetField | length %}
+  {% set image = myAssetField.one() %}
+  <img src="{{ image.getUrl({ width: 100, height: 100 }) }}
+       width="100"
+       height="100"
+       alt="{{ image.alt }}">
+{% endif %}
+```
+
+or
 
 ```twig
 {% set smallSquareThumb = {

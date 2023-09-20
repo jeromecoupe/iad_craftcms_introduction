@@ -311,9 +311,9 @@ Craft vous permet de structurer les données de votre site de façon extrêmemen
 
 ### Sections, Entries et entry types
 
-Avec Craft, vos contenus vont principalement "vivre" dans des entries, elles-même contenues dans des sections.
-
 Depuis Craft 4.4, l'idée est de remplacer les éléments de types tags, categories et globals par des sections et des entries.
+
+Avec Craft, vos contenus vont principalement "vivre" dans des entries, elles-même contenues dans des sections.
 
 La data structure de ces entries va être déterminée par les custom fields que vous ajouterez à ces sections. Pour chaque entry type dans Craft, vous pouvez créer un field layout qui va préciser quels fields vont être utilisés pour définir les entries de cette section.
 
@@ -341,6 +341,7 @@ Via l'écran de configuration de la section vous pouvez préciser:
 
 - le format des URL des entries de la section
 - le template à utiliser pour le rendu des entries de la section
+- pour certains channels, typiquement ceux dont les entries sont affichées via Twig dans d'autres templates et qui n'ont pas besoin d'une page de détail, vous n'aurez pas nécessairement besoin de spécifier un format d'URL ou un template.
 
 Les sections de type channel peuvent contenir différents types d'entries ("entry types") avec des data structure différentes. Créer un blog permettant de poster divers types de contenus est donc très facile. Vous n'avez besoin que d'une seule section avec différents types d'entrées (video, post, son, galerie photo, etc.).
 
@@ -358,16 +359,13 @@ Via l'écran de configuration de la section vous pouvez préciser:
 
 - le format des URL des entries de la section. Ce format peut être différent pour les entrées de niveau 1 ou pour les entries imbriquées.
 - le template à utiliser pour le rendu des entries de la section
-
-Pour chaque entry type disponible vous pouvez spécifier:
-
-- un field layout permettant d'assigner à vos entry type des custom fields qui vont définir la data-structure de toutes les entries de ce type
+- dans certains cas, vous n'aurez pas nécessairement besoin de spécifier un format d'URL ou un template.
 
 ### Fields, Field Groups et Field Layouts
 
 Craft vous propose [de nombreux types de champs](https://craftcms.com/docs/4.x/fields.html) à l'aide desquels vous pouvez définir la data structure de vos entries.
 
-Dans Craft, un champ peut être appliqué à n'importe quel nombre d'entries, de users, de tags, d'assets, de categories ou de globals via un "field layout" qui permet d'effectuer toutes les opérations sur les fields dans une interface "drag and drop".
+Dans Craft, un champ peut être appliqué à n'importe quel nombre d'entries, de users ou d'assets volumes via un "field layout" qui permet d'effectuer toutes les opérations sur les fields (ordre d'affichage, rendre obligatoire ou pas, créer des champs conditionnels, etc.) dans une interface "drag and drop".
 
 Les fields peuvent être groupés au sein de groupes. Ces groupes n'ont qu'une fonction organisationnelle. Créer des groupes permet de gérer plus facilement un grand nombre de champs.
 
@@ -966,8 +964,9 @@ Le plus simple dans ce cas est de définir explicitement les choses nous même �
 ```twig
 {#
  # This template gets loaded by two routes / URL,
- # which means we cannot rely on craft automatically creating an `entry` varible,
+ # which means we cannot rely on craft automatically creating an `entry` variable,
  # because the content of this variable will change depending on the route / URL
+ #
  # - when the route is `news/` the `entry` variable references the entry from the single section
  # - when the route is `news/{slug}`, the `entry` variable references one of the entries from the structure section
  #}
@@ -1104,6 +1103,18 @@ Si vous définissez une transformation directement dans le control panel et que 
 ```
 
 Vous pouvez également définir dynamiquement une transformation dans vos templates, ce qui est plus explicite.
+
+```twig
+{% if myAssetField | length %}
+  {% set image = myAssetField.one() %}
+  <img src="{{ image.getUrl({ width: 100, height: 100 }) }}
+       width="100"
+       height="100"
+       alt="{{ image.alt }}">
+{% endif %}
+```
+
+ou
 
 ```twig
 {% set smallSquareThumb = {
