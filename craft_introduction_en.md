@@ -385,7 +385,7 @@ A field layout is available for each Asset volume. Using it in combination with 
 
 ### Relations
 
-One of Craft's great strengths is its [relations system](https://craftcms.com/docs/4.x/relations.html). You can easily create relations between Entries, Users, Assets and Tags through a series of relational field types:
+One of Craft's great strengths is its [relations system](https://craftcms.com/docs/4.x/relations.html). You can easily create relations between Entries, Users and Assets through a series of relational field types:
 
 - **Assets**: allows you to establish a "one to one" or "one to many" relation to Assets.
 - **Entries**: allows you to establish a "one to one" or "one to many" relation to Entries.
@@ -399,7 +399,7 @@ To display and work with these relations in your templates, Craft is giving you 
 
 Another interesting aspect of Craft is its [dynamic routing system](https://craftcms.com/docs/4.x/routing.html), which allows you separate your URL structure from your folders and files structure.
 
-At the most basic level, we have already seen that Craft allows you to specify the URL structure of each of your Entries, Users, Assets, Tags and Categories.
+At the most basic level, we have already seen that Craft allows you to specify the URL structure of each of your Entries, Users and Assets.
 
 If that's not enough to cover all your needs, you can also create dynamic routes independently. For each route you create, you can specify which template must be loaded by Craft. An easy to understand example is [a template giving access to a yearly archive of entries](https://craftcms.com/guides/creating-an-archive-page-for-entries#yearly-archive-pages).
 

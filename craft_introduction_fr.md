@@ -389,7 +389,7 @@ Un field layout est associé à chaque Asset Volume et vous permet de créer une
 
 ### Relations
 
-L'une des grandes forces de Craft c'est qu'il est possible très facilement de créer des [relations](https://craftcms.com/docs/4.x/relations.html) entre Entries, Users, Assets et Tags.
+L'une des grandes forces de Craft c'est qu'il est possible très facilement de créer des [relations](https://craftcms.com/docs/4.x/relations.html) entre Entries, Users et Assets.
 
 Pour cela, Craft met à votre disposition des champs relationnels spécifiques:
 
@@ -405,7 +405,7 @@ Pour exploiter ces relations dans vos templates, Craft met à votre disposition 
 
 L'un des autres éléments intéressant de Craft c'est le [routing](https://craftcms.com/docs/4.x/routing.html) dynamique, qui permet de séparer structure des URLs et architecture de dossiers et de fichiers.
 
-Comme nous l'avons déjà vu, Craft cous permet de spécifier une structure d'URL propre pour chaque Entry, User, Asset, Tags and Categories.
+Comme nous l'avons déjà vu, Craft cous permet de spécifier une structure d'URL propre pour chaque Entry, User et Asset.
 
 Si cela ne suffit pas à couvrir tous vos besoins, vous pouvez également créer des routes dynamiques. Pour chaque route créée, vous pouvez spécifier quel template doit être chargé par Craft.
 
