@@ -875,7 +875,7 @@ When using a `{% for %}` loop, it is sometimes useful to know at which iteration
 
 #### Pagination
 
-Craft allows you to [paginate your results](https://craftcms.com/docs/4.x/dev/tags.html#paginate) using the `{% paginate %}` tag and to build simple or more complex pagination interfaces using the related variables. One small caveat: the `{% paginate %}` tag needs an ElementQuery as parameter. Just don't call `all()` on it in this case.
+Craft allows you to [paginate your results](https://craftcms.com/docs/4.x/dev/tags.html#paginate) using the `{% paginate %}` tag and to build simple or more complex pagination interfaces using the related variables. One small caveat: the `{% paginate %}` tag needs an ElementQuery as parameter. Just don't call `all()` on it in this case. The `limit` parameters is used to specify the number of items you want to display per page.
 
 ```twig
 {% set allNews = craft.entries()

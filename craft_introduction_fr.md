@@ -879,12 +879,13 @@ Les [autres tests disponibles avec Twig](http://twig.sensiolabs.org/doc/tests/in
 
 #### Pagination
 
-Craft vous permet de [paginer vos résultats](https://craftcms.com/docs/4.x/dev/tags.html#paginate) à l'aide du tag `{% paginate %}` et de construire une interface de pagination à l'aide des variables qui l'accompagnent. Attention, le tag `{% paginate %}` nécessite un objet ElementQuery comme paramètre. N'utilisez simplement pas la fonction `all()` dans ce cas-ci.
+Craft vous permet de [paginer vos résultats](https://craftcms.com/docs/4.x/dev/tags.html#paginate) à l'aide du tag `{% paginate %}` et de construire une interface de pagination à l'aide des variables qui l'accompagnent. Attention, le tag `{% paginate %}` nécessite un objet ElementQuery comme paramètre. N'utilisez simplement pas la fonction `all()` dans ce cas-ci. Le paramètre `limit` de votre query spécifie le nombre d'items par page.
 
 ```twig
 {% set allNews = craft.entries()
   .section('news')
-  .orderBy('pubDate DESC') %}
+  .orderBy('pubDate DESC')
+  .limit(4) %}
 
 {% paginate allNews as paginate, entries %}
 
