@@ -719,10 +719,25 @@ Typiquement, vos layouts, includes et template de détail pour vos entry sont to
 
 #### Includes
 
-Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouvez également utiliser le tag `{% include %}` qui vous permet d'inclure un template au sein d'un autre.
+Si vous avez du code qui est répété dans beaucoup de vos templates, vous pouvez également utiliser la fonction `{{ include }}` qui vous permet d'inclure un template au sein d'un autre.
 
 ```twig
-{% include 'sidebars/_default.html' %}
+{{ include('sidebars/_default.twig') }}
+```
+Vous pouvez également passer des variables à votre include via un second paramètre.
+
+```twig
+{{ include('_components/projectCard.twig', {
+  project: item
+}) }}
+```
+
+Un troisième paramètre vous permet d'isoler l'include du contexte global de Twig qui contient les variables définies dans la chaîne des `includes` et des `extends`.
+
+```twig
+{{ include('_components/projectCard.twig', {
+  project: item
+}, with_context = false) }}
 ```
 
 ### Macros
@@ -746,6 +761,12 @@ Les macros sont appelées / importées à l'aide du tag `{% import %}`
 ```twig
 {% import "_macros/dates" as dateHelpers %}
 {{ dateHelpers.dateText(entry.postDate) }}
+```
+
+Vous pouvez aussi utiliser le tag from
+
+``twig
+{% from "_macros/dates" import dateText, dateNumeric %}
 ```
 
 ## 4. Récupérer et manipuler vos données avec Craft et Twig
@@ -1205,19 +1226,19 @@ Cela permet de réutiliser ces template de blocs ailleurs si besoin est.
   {% switch mxBlock.type %}
 
     {% case "textModule" %}
-      {% include '_matrixblocks/text.html' with {
+      {{ include("_matrixblocks/text.html", {
         textBlock: mxBlock
-      } only %}
+      }, with_context = false) }}
 
     {% case "quoteModule" %}
-      {% include '_matrixblocks/quote.html' with {
-        quoteBlock: mxBlock
-      } only %}
+      {{ include("_matrixblocks/quote.html", {
+        textBlock: mxBlock
+      }, with_context = false) }}
 
     {% case "imageModule" %}
-      {% include '_matrixblocks/image.html' with {
-        imageBlock: mxBlock
-      } only %}
+      {{ include("_matrixblocks/image.html", {
+        textBlock: mxBlock
+      }, with_context = false) }}
 
     {% endswitch %}
 
@@ -1549,7 +1570,7 @@ Construire un site d'agence simple à partir des templates reçus.
 
 ### A faire seul
 
-1. Créer la section team, les custom fields et afficher les entries sur la page about (classées par nom de famille).
+1. Créer la section team de la page about, les custom fields et afficher les entries sur la page about (classées par nom de famille).
 2. En plus des videos Youtube, ajouter la possibilité pour le champs Matrix des case studies d'afficher des videos provenant de Vimeo.
 3. Ajouter une bannière responsive à la page about.
 

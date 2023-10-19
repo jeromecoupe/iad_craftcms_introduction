@@ -716,7 +716,23 @@ Typically, your layouts, includes and entry templates should all be hidden.
 If you have code that is repeated in many templates, it is generally a good idea to use includes `{% include %}`. Since Twig compiles everything down to raw PHP, there is no real performance penalty for using includes.
 
 ```twig
-{% include '_sidebars/default.html' %}
+{{ include('sidebars/_default.twig') }}
+```
+
+You can pass variables to an include using a second parameter.
+
+```twig
+{{ include('_components/projectCard.twig', {
+  project: item
+}) }}
+```
+
+The third parameter allows you to shield / remove the include from the global Twig context containing variables defined in the chain of `includes` and `extends`.
+
+```twig
+{{ include('_components/projectCard.twig', {
+  project: item
+}, with_context = false) }}
 ```
 
 #### Macros
@@ -1198,19 +1214,19 @@ That way I can also easily reuse those Matrix blocks templates if needs be.
   {% switch mxBlock.type %}
 
     {% case "textModule" %}
-      {% include '_matrixblocks/text.html' with {
+      {{ include("_matrixblocks/text.html", {
         textBlock: mxBlock
-      } only %}
+      }, with_context = false) }}
 
     {% case "quoteModule" %}
-      {% include '_matrixblocks/quote.html' with {
-        quoteBlock: mxBlock
-      } only %}
+      {{ include("_matrixblocks/quote.html", {
+        textBlock: mxBlock
+      }, with_context = false) }}
 
     {% case "imageModule" %}
-      {% include '_matrixblocks/image.html' with {
-        imageBlock: mxBlock
-      } only %}
+      {{ include("_matrixblocks/image.html", {
+        textBlock: mxBlock
+      }, with_context = false) }}
 
     {% endswitch %}
 
