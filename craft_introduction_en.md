@@ -161,7 +161,6 @@ return GeneralConfig::create()
   ->devMode(App::env('DEV_MODE') ?? false)
   ->allowAdminChanges(App::env('ALLOW_ADMIN_CHANGES') ?? false)
   ->disallowRobots(App::env('DISALLOW_ROBOTS') ?? false)
-  ->securityKey(App::env('SECURITY_KEY'))
   ->cpTrigger(App::env('CP_TRIGGER') ?: 'admin')
   ->aliases([
     '@web' => App::env('BASE_URL'),
