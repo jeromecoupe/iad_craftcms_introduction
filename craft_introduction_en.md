@@ -83,9 +83,11 @@ node_modules/
 
 Because each developer likely uses different files and folders architectures locally and because sensitives informations like database credentials should not be committed to a repository, Craft allows you to use a `.env` file at the root of your project to allow each developer to use her/his own settings.
 
-You can then use values specified in that `.env` files in `craft/config/general.php` and `craft/config/db.php` (should you decide to create that last file).
+You can then use values specified in that `.env` files in `craft/config/general.php`.
 
 Variables prefixed with "CRAFT\_" are system variables that are automatically used by the system without needing to appear in config files.
+
+Note: DDEV uses a `./ddev/.web.env` default environment file to store databse credentials and a couple of other variables. In general, I prefer adding `disable_settings_management: true` to `.ddev/config.yaml`and centralise all variables in the main `.env` file
 
 Here is an exemple of what it looks like:
 
@@ -119,14 +121,17 @@ DISALLOW_ROBOTS=true
 # The URI segment that tells Craft to load the control panel
 CP_TRIGGER=admin
 
+# Primary site URL
+PRIMARY_SITE_URL = https://myproject.craft.test
+
 # Base URL and path (no trailing slashes)
 BASE_URL = https://myproject.craft.test
 BASE_PATH = /Users/username/data/weblocal/myproject
 ```
 
-You will then be able to use all values defined in that `.env` files in your configuration files `craft/config/general.php` et `craft/config/db.php` (you will have to create that file if it does not exists). Those files allow you to define all of Craft's [general configuration settings](https://craftcms.com/docs/5.x/reference/config/general.html).
+You will then be able to use all values defined in that `.env` files in your configuration file `craft/config/general.php`. This file allows you to define all of Craft's [general configuration settings](https://craftcms.com/docs/5.x/reference/config/general.html).
 
-You can also use these values to create [Yii aliases](https://craftcms.com/docs/5.x/configure.html#aliases) that you can use in the contyrol panel, for example to define the paths and URLs of your assets FileSystems. You can also use those in your templates with the `alias()` function.
+You can also use these values to create [aliases](https://craftcms.com/docs/5.x/configure.html#aliases) that you can use in the contyrol panel, for example to define the paths and URLs of your assets FileSystems. You can also use those in your templates with the `alias()` function.
 
 #### Map or Fluent
 
@@ -161,45 +166,15 @@ return GeneralConfig::create()
   ->devMode(App::env('DEV_MODE') ?? false)
   ->allowAdminChanges(App::env('ALLOW_ADMIN_CHANGES') ?? false)
   ->disallowRobots(App::env('DISALLOW_ROBOTS') ?? false)
-  ->cpTrigger(App::env('CP_TRIGGER') ?: 'admin')
+  ->cpTrigger(App::env('CP_TRIGGER') ?? 'admin')
   ->aliases([
     '@web' => App::env('BASE_URL'),
     '@baseUrl' => App::env('BASE_URL'),
     '@basePath' => App::env('BASE_PATH'),
     '@assetsBasePath' => App::env('BASE_PATH').'/uploads',
     '@assetsBaseUrl' => App::env('BASE_URL').'/uploads',
-    '@webroot' => App::env('BASE_PATH')
+    '@webroot' => dirname(__DIR__) . '/web'
   ])
-;
-```
-
-**Example (fluent)**: `config/db.php`.
-
-Il you use environement variables automatically detected by Craft to connect to your database ("CRAFT_DB_DRIVER", "CRAFT_DB_DATABASE", etc.) you likely will not need this configuration file.
-
-```php
-<?php
-/**
- * Database Configuration
- *
- * All of your system's database configuration settings go in here. You can see a
- * list of the available settings in vendor/craftcms/cms/src/config/DbConfig.php.
- *
- * @see \craft\config\DbConfig
- */
-
-use craft\config\DbConfig;
-use craft\helpers\App;
-
-return DbConfig::create()
-  ->driver(App::env('DB_DRIVER'))
-  ->server(App::env('DB_SERVER'))
-  ->port(App::env('DB_PORT'))
-  ->database(App::env('DB_DATABASE'))
-  ->user(App::env('DB_USER'))
-  ->password(App::env('DB_PASSWORD'))
-  ->schema(App::env('DB_SCHEMA'))
-  ->tablePrefix(App::env('DB_TABLE_PREFIX'))
 ;
 ```
 
@@ -236,13 +211,13 @@ CKEditor configurations can be created using the ontrol panel once the plugin is
 
 Craft allows you to create very flexible and modular data structures for your projects.
 
-### Sections, Entries and entry types
+### Sections, entries and entry types
 
 Since Craft 4.4 the plan is to replace tags, categories and globals with sections and entries.
 
 With Craft, your content will mainly live in entries. Those entries are grouped to form sections.
 
-Each section can have one or more entry types. Fields are added to those entry types via a field layout to create the data structure of all entries in that section.
+Each section can have one or more entry types. Fields are added to those entry types via a field layout to create the data structure of all entries of that type in that section.
 
 Example: a `projects` section is related to a `project` entry type. That entry type has the following fields added to its field layout: `title`, `projectTagline`, `projectImage`, `commonBody`. The data structure created by those 4 fields will be shared by all entries in the `projects` section.
 
@@ -292,7 +267,7 @@ In some cases, you might not need to specify a URL format or a template.
 
 Craft comes natively with [numerous field types](https://craftcms.com/docs/5.x/system/fields.html) through which you can define the data structure of your entries.
 
-A field can be applied to several entries, users or assets via a "field layout" allowing you to perform operations on the fields (ordering, make mandatory or not, make conditional fields, etc.) via a drag and drop interface.
+A field can be applied to several entries, users or assets via "entry types" allowing you to perform operations on the fields (ordering, make mandatory or not, make conditional fields, etc.) via a drag and drop interface.
 
 ### Users
 

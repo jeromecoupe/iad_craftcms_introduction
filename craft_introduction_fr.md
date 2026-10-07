@@ -85,9 +85,11 @@ Craft fournit nativement une façon simple de gérer des environnements multiple
 
 Dans la mesure ou vos développeurs utilisent chacun une architecture de dossiers et de fichiers locale différente et parce que des informations sensibles ne doivent pas apparaître dans un repository Git, Craft vous propose d'utiliser un fichier `.env` à la racine de votre projet.
 
-Ce fichier vous permet d'utiliser les valeurs spécifiées dans ce fichier `.env` dans `craft/config/general.php` ou `craft/config/db.php` (si vous décidez de créer ce fichier).
+Ce fichier vous permet d'utiliser les valeurs spécifiées dans ce fichier `.env` dans `craft/config/general.php`.
 
 Les variables préfixées avec "CRAFT\_" sont des variables système qui sont généralement directement utilisées par le CMS (environnement, configuration de base de données, etc.) sans devoir être chargée dans des fichiers de configuration.
+
+Note: DDEV utilise par defaut un fichier de configuration `./ddev/.web.env` qui contient les données de conection à la base de données et quelques autres variables. En général, je préfère ajouter `disable_settings_management: true` à ma configuration `.ddev/config.yaml` et centraliser toutes les variables dans le fichier `.env` général.
 
 Voici un exemple:
 
@@ -121,14 +123,17 @@ DISALLOW_ROBOTS=true
 # The URI segment that tells Craft to load the control panel
 CP_TRIGGER=admin
 
+# Primary site URL
+PRIMARY_SITE_URL = https://myproject.craft.test
+
 # Base URL and path (no trailing slashes)
 BASE_URL = https://myproject.craft.test
 BASE_PATH = /Users/username/data/weblocal/myproject
 ```
 
-Vous pouvez utiliser les valeurs définies dans ce fichier `.env` dans vos fichiers de configuration `craft/config/general.php` et `craft/config/db.php` (vous devrez créer ce fichier s'il n'existe pas). Cela vous permet de définir n'importe quel [paramètre généraux de configuration](https://craftcms.com/docs/5.x/reference/config/general.html).
+Vous pouvez utiliser les valeurs définies dans ce fichier `.env` dans votre fichier de configuration `craft/config/general.php`. Cela vous permet de définir n'importe quel [paramètre généraux de configuration](https://craftcms.com/docs/5.x/reference/config/general.html).
 
-Vous pouvez également utiliser ces valeurs pour créer des [alias Yii](https://craftcms.com/docs/5.x/configure.html#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URls de vos assets FileSystems pour les adapter à divers environnements. Ces valeurs sont utilisables dans vos templates via la fonction `alias()` de Craft.
+Vous pouvez également utiliser ces valeurs pour créer des [alias](https://craftcms.com/docs/5.x/configure.html#aliases) utilisables dans le control panel, par exemple pour définir les chemins et URls de vos assets FileSystems pour les adapter à divers environnements. Ces valeurs sont utilisables dans vos templates via la fonction `alias()` de Craft.
 
 #### Map ou Fluent
 
@@ -163,45 +168,15 @@ return GeneralConfig::create()
   ->devMode(App::env('DEV_MODE') ?? false)
   ->allowAdminChanges(App::env('ALLOW_ADMIN_CHANGES') ?? false)
   ->disallowRobots(App::env('DISALLOW_ROBOTS') ?? false)
-  ->cpTrigger(App::env('CP_TRIGGER') ?: 'admin')
+  ->cpTrigger(App::env('CP_TRIGGER') ?? 'admin')
   ->aliases([
     '@web' => App::env('BASE_URL'),
     '@baseUrl' => App::env('BASE_URL'),
     '@basePath' => App::env('BASE_PATH'),
     '@assetsBasePath' => App::env('BASE_PATH').'/uploads',
     '@assetsBaseUrl' => App::env('BASE_URL').'/uploads',
-    '@webroot' => App::env('BASE_PATH')
+    '@webroot' => dirname(__DIR__) . '/web'
   ])
-;
-```
-
-**Exemple (fluent)**: `config/db.php`.
-
-Si vous utilisez des variables d'environnement automatiquement détectées par Craft pour votre connection à la base de données ("CRAFT_DB_DRIVER", "CRAFT_DB_DATABASE", etc.) vous n'avez pas besoin de ce fichier de configuration.
-
-```php
-<?php
-/**
- * Database Configuration
- *
- * All of your system's database configuration settings go in here. You can see a
- * list of the available settings in vendor/craftcms/cms/src/config/DbConfig.php.
- *
- * @see \craft\config\DbConfig
- */
-
-use craft\config\DbConfig;
-use craft\helpers\App;
-
-return DbConfig::create()
-  ->driver(App::env('DB_DRIVER'))
-  ->server(App::env('DB_SERVER'))
-  ->port(App::env('DB_PORT'))
-  ->database(App::env('DB_DATABASE'))
-  ->user(App::env('DB_USER'))
-  ->password(App::env('DB_PASSWORD'))
-  ->schema(App::env('DB_SCHEMA'))
-  ->tablePrefix(App::env('DB_TABLE_PREFIX'))
 ;
 ```
 
@@ -244,9 +219,10 @@ Depuis Craft 4.4, l'idée est de remplacer les éléments de types tags, categor
 
 Avec Craft, vos contenus vont principalement "vivre" dans des entries, elles-même contenues dans des sections.
 
-Chaque section peut avoir un ou plusieurs entry types. Les chalmps sont ajoutés à ces entry types viaun field layout pour créer la data structure de tooutes les entries de cette section.
+Chaque section peut avoir un ou plusieurs entry types. Les champs sont ajoutés à ces entry types via un field layout pour créer la data structure de toutes les entries de cette section.
 
-Exemple: une section `porjets` est liée à un entry tpe `projet`. Les champs suivants ont été ajoutés au field layout de cet entry type: `title`, `projectTagline`, `projectImage`, `commonBody`. La data structure créée par ces 4 champs sera appliquée à toutes le entries de la section `projects`.
+Exemple: une section `projets` est liée à un entry type `projet`. Les champs suivants ont été ajoutés au field layout de cet entry type: `title`, `projectTagline`, `projectImage`, `commonBody`. La data structure créée par ces 4 champs sera appliquée à toutes les entries de la section `projects`.
+
 Il y a [trois grands types de sections](https://craftcms.com/docs/5.x/reference/element-types/entries.html#section-types) dans craft: singles, channels et structures.
 
 #### Sections de type single
@@ -291,13 +267,11 @@ Via l'écran de configuration de la section vous pouvez préciser:
 
 Dans certains cas, vous n'aurez pas nécessairement besoin de spécifier un format d'URL ou un template.
 
-### Fields
+### Champs
 
 Craft vous propose [de nombreux types de champs](https://craftcms.com/docs/5.x/system/fields.html) à l'aide desquels vous pouvez définir la data structure de vos entries.
 
-Dans Craft, un champ peut être appliqué à n'importe quel nombre d'entries, de users ou d'assets volumes via un "field layout" qui permet d'effectuer toutes les opérations sur les fields (ordre d'affichage, rendre obligatoire ou pas, créer des champs conditionnels, etc.) dans une interface "drag and drop".
-
-Les fields peuvent être groupés au sein de groupes. Ces groupes n'ont qu'une fonction organisationnelle. Créer des groupes permet de gérer plus facilement un grand nombre de champs.
+Dans Craft, un champ peut être appliqué à n'importe quel nombre d'entries, de users ou d'assets volumes via des "entry types" qui permettent d'effectuer toutes les opérations sur les champs (ordre d'affichage, rendre obligatoire ou pas, créer des champs conditionnels, etc.) dans une interface "drag and drop".
 
 ### Users
 
